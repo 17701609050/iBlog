@@ -1,6 +1,6 @@
 Django Blog 
 ===================
-该网站为个人的博客网站，用于记录个人的一些技术学习心得及其他东西，网站地址为[hill1895.rocks](http://hill1895.rocks)。
+该网站为个人的博客网站，用于记录个人的一些技术学习心得及其他东西。
 ###网站架构
 * **服务器**：空间使用AWS一年免费的虚拟机，使用ubuntu14. 04+Nginx1.8+uWSGI来部署Django应用，从Name.com上购买域名。
 *  **博客后台**：修改Django自带的Admin系统，主要添加富文本编辑器用于编写博客，富文本编辑器选择百度的UEditor，其[Django的集成版本](https://github.com/zhangfisher/DjangoUeditor)可以在Github上找到。

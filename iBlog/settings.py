@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'iBlog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'icgfuture',
+        'NAME': 'iblog',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '',
@@ -109,7 +109,7 @@ STATICFILES_FINDERS = (
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hans'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
