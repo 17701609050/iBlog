@@ -1,0 +1,9 @@
+<ol>
+    {% for tag in tags %}
+{#        <li>#}
+            <a href="{% url 'tag' tag.id %}">
+                <span class="label label-default">{{ tag.tag }}</span>&nbsp;&nbsp;
+            </a>
+{#        </li>#}
+   {% endfor %}
+</ol>

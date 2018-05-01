@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-Type" content="text/html;charset=utf8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>Profile</title>
+  
+{#  {% load compress %}#}
+{#  {% compress css %}#}
+   <link rel="stylesheet" type="text/css" href="/static/css/bootstrap/bootstrap.min.css">
+   <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+   <link rel="stylesheet" type="text/css" href="/static/css/detail.css">
+   <link rel="stylesheet" type="text/css" href="/static/css/ueditor/shCoreRDark.css">
+{#  {% endcompress %}#}
+
+</head>
+<body style="background-image: url(/static/img/018.jpg)">
+{% include "header.html" %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-10 col-md-offset-1 col-sm-12 remove_padding">
+         <div id="blog_img">
+            <img src="{{ profile.head_pic_url }}">
+         </div>
+
+
+        <div id="content">
+            <h1>{{ profile.title }}</h1>
+
+           
+              <h5 class="tag">
+                 <span class="glyphicon glyphicon-tags" ></span>&nbsp;
+                   {% for tag in profile_tags %}
+                     <span class="label">{{ tag }}</span>&nbsp;&nbsp;
+                   {% endfor %}
+              </h5>
+            
+            {{ profile.content|safe }}
+            <hr />
+            <h2>{{ updates.title }}</h2>
+            <br/>
+            {{ updates.content|safe }}
+        </div>
+
+
+         <div id="comments">
+
+              <div class="ds-thread" data-thread-key=" Profile" data-title="Profile" data-url="http://hill1895.rocks/profile"></div>
+{#            <script type="text/javascript">#}
+{#             var duoshuoQuery = {short_name:"blog"};#}
+{#               (function() {#}
+{#                  var ds = document.createElement('script');#}
+{#                  ds.type = 'text/javascript';ds.async = true;#}
+{#                  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';#}
+{#                  ds.charset = 'UTF-8';#}
+{#                  (document.getElementsByTagName('head')[0] #}
+{#                   || document.getElementsByTagName('body')[0]).appendChild(ds);#}
+{#                })();#}
+{#            </script>#}
+         
+         </div>
+
+         <div class=" hidden-xs">
+               {% include "footer.html" %}
+         </div>
+ 
+   </div>     
+   </div>	
+</div>
+
+  <div id="return_top" class="hidden-sm hidden-xs"><a href="#"><img src="/static/img/return_top.png" /></a>
+  </div>
+
+{# {% compress js %}#}
+	<script src="/static/js/jquery-1.11.3.min.js"></script>
+	<script src="/static/js/bootstrap/bootstrap.min.js"></script>
+   <script src="/static/js/ueditor/shCore.js"></script>
+   <script src="/static/js/main.js"></script>
+{#    {% endcompress%}#}
+   <script type="text/javascript">
+      SyntaxHighlighter.defaults['smart-tabs']=true
+      SyntaxHighlighter.defaults['auto-links']=true
+      SyntaxHighlighter.defaults['gutter']=false
+      SyntaxHighlighter.all();
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block seo %}
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+{% endblock %}
+
+{% load hill1895_extras %}
+
+
+{% block navibar %}
+<nav class="navbar" role="navigation" style="background: #169fe6" id="navibar">
+   <div>
+      <ul class="nav navbar-nav">
+         <li class="active"><a href="/">首页</a></li>
+         <li><a href="/geek">技术博客</a></li>
+         <li><a href="/essay">随笔</a></li>
+         <li><a href="/joke">瞎扯</a></li>
+      </ul>
+   </div>
+</nav>
+{% endblock %}
+
+ {% block title_list %}
+
+
+ {% for blog_info in blog_infos %}
+{% include "list_style.html" %}		
+
+{% empty %}
+    <h3>这个人好懒，一个字都没写</h3>
+{% endfor %}
+
+
+
+
+<nav>
+	<ul class="pager">
+
+        {% if blog_infos.has_previous %}
+            <li><a href="?page={{ blog_infos.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="active"><a>&laquo;</a></li>
+        {% endif %}
+
+        {% for p in page_range %}
+          {% ifequal p blog_infos.number %}
+             <li class="active"><a>{{p}}</a></li>
+          {% else %}
+            <li><a href="?page={{p}}" title="第{{p}}页">{{p}}</a><li>
+          {% endifequal %}
+        {% endfor %}
+
+        {% if blog_infos.has_next %}
+            <li><a href="?page={{ blog_infos.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="active"> <a>&raquo;</a></li>
+        {% endif %}
+	</ul>
+</nav>
+
+
+
+{% endblock %}
+
+
+{% block lastest_blog%}
+	{% for blog in latest %}
+	<li><a href="{% url 'blog_detail' blog|get_value:'id' %} " target=_blank>{{ blog|get_value:'title' }}</a></li>
+	{% endfor %}
+{% endblock %}
+
+{% block tags %} 
+   	<h5>
+      {% include "tag_info.html" %}
+   </h5>
+{% endblock %}
+
+{% block friends %}
+  
+  {% include "friends.html" %}       
+
+{% endblock %}
