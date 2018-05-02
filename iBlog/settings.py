@@ -43,8 +43,10 @@ INSTALLED_APPS = (
     #'django.contrib.sites',
     'django.contrib.sitemaps',
     'DjangoUeditor',
+    'haystack',
     'apps.blog',
     # 'compressor',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,6 +85,16 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = 'iBlog.wsgi.application'
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'apps.blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 
 # Database

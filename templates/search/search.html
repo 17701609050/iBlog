@@ -1,0 +1,26 @@
+{% include "base.html" %}
+{% load highlight %}
+
+{% if query %}
+{#        <h3>结果</h3>#}
+        {% block title_list %}
+        {% for result in page.object_list %}
+            <p>
+                <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a><br/>
+                {% highlight  result.object.content with query css_class "keyword" %}
+            </p>
+        {% empty %}
+            <p>没有结果发现.</p>
+        {% endfor %}
+        {% endblock %}
+
+        {% if page.has_previous or page.has_next %}
+            <div>
+                {% if page.has_previous %}<a href="?q={{ query }}&page={{ page.previous_page_number }}">{% endif %}« Previous{% if page.has_previous %}</a>{% endif %}
+                |
+                {% if page.has_next %}<a href="?q={{ query }}&page={{ page.next_page_number }}">{% endif %}Next »{% if page.has_next %}</a>{% endif %}
+            </div>
+        {% endif %}
+{% else %}
+        {# Show some example queries to run, maybe query syntax, something else? #}
+{% endif %}

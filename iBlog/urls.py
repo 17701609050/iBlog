@@ -42,6 +42,7 @@ urlpatterns = patterns('apps.blog.views',
                        url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),
                        url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}),
                        url(r'^feed/main\.xml$', LatestEntriesFeed()),
+                       url(r'^search/', include('haystack.urls')),
                        )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
