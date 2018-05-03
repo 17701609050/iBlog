@@ -2,6 +2,17 @@
 {% load highlight %}
 {% load hill1895_extras %}
 
+{% block css %}
+    <style>
+        .highlighted{
+            color: red;
+            margin:0px;
+            padding:0px;
+            width:100%;
+            height:24px;
+        }
+    </style>
+{% endblock %}
 {% block title_list %}
 
     {% if query %}
@@ -11,9 +22,9 @@
                 <div class="blog_list">
                     <span class="label label-primary">{{ result.object.category2 }}</span>
                     <div class="blog_title">
-                        <h2>
-                            {{ result.object.title }}
-                        </h2>
+                            <h2 style="">
+                                {{ result.object.title }}
+                            </h2>
                         <p>{{ result.object.pub_time|date:"Y-m-d H:i:s" }}&nbsp;&nbsp;阅读量: {{ result.object.page_views }}&nbsp;&nbsp;</p>
                     </div>
 

@@ -447,3 +447,11 @@ url-prefix()
     margin-bottom: 20px;
     background-color: #fff;
 }
+
+.highlighted{
+	color: red;
+	margin:0px;
+	padding:0px;
+	width:100%;
+	height:24px;
+}

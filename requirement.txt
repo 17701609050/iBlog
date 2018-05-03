@@ -1,0 +1,5 @@
+django==1.8.19
+DjangoUeditor==1.8.143
+django-haystack==2.6.1
+jieba==0.38
+Whoosh==2.7.4

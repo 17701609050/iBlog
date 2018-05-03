@@ -1,3 +1,4 @@
+#-*- coding: UTF-8 -*-
 """
 Django settings for mysite project.
 
@@ -15,9 +16,9 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-TEMPLATES_DIRS=(
-    os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
-    )
+# TEMPLATES_DIRS = (
+#     os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
+#     )
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -67,7 +68,7 @@ ROOT_URLCONF = 'iBlog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': TEMPLATES_DIRS,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,14 +87,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'iBlog.wsgi.application'
 
-
+# haystack全文搜索配置
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'apps.blog.whoosh_cn_backend.WhooshEngine',
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
-HAYSTACK_SEARCH_RESULTS_PER_PAGE = 2
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 
@@ -121,13 +122,13 @@ STATICFILES_FINDERS = (
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'zh-hans'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Shanghai'
 
-DEFAULT_CHARSET='utf-8'
+DEFAULT_CHARSET = 'utf-8'
 
-FILE_CHARSET='utf-8'
+FILE_CHARSET = 'utf-8'
 
 USE_I18N = True
 
@@ -140,14 +141,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 #STATIC_ROOT=os.path.join(os.path.dirname(SITE_ROOT),'static').replace('\\','/')
-
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
 # STATIC_ROOT=os.path.join(BASE_DIR, 'static').replace('\\','/')
 #STATIC_ROOT='/var/www/blog/static/'
-STATICFILES_DIRS=(
+STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-   #'/var/www/blog/blog/static/',
-    )
+)
 # print STATIC_ROOT
 
 
