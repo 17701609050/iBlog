@@ -21,28 +21,26 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic.base import RedirectView
-from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap, index
+
+from .settings import LOCAL_APPS
 from apps.blog.sitemap import sitemaps
 from apps.blog.LatestEntriesFeed import LatestEntriesFeed
 
-urlpatterns = patterns('apps.blog.views',
-                       url(r'^admin/', include(admin.site.urls)),
-                       url(r'^ueditor/', include('DjangoUeditor.urls')),
-                       url(r'^favicon.ico$', RedirectView.as_view(url='/static/img/favicon-defalt.ico')),
-                       url(r'^$', 'index', name='index'),
-                       url(r'^blog_detail/blog_(?P<blog_id>\d+)/$', 'blog_detail', name='blog_detail'),
-                       url(r'^tag_(?P<tag_id>\d+)/$', 'tag', name='tag'),
-                       url(r'^geek/$', 'geek', name='geek'),
-                       url(r'^essay/$', 'essay', name='essay'),
-                       url(r'^joke/$', 'joke', name='joke'),
-                       url(r'^profile/$', 'profile', name='profile'),
-                       url(r'^robots\.txt$',
-                           TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
-                       url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),
-                       url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}),
-                       url(r'^feed/main\.xml$', LatestEntriesFeed()),
-                       url(r'^search/', include('haystack.urls')),
-                       )
+import apps.blog.views as blog_views
 
+urlpatterns = [
+    url(r'^$', blog_views.index, name='index'),
+    url(r'^profile/$', blog_views.profile, name='profile'),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^search/', include('haystack.urls')),
+    url(r'^ueditor/', include('DjangoUeditor.urls')),
+    url(r'^favicon.ico$', RedirectView.as_view(url='/static/img/favicon-defalt.ico')),
+    url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}),
+    url(r'^feed/main\.xml$', LatestEntriesFeed()),
+]
+# Auto-add the applications.
+for app in LOCAL_APPS:
+    urlpatterns += patterns('', url(r'^{0}/'.format(app), include('apps.' + app + '.urls')), )  # without namespace
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -50,6 +50,12 @@ INSTALLED_APPS = (
 
 )
 
+APPS_DIR = os.path.join(BASE_DIR, 'apps')
+# Uninstall apps, api is hidden
+UNINSTALL_APPS = ()
+LOCAL_APPS = [o for o in os.listdir(APPS_DIR) if os.path.isdir(os.path.join(APPS_DIR, o)) and
+              not o.startswith('.') and o not in UNINSTALL_APPS]
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -106,7 +112,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'iblog',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '',
         'HOST': '',
         'PORT': '3306'
     }

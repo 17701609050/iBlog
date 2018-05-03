@@ -22,9 +22,9 @@
                             class="glyphicon glyphicon-pencil"></span>&nbsp;博客<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/geek"><span class="glyphicon glyphicon-link"></span>&nbsp;技术博客</a></li>
-                        <li><a href="/essay"><span class="glyphicon glyphicon-book"></span>&nbsp;随笔</a></li>
-                        <li><a href="/joke"><span class="glyphicon glyphicon-comment"></span>&nbsp;瞎扯</a></li>
+                        <li><a href="{% url 'geek' %}"><span class="glyphicon glyphicon-link"></span>&nbsp;技术博客</a></li>
+                        <li><a href="{% url 'essay' %}"><span class="glyphicon glyphicon-book"></span>&nbsp;随笔</a></li>
+                        <li><a href="{% url 'joke' %}"><span class="glyphicon glyphicon-comment"></span>&nbsp;吐槽</a></li>
                     </ul>
                 </li>
                 <li><a href="/profile"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
@@ -34,7 +34,6 @@
 
             <div role="search" id="zh-top-search" class="zu-top-search" style="position: relative;float: left;margin: 7px 0 0 12px;">
                 <form method="GET" action="{% url 'haystack_search' %}" id="zh-top-search-form" class="zu-top-search-form" style="position: relative;width: 367px;">
-{#                    <input type="hidden" name="type" value="content">#}
                     <input type="text" class="zu-top-search-input" id="q" name="q" autocomplete="off" value="" maxlength="100" placeholder="搜索你感兴趣的内容..." role="combobox" aria-autocomplete="list">
                     <button type="submit" class="zu-top-search-button">
                         <span class="glyphicon glyphicon-search"></span>

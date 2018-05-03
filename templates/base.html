@@ -68,9 +68,9 @@
                         <nav class="navbar" style="background: #169fe6" role="navigation" id="navibar">
                               <ul class="nav navbar-nav">
                                  <li><a href="/">首页</a></li>
-                                 <li><a href="/geek">技术博客</a></li>
-                                 <li><a href="/essay">随笔</a></li>
-                                 <li><a href="/joke">瞎扯</a></li>
+                                 <li><a href="{% url 'geek' %}">技术博客</a></li>
+                                 <li><a href="{% url 'essay' %}">随笔</a></li>
+                                 <li><a href="{% url 'joke' %}">吐槽</a></li>
                               </ul>
                         </nav>
                         {% endblock %}
