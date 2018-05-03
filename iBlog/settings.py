@@ -93,7 +93,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
-HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 2
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 
@@ -105,7 +105,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'iblog',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root',
         'HOST': '',
         'PORT': '3306'
     }

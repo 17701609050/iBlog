@@ -1,26 +1,46 @@
-{% include "base.html" %}
+{% extends "base.html" %}
 {% load highlight %}
+{% load hill1895_extras %}
 
-{% if query %}
-{#        <h3>结果</h3>#}
-        {% block title_list %}
+{% block title_list %}
+
+    {% if query %}
+
         {% for result in page.object_list %}
-            <p>
-                <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a><br/>
-                {% highlight  result.object.content with query css_class "keyword" %}
-            </p>
-        {% empty %}
-            <p>没有结果发现.</p>
-        {% endfor %}
-        {% endblock %}
+            <a href="{% url 'blog_detail' result.object.id|safe %}" target=_blank>
+                <div class="blog_list">
+                    <span class="label label-primary">{{ result.object.category2 }}</span>
+                    <div class="blog_title">
+                        <h2>
+                            {{ result.object.title }}
+                        </h2>
+                        <p>{{ result.object.pub_time|date:"Y-m-d H:i:s" }}&nbsp;&nbsp;阅读量: {{ result.object.page_views }}&nbsp;&nbsp;</p>
+                    </div>
 
-        {% if page.has_previous or page.has_next %}
-            <div>
-                {% if page.has_previous %}<a href="?q={{ query }}&page={{ page.previous_page_number }}">{% endif %}« Previous{% if page.has_previous %}</a>{% endif %}
-                |
-                {% if page.has_next %}<a href="?q={{ query }}&page={{ page.next_page_number }}">{% endif %}Next »{% if page.has_next %}</a>{% endif %}
-            </div>
-        {% endif %}
-{% else %}
-        {# Show some example queries to run, maybe query syntax, something else? #}
-{% endif %}
+                        <div class="blog_img">
+                            <img src="{{result.object.head_pic_url }}" />
+                        </div>
+                </div>
+            </a>
+        {% endfor %}
+
+        <ul class="pager">
+
+            {% if page.has_previous %}
+                <li><a href="?q={{ query }}&page={{ page.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="active"><a>&laquo;</a></li>
+            {% endif %}
+             <li><a href="?q={{ query }}&page={{page.number}}" title="第{{page.number}}页">{{page.number}}</a><li>
+
+            {% if page.has_next %}
+                <li><a href="?q={{ query }}&page={{ page.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="active"> <a>&raquo;</a></li>
+            {% endif %}
+        </ul>
+    {% else %}
+           Nothing is here
+    {% endif %}
+
+{% endblock %}
