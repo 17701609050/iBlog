@@ -1,6 +1,4 @@
 
-
-
 {% for blog_info in joke_infos %}
 	
 {% include "list_style.html" %}
@@ -10,7 +8,7 @@
 
 {% endfor %}
 
-	<ul class="pagination">
+	<ul class="pager">
 
 	{% if joke_infos.has_previous %}
 		<li><a href="?page={{ joke_infos.previous_page_number }}">&laquo;</a></li>

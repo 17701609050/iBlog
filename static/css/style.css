@@ -2,7 +2,6 @@ html{
 	font-size: 100%;
 }
 
-
 body{
 	font-family: "Microsoft Yahei",
 	微软雅黑,
@@ -150,23 +149,23 @@ a:active{
 	
 }
 
-#footer{
-	margin-bottom: 3rem;
-	font-size: 0.875rem;
-	color: #bbb;
-	text-align: center;
-}
-#footer hr{
-	border-color: #bbb;
-}
+/*#footer{*/
+	/*margin-bottom: 3rem;*/
+	/*font-size: 0.875rem;*/
+	/*color: #bbb;*/
+	/*text-align: center;*/
+/*}*/
+/*#footer hr{*/
+	/*border-color: #bbb;*/
+/*}*/
 
-#footer ul li{
-	border-right: #bbb solid 1px;
-}
+/*#footer ul li{*/
+	/*border-right: #bbb solid 1px;*/
+/*}*/
 
-#footer ul li:last-child{
-	border-right: none;
-}
+/*#footer ul li:last-child{*/
+	/*border-right: none;*/
+/*}*/
 
 
 
@@ -454,4 +453,19 @@ url-prefix()
 	padding:0px;
 	width:100%;
 	height:24px;
+}
+
+/*
+ * Footer
+ */
+
+.blog-footer {
+  padding: 20px 0;
+  color: #999;
+  text-align: center;
+  background-color: #086ed5;
+  border-top: 1px solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
 }

@@ -109,16 +109,19 @@ def __blog_by_category2(request, objs, category):
 
 
 def index(request):
-    blogs=Blog.objects.all()
-    tags=Tag.objects.all()
-    latest,blog_infos,page_range=__get_blog_list(request,blogs)
-    friends=Friend.objects.all()
-    content={'blog_infos':blog_infos,
-             'page_range':page_range,
-             'tags':tags,
-             'latest':latest,
-             'friends':friends}
-    return render_to_response('index.html', content)
+    # blogs = Blog.objects.all()
+    # tags = Tag.objects.all()
+    # latest, blog_infos, page_range = __get_blog_list(request, blogs)
+    # friends = Friend.objects.all()
+    # content = {
+    #     'blog_infos': blog_infos,
+    #     'page_range': page_range,
+    #     'tags': tags,
+    #     'latest': latest,
+    #     'friends': friends
+    # }
+    content = {}
+    return render_to_response('home.html', content)
 
 def blog_detail(request,blog_id):
     blog=Blog.objects.get(id=blog_id)

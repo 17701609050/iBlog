@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>吕梓平的个人主页</title>
+    <title>ziping.lv的个人主页</title>
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap/bootstrap.css">
-{#    <link href="/static/css/bootstrap.css" rel="stylesheet">#}
-    <link href="/static/css/blog.css" type="text/css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="blog-masthead">
-      <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item active" href="">首页</a>
-          <a class="blog-nav-item" href="#part1">生活</a>
-          <a class="blog-nav-item" href="#part2">电影</a>
-          <a class="blog-nav-item" href="#part3">技术</a>
-          <a class="blog-nav-item" target="_blank" href="http://17701609050.pythonanywhere.com">Django电影网</a>
-        </nav>
-      </div>
-    </div>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+{#    <link rel="stylesheet" type="text/css" href="/static/css/blog.css">#}
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <style>
+        .intr{
+            background: #00a0e9;
+        }
+        .intr .peointr{
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    {% include "header.html" %}
 	<div class="intr">
     	<span class="avtar"></span>
         <p class="peointr">我叫吕梓平，是一名python开发工程师。</p>
-        <p class="peointr">爱生活，爱电影，爱技术，最最重要的是爱老婆。</p>
-        <p class="peointr">爱江山更爱美人！</p>
+        <p class="peointr">爱生活，爱技术，爱电影，爱家庭。</p>
+        <p class="peointr">爱江山更爱家庭！</p>
     </div>
+
     <div class="title" id="part1">爱生活</div>
     <div class="content">
     	<div class="pic pic1">
@@ -83,7 +82,7 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="home">
-          	<p class="text">现就职于展讯公司，任职python工程师职位</p>
+          	<p class="text">我是一名python工程师</p>
             <p class="text">这份工作也让我认识到自己的兴趣所在</p>
             <p class="text">愿今后继续做python 做python技术的狂热者</p>
           </div>
@@ -100,7 +99,7 @@
         </div>
     </div>
 
-    <div class="title" id="part4">爱美人</div>
+    <div class="title" id="part4">爱家庭</div>
     <div class="content">
 
     	<div class="pic pic1">
@@ -117,13 +116,14 @@
     	</div>
 
     </div>
-    <div class="blog-footer">
-      <p>by <a href="" target="_blank">ziping.lv@spreadtrum.com</a>.</p>
+    <div id="return_top" class="hidden-sm hidden-xs"><a href="#"><img src="/static/img/return_top.png" /></a>
     </div>
-    <a href="" class="btt">顶部</a>
+    {% include "footer.html" %}
+
     <!-- Js-->
     <script src="/static/js/jquery-1.11.3.min.js"></script>
-    <script src="/static/js/bootstrap/bootstrap.js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap/bootstrap.js"></script>
     <script src="/static/js/plugin.js"></script>
-  </body>
+
+</body>
 </html>
