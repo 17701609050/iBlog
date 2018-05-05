@@ -1,0 +1,40 @@
+{% extends "common/base.html" %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-10 col-md-offset-1 col-sm-12 remove_padding">
+    {#         <div id="blog_img">#}
+    {#            <img src="{{ profile.head_pic_url }}">#}
+    {#         </div>#}
+            <div id="content">
+                <h1>{{ profile.title }}</h1>
+                <h5 class="tag">
+                    <span class="glyphicon glyphicon-tags" ></span>&nbsp;
+                       {% for tag in profile_tags %}
+                            <span class="label">{{ tag }}</span>&nbsp;&nbsp;
+                       {% endfor %}
+                </h5>
+                {{ profile.content|safe }}
+                <hr />
+                <h2>{{ updates.title }}</h2>
+                <br/>
+                {{ updates.content|safe }}
+            </div>
+             <div id="comments">
+                  <div class="ds-thread" data-thread-key=" Profile" data-title="Profile" data-url="http://hill1895.rocks/profile"></div>
+    {#            <script type="text/javascript">#}
+    {#             var duoshuoQuery = {short_name:"blog"};#}
+    {#               (function() {#}
+    {#                  var ds = document.createElement('script');#}
+    {#                  ds.type = 'text/javascript';ds.async = true;#}
+    {#                  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';#}
+    {#                  ds.charset = 'UTF-8';#}
+    {#                  (document.getElementsByTagName('head')[0] #}
+    {#                   || document.getElementsByTagName('body')[0]).appendChild(ds);#}
+    {#                })();#}
+    {#            </script>#}
+             </div>
+       </div>
+   </div>
+</div>
+{% endblock %}

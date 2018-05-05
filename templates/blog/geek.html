@@ -1,0 +1,79 @@
+{% extends "common/blog_index.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block seo %}
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+{% endblock %}
+
+{% load blog_tags %}
+
+{% block title_list %}
+
+<div id="myTabContent" class="tab-content">
+
+	<div class="tab-pane fade in active" id="home">
+	{% include "blog/geek/home.html" %}
+	</div>
+
+	<div class="tab-pane fade in" id="Develop">
+	{% include "blog/geek/develop.html" %}
+	</div>
+
+	<div class="tab-pane fade in" id="Website">
+	{% include "blog/geek/website.html" %}
+	</div>
+
+  <div class="tab-pane fade in" id="SRE">
+  {% include "blog/geek/SRE.html" %}
+  </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block lastest_blog%}
+	{% for blog in geek_latest %}
+	<li><a href="{% url 'blog_detail' blog|get_value:'id' %} " target=_blank>{{ blog|get_value:'title' }}</a></li>
+	{% endfor %}
+{% endblock %}
+
+{% block tags %}
+   	<h5>
+   	      {% include "blog/tag_info.html" %}
+   </h5>
+{% endblock %}
+
+{% block categorys %}
+    <ul style="margin: 0px;padding: 0px">
+        <li>
+            <a href="#home" data-toggle="tab">
+                 所有文章
+            </a>
+        </li>
+        <li><a href="#Develop" data-toggle="tab">
+            开发
+          </a>
+       </li>
+          </li>
+        <li><a href="#Website" data-toggle="tab">
+            Web
+          </a>
+       </li>
+       <li><a href="#SRE" data-toggle="tab">
+            运维
+          </a>
+       </li>
+    </ul>
+{% endblock %}
+
+{% block friends %}
+
+  {% include "blog/friends.html" %}
+
+{% endblock %}

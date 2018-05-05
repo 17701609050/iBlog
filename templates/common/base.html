@@ -1,0 +1,55 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>{% block title %}{% endblock %}</title>
+        {% block seo %}
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        {% endblock %}
+        <meta name="robots" content="index,follow" />
+        <meta name="author" content="" />
+        <meta http-equiv="content-Type" content="text/html;charset=utf8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="baidu-site-verification" content="lplLbq63Lo" />
+
+    {#	{% load compress %}#}
+    {#	{% compress css %}#}
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/detail.css">
+    {#	{% endcompress %}#}
+        <style>
+            .intr{
+                background: #00a0e9;
+            }
+            .intr .peointr{
+                color:#fff;
+            }
+        </style>
+
+    </head>
+    <body>
+        {% include "common/header.html" %}
+
+        <div class="container-fluid" style="margin-top: 50px">
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+
+        {% include "common/footer.html" %}
+        <div id="return_top" class="hidden-sm hidden-xs"><a href="#"><img src="/static/img/return_top.png" /></a>
+        </div>
+
+        {#	{% compress js %}#}
+            <script src="/static/js/jquery-1.11.3.min.js"></script>
+            <script src="/static/js/bootstrap/bootstrap.min.js"></script>
+            <script src="/static/js/main.js"></script>
+        {#	{% endcompress%}#}
+
+    </body>
+</html>

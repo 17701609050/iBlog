@@ -1,36 +1,43 @@
-
+#topnavibar{
+	color: #fff;
+}
 #navibar{
-	/*margin-top: -50px;*/
-	border-radius: 0px;
-	filter:alpha(opacity=80);
-	-moz-opacity:0.8;
-	-khtml-opacity: 0.8;
-	opacity: 0.8;
-}
-
-#head_img{
 	width: 100%;
-	overflow: hidden;
-	vertical-align: middle;
-	margin-top: 50px;
+	filter:alpha(opacity=90);
+	-moz-opacity:0.9;
+	-khtml-opacity: 0.9;
+	opacity: 0.9;
+	border: none;
+	border-radius: 0px;
+	text-align: center;
 }
 
+/*#head_img{*/
+	/*width: 100%;*/
+	/*overflow: hidden;*/
+	/*vertical-align: middle;*/
+	/*margin-top: 50px;*/
+/*}*/
 
-#head_img img{
-	width:100%;
-	height: 100%;
-}
+
+/*#head_img img{*/
+	/*width:100%;*/
+	/*height: 100%;*/
+/*}*/
 
 
-@media \0screen\,screen\9{
-	.blog_list{
-		background-color: #333;
-		filter:alpha(opacity=90);
-		position: static;
-		*zoom:1;
-	}
-}
+/*@media \0screen\,screen\9*/
+/*.blog_list{*/
+	/*background-color: #333;*/
+	/*filter:alpha(opacity=90);*/
+	/*position: static;*/
+	/**zoom:1;*/
+/*}*/
 
+
+/*
+* blog列表
+*/
 .blog_list a,div,h3{
 	position: relative;
 }
@@ -48,35 +55,36 @@
 }
 
 
-.pagination li a{
-	background-color: rgba(34,34,34,0.9);
-	color: #dddddd;
-	border-color: #444444;
-	font-size: 1rem;
-	font-size: 14px;
-}
+/*.pagination li a{*/
+	/*background-color: rgba(34,34,34,0.9);*/
+	/*color: #dddddd;*/
+	/*border-color: #444444;*/
+	/*font-size: 1rem;*/
+	/*font-size: 14px;*/
+/*}*/
 
 
 
-.pagination li a:hover{
-	background-color: #666666;
-	border:none;
-	color: #ffffff;
-}
+/*.pagination li a:hover{*/
+	/*background-color: #666666;*/
+	/*border:none;*/
+	/*color: #ffffff;*/
+/*}*/
 
-.pagination > .active > a
- {
-  color: #aaa;
-  cursor: default;
-  border-color: #444444;
-  background-color: rgba(85,85,85,0.9);
-}
+/*.pagination > .active > a*/
+ /*{*/
+  /*color: #aaa;*/
+  /*cursor: default;*/
+  /*border-color: #444444;*/
+  /*background-color: rgba(85,85,85,0.9);*/
+/*}*/
 
-.pagination > .active > a:hover{
-	color: #aaa;
-	background-color: #555555;
-}
+/*.pagination > .active > a:hover{*/
+	/*color: #aaa;*/
+	/*background-color: #555555;*/
+/*}*/
 
+/*blog右侧菜单栏*/
 #right_column{
 	width: 100%;
 	float: left;
@@ -108,13 +116,13 @@
 
 }
 
-@media \0screen\,screen\9
-#latest{
-	background-color: #fff;
-	filter:alpha(opacity=90);
-	position: static;
-	*zoom:1;
-}
+/*@media \0screen\,screen\9*/
+/*#latest{*/
+	/*background-color: #fff;*/
+	/*filter:alpha(opacity=90);*/
+	/*position: static;*/
+	/**zoom:1;*/
+/*}*/
 
 #latest ol,h5{
 	position: relative;
@@ -169,13 +177,13 @@
 
 }
 
-@media \0screen\,screen\9
-#tags{
-	background-color: #333;
-	filter:alpha(opacity=90);
-	position: static;
-	*zoom:1;
-}
+/*@media \0screen\,screen\9*/
+/*#tags{*/
+	/*background-color: #333;*/
+	/*filter:alpha(opacity=90);*/
+	/*position: static;*/
+	/**zoom:1;*/
+/*}*/
 
 #tags h5{
 	position: relative;
@@ -222,10 +230,6 @@
 }
 
 
-
-
-
-
 @media (max-width: 480px) {
 
 	#timeline{
@@ -256,7 +260,7 @@
 
 	#mytab li{
 		overflow: auto;
-		word-break:none;
+		word-break:normal;
 	}
 	#myTab li a{
 		font-size: 0.625rem;

@@ -1,0 +1,45 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background: linear-gradient(to bottom,#086ed5,#055db5);" role="navigation" id="topnavibar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+{#                Blog#}
+                 <img src="/static/img/favicon-48.ico" id="logo"/>
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="nav navbar-nav">
+                <li><a href="/"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+                <li class="dropdown-inverse">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-pencil"></span>&nbsp;博客<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'geek' %}"><span class="glyphicon glyphicon-link"></span>&nbsp;技术博客</a></li>
+                        <li><a href="{% url 'essay' %}"><span class="glyphicon glyphicon-book"></span>&nbsp;随笔</a></li>
+                        <li><a href="{% url 'joke' %}"><span class="glyphicon glyphicon-comment"></span>&nbsp;吐槽</a></li>
+                    </ul>
+                </li>
+                <li><a href="/profile"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
+                <li><a href="/feed/main.xml"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;RSS</a></li>
+                <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span>&nbsp;管理</a></li>
+            </ul>
+
+            <div role="search" id="zh-top-search" class="zu-top-search" style="position: relative;float: left;margin: 7px 0 0 12px;">
+                <form method="GET" action="{% url 'haystack_search' %}" id="zh-top-search-form" class="zu-top-search-form" style="position: relative;width: 367px;">
+                    <input type="text" class="zu-top-search-input" id="q" name="q" autocomplete="off" value="" maxlength="100" placeholder="搜索你感兴趣的内容..." role="combobox" aria-autocomplete="list">
+                    <button type="submit" class="zu-top-search-button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

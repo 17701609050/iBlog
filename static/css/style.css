@@ -29,14 +29,14 @@ h1{
 	font-size: 2rem;
 	font-size: 32px;
 }
-.h1_logo{
-	position: absolute;
-	margin-top: 0;
-	margin-bottom: 0;
-	margin-left: 0.5em;
-	top:5px;
-	height: 50px;
-}
+/*.h1_logo{*/
+	/*position: absolute;*/
+	/*margin-top: 0;*/
+	/*margin-bottom: 0;*/
+	/*margin-left: 0.5em;*/
+	/*top:5px;*/
+	/*height: 50px;*/
+/*}*/
 
 h2{
 	font-size:1.5rem;
@@ -136,18 +136,18 @@ a:active{
 	color: #cccccc;
 }
 
-.navbar-right{
-	margin-right: 1em;
-}
+/*.navbar-right{*/
+	/*margin-right: 1em;*/
+/*}*/
 
-#search{
-	position: fixed;
-	top:10px;
-	height: 30px;
-	text-align: right;
-	z-index: 8;
-	
-}
+/*#search{*/
+	/*position: fixed;*/
+	/*top:10px;*/
+	/*height: 30px;*/
+	/*text-align: right;*/
+	/*z-index: 8;*/
+	/**/
+/*}*/
 
 /*#footer{*/
 	/*margin-bottom: 3rem;*/
@@ -371,6 +371,9 @@ url-prefix()
 	z-index: 5;
 }
 
+/*
+	search搜索框
+ */
 .zu-top-search-input {
     padding: 7px 50px 7px 10px;
     width: 100%;
@@ -387,6 +390,9 @@ url-prefix()
     transition: all .2s ease-in-out;
 }
 
+/*
+	search按钮
+ */
 .zu-top-search-button {
     position: absolute;
     top: 0;
@@ -405,13 +411,16 @@ url-prefix()
     cursor: pointer;
 }
 
-#blogTitle {
-    background: url(images/title-yellow.png) no-repeat center 21px;
-    height: 300px;
-    clear: both;
-    width: 1200px;
-    margin: 0 auto;
-    position: relative;
+/*#blogTitle {*/
+    /*background: url(images/title-yellow.png) no-repeat center 21px;*/
+    /*height: 300px;*/
+    /*clear: both;*/
+    /*width: 1200px;*/
+    /*margin: 0 auto;*/
+    /*position: relative;*/
+/*}*/
+.tab-content .tab-pane{
+	padding:0px;
 }
 
 .sidebar-block h3 {
@@ -447,6 +456,7 @@ url-prefix()
     background-color: #fff;
 }
 
+/* 全文搜索关键字高亮 */
 .highlighted{
 	color: red;
 	margin:0px;

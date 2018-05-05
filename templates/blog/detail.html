@@ -1,0 +1,37 @@
+{% extends "common/base.html" %}
+{% block content %}
+    <div class="container">
+       <div class="row">
+          <div class="col-lg-12 col-md-10 col-md-offset-1 col-sm-12 remove_padding">
+{#             <div id="blog_img">#}
+{#                <img src="{{ blog.head_pic_url }}">#}
+{#             </div>#}
+
+                <div id="content">
+                    <h1>{{ blog.title }}</h1>
+                    <h5 class="blog_info"><a href="/blog/{{ category1_url }}">{{ category1 }}&nbsp;/&nbsp;{{ category2 }}</a>&nbsp;&nbsp; {{ blog.pub_time|date:"Y-m-d H:i:s"}}&nbsp;&nbsp;阅读量: {{ blog.page_views }}</h5>
+
+                          <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友">QQ好友</a></div>
+                    <script>
+                        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"分享 文章 「 {{ blog.title}} 」 ","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                    </script>
+
+                      <h5 class="tag">
+                        <span class="glyphicon glyphicon-tags" ></span>&nbsp;
+                           {% for tag in blog_tags %}
+                              <a href="{% url 'tag' tag.id %}" class="tag_link"><span class="label">{{ tag }}</span></a>&nbsp;&nbsp;
+                           {% endfor %}
+                      </h5>
+
+                    <br/>
+                    {{ blog.content|safe }}
+                 </div>
+
+                 <div id="comments">
+                      <div class="ds-thread" data-thread-key="blog{{ blog.id }}" data-title="{{ blog.title }}" data-url="http://hill1895.rocks/blog_detail/blog_{{ blog.id }}"></div>
+                 </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

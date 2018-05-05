@@ -1,6 +1,6 @@
-{% extends "base.html" %}
-{% load highlight %}
-{% load hill1895_extras %}
+{% extends "common/blog_index.html" %}
+{% load highlight %}s
+{% load blog_tags %}
 
 {% block css %}
     <style>
@@ -15,7 +15,7 @@
 {% endblock %}
 {% block title_list %}
 
-    {% if query %}
+    {% if query  and page.object_list %}
 
         {% for result in page.object_list %}
             <a href="{% url 'blog_detail' result.object.id|safe %}" target=_blank>
@@ -51,7 +51,7 @@
             {% endif %}
         </ul>
     {% else %}
-           Nothing is here
+           Nothing Found Here.
     {% endif %}
 
 {% endblock %}
