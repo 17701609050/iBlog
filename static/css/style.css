@@ -77,7 +77,6 @@ a:link{
 }
 
 a:visited{
-	color: #dddddd;
 	text-decoration: none;
 }
 
@@ -454,6 +453,9 @@ url-prefix()
 .sidebar-block {
     margin-bottom: 20px;
     background-color: #fff;
+}
+.sidebar-block ol li{
+	font-size: 14px;
 }
 
 /* 全文搜索关键字高亮 */

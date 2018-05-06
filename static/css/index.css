@@ -54,6 +54,9 @@
 
 }
 
+.navbar-inverse .navbar-nav>li>a {
+     color: #fff;
+}
 
 /*.pagination li a{*/
 	/*background-color: rgba(34,34,34,0.9);*/
@@ -132,8 +135,7 @@
 	width: 100%;
 	background-color: #fff;
 	padding: 0.3em 1em 0.5em 0.5em;
-	margin-top: 1em;
-	text-align: center;
+	/*text-align: center;*/
 }
 
 #tags h3{

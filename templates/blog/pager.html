@@ -1,0 +1,22 @@
+<ul class="pager">
+
+	{% if obj_infos.has_previous %}
+		<li><a href="?page={{ obj_infos.previous_page_number }}">&laquo;</a></li>
+	{% else %}
+		<li class="active"><a>&laquo;</a></li>
+	{% endif %}
+
+	{% for p in obj_page_range %}
+      {% ifequal p obj_infos.number %}
+     	 <li class="active"><a>{{p}}</a></li>
+      {% else %}
+      	<li><a href="?page={{p}}" title="第{{p}}页">{{p}}</a><li>
+      {% endifequal %}
+    {% endfor %}
+
+	{% if obj_infos.has_next %}
+    	<li><a href="?page={{ obj_infos.next_page_number }}">&raquo;</a></li>
+    {% else %}
+    	<li class="active"> <a>&raquo;</a></li>
+    {% endif %}
+</ul>

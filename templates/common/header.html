@@ -22,9 +22,9 @@
                             class="glyphicon glyphicon-pencil"></span>&nbsp;博客<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'geek' %}"><span class="glyphicon glyphicon-link"></span>&nbsp;技术博客</a></li>
-                        <li><a href="{% url 'essay' %}"><span class="glyphicon glyphicon-book"></span>&nbsp;随笔</a></li>
-                        <li><a href="{% url 'joke' %}"><span class="glyphicon glyphicon-comment"></span>&nbsp;吐槽</a></li>
+                        {% for cate in category1 %}
+                            <li><a href="/blog/{{ cate.category_1 }}">{{ cate.display_name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
                 <li><a href="/profile"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>

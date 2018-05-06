@@ -2,15 +2,11 @@
 from django.db import models
 from DjangoUeditor.models import UEditorField
 
-import sys
-
-reload(sys)
-sys.setdefaultencoding('utf8')
-
 
 class Category1(models.Model):
     category_1 = models.CharField(max_length=30, db_index=True, unique=True)
     add_time = models.DateTimeField(auto_now_add=True)
+    display_name = models.CharField(max_length=255)
 
     def __unicode__(self):
         return self.category_1
@@ -22,6 +18,8 @@ class Category1(models.Model):
 class Category2(models.Model):
     category_2 = models.CharField(max_length=30, db_index=True, unique=True)
     add_time = models.DateTimeField(auto_now_add=True)
+    display_name = models.CharField(max_length=255)
+    category1 = models.ForeignKey(Category1, verbose_name=u'一级目录')
 
     def __unicode__(self):
         return self.category_2
@@ -43,7 +41,7 @@ class Tag(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(u'标题', max_length=100)
-    head_pic_url = models.CharField(u'头图链接', max_length=250, default='/static/img/default.jpg')
+    head_pic_url = models.CharField(u'头图链接', max_length=250, default='/static/img/zipinglx.png')
     pub_time = models.DateTimeField(auto_now_add=True)
     brief = models.CharField(u'摘要', max_length=200, blank=True, null=True)
     content = UEditorField(u'正文', width=900, height=600, toolbars="full", imagePath="", settings={})

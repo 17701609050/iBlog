@@ -1,4 +1,4 @@
-{% extends "common/blog_index.html" %}
+{% extends "blog/blog_index.html" %}
 {% load highlight %}s
 {% load blog_tags %}
 
@@ -35,21 +35,21 @@
             </a>
         {% endfor %}
 
-        <ul class="pager">
-
-            {% if page.has_previous %}
-                <li><a href="?q={{ query }}&page={{ page.previous_page_number }}">&laquo;</a></li>
-            {% else %}
-                <li class="active"><a>&laquo;</a></li>
-            {% endif %}
-             <li><a href="?q={{ query }}&page={{page.number}}" title="第{{page.number}}页">{{page.number}}</a><li>
-
-            {% if page.has_next %}
-                <li><a href="?q={{ query }}&page={{ page.next_page_number }}">&raquo;</a></li>
-            {% else %}
-                <li class="active"> <a>&raquo;</a></li>
-            {% endif %}
-        </ul>
+{#        <ul class="pager">#}
+{##}
+{#            {% if page.has_previous %}#}
+{#                <li><a href="?q={{ query }}&page={{ page.previous_page_number }}">&laquo;</a></li>#}
+{#            {% else %}#}
+{#                <li class="active"><a>&laquo;</a></li>#}
+{#            {% endif %}#}
+{#             <li><a href="?q={{ query }}&page={{page.number}}" title="第{{page.number}}页">{{page.number}}</a><li>#}
+{##}
+{#            {% if page.has_next %}#}
+{#                <li><a href="?q={{ query }}&page={{ page.next_page_number }}">&raquo;</a></li>#}
+{#            {% else %}#}
+{#                <li class="active"> <a>&raquo;</a></li>#}
+{#            {% endif %}#}
+{#        </ul>#}
     {% else %}
            Nothing Found Here.
     {% endif %}

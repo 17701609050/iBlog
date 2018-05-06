@@ -47,11 +47,10 @@
         <div class="col-lg-12 col-md-10 col-md-offset-1 col-sm-12 hidden-xs remove_padding">
             {% block navibar %}
             <nav class="navbar" style="background: #169fe6" role="navigation" id="navibar">
-                  <ul class="nav navbar-nav">
-{#                             <li><a href="/">首页</a></li>#}
-                     <li><a href="{% url 'geek' %}">技术博客</a></li>
-                     <li><a href="{% url 'essay' %}">随笔</a></li>
-                     <li><a href="{% url 'joke' %}">吐槽</a></li>
+                <ul class="nav navbar-nav">
+                    {% for cate in category1 %}
+                        <li><a href="/blog/{{ cate.category_1 }}" style="color: #fff">{{ cate.display_name }}</a></li>
+                    {% endfor %}
                   </ul>
             </nav>
             {% endblock %}
@@ -60,15 +59,16 @@
 
     <div class="row">
         <div class="col-lg-8 col-md-7 col-md-offset-1  col-sm-8 remove_padding">
-
             <div id="timeline">
-             {% block title_list %}
+                {% block title_list %}
+                {% endblock %}
+                {% for blog_info in obj_infos %}
+                    {% include "blog/list_style.html" %}
+                {% empty %}
+		            <h3>这个人好懒，一个字都没写</h3>
+                {% endfor %}
 
-               {% endblock %}
-
-             {% block pagenation %}
-
-             {% endblock %}
+                {% include "blog/pager.html" %}
 
             </div>
         </div>
@@ -78,45 +78,50 @@
             <div id="right_column">
 
                 <div class="sidebar-block">
-                    <h3 class="catListTitle">最近发表</h3>
+                    <h3 class="catListTitle"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;最近发表</h3>
 
                     <div style="border: 1px solid #dedede;">
                         <ol style="">
-                            {% block lastest_blog%}
-
-                            {% endblock %}
+                            {% for blog in obj_latest %}
+                                <li><a href="{% url 'blog_detail' blog|get_value:'id' %} " target=_blank>{{ blog|get_value:'title' }}</a></li>
+                            {% endfor %}
                         </ol>
                     </div>
                 </div>
 
                 <div class="sidebar-block">
-                    <h3 class="catListTitle">标签</h3>
 
-                    <div style="border: 1px solid #dedede;">
-                        {% block tags %}
+                    <h3 class="catListTitle"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;标签</h3>
 
-                        {% endblock %}
+                    <div id="tags">
+                        <h5>
+                            {% include "blog/tag_info.html" %}
+                        </h5>
                     </div>
 
                 </div>
 
                 <div class="sidebar-block">
                     <div class="catListTag">
-                        <h3 class="catListTitle">我的分类</h3>
+                        <h3 class="catListTitle"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;二级分类</h3>
                         <div>
-                            {% block categorys %}
-
-                            {% endblock %}
+                            <ul style="margin: 0px;padding: 0px">
+{#                                <li>#}
+{#                                    <a href="#home" data-toggle="tab">#}
+{#                                         所有文章#}
+{#                                    </a>#}
+{#                                </li>#}
+                                {% for cate2 in category2 %}
+                                    <li><a href="/blog/{{ cate2.category1.category_1 }}/?cate2={{ cate2.category_2 }}">{{ cate2.display_name }}</a></li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="sidebar-block">
-                    <h3 class="catListTitle">友情链接</h3>
-                    {% block friends %}
-
-                    {% endblock %}
-
+                    <h3 class="catListTitle"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;友情链接</h3>
+                    {% include "blog/friends.html" %}
                 </div>
             </div>
         </div>
