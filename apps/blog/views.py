@@ -71,8 +71,10 @@ def __get_blog_info(objs, _category1, _category2):
     blog_info = []
 
     for blog in objs:
-        # category1 = blog.category1.category_1
-        # category2 = blog.category2.category_2
+        if len(blog.brief.encode('unicode-escape').decode('string_escape')) > 60:
+            content = blog.brief[0:60]+' ...'
+        else:
+            content = blog.brief[0:60]
         blog_info.append({
             'title': blog.title,
             'id': blog.id,
@@ -80,7 +82,8 @@ def __get_blog_info(objs, _category1, _category2):
             'pub_time': blog.pub_time,
             'page_views': blog.page_views,
             'category1': blog.category1.display_name,
-            'category2': blog.category2.display_name
+            'category2': blog.category2.display_name,
+            'content': content
         })
 
     return blog_info

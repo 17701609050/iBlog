@@ -46,9 +46,23 @@
 	text-align: left;
 }
 
+.blog_title_info {
+    /*padding: 15px 0;*/
+    clear: both;
+}
+.blog_title_info_content {
+    font-size: 14px;
+    /*color: #333;*/
+    line-height: 200%;
+	word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
 .blog_title p{
 	position: absolute;
-	bottom: 20%;
+	bottom: 8%;
 	color: #666666;
 	text-align: right;
 
