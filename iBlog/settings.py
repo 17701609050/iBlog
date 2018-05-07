@@ -33,22 +33,32 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
-INSTALLED_APPS = (
+# Django apps
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'django.contrib.sites',
     'django.contrib.sitemaps',
-    'DjangoUeditor',
-    'haystack',
-    'apps.blog',
-    # 'compressor',
-
+    #'django.contrib.sites',
 )
+
+# Third party apps
+THIRD_PARTY_APPS = (
+    'DjangoUeditor',
+    'rest_framework',
+    'rest_framework_swagger',
+    'haystack',
+)
+
+# System api apps
+API_APPS = (
+    'apps.blog',
+    'apps.rest',
+)
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + API_APPS
 
 APPS_DIR = os.path.join(BASE_DIR, 'apps')
 # Uninstall apps, api is hidden
@@ -116,20 +126,22 @@ STATICFILES_FINDERS = (
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
+
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Shanghai'
+TIME_ZONE = 'UTC'
 
-DEFAULT_CHARSET = 'utf-8'
-
-FILE_CHARSET = 'utf-8'
-
-USE_I18N = True
+USE_I18N = False
 
 USE_L10N = True
 
 USE_TZ = True
 
+DEFAULT_CHARSET = 'utf-8'
+
+FILE_CHARSET = 'utf-8'
+
+APPEND_SLASH = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
