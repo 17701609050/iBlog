@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-# coding=UTF-8
 
 """iBlog URL Configuration
 
@@ -28,17 +27,23 @@ from apps.blog.sitemap import sitemaps
 from apps.blog.LatestEntriesFeed import LatestEntriesFeed
 
 import apps.blog.views as blog_views
+import views as sys_views
 
 urlpatterns = [
-    url(r'^$', blog_views.index, name='index'),
-    url(r'^profile/$', blog_views.profile, name='profile'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^search/', include('haystack.urls')),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'^favicon.ico$', RedirectView.as_view(url='/static/img/favicon-defalt.ico',  permanent=True)),
     url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}),
     url(r'^feed/main\.xml$', LatestEntriesFeed()),
+    url(r'^search/', include('haystack.urls')),
+]
+
+urlpatterns += [
+    url(r'^$', blog_views.index, name='index'),
+    url(r'^login/$', sys_views.login, name='login'),
+    url(r'^logout/$', sys_views.logout, name='logout'),
+    url(r'^profile/$', blog_views.profile, name='profile'),
 ]
 # Auto-add the applications.
 for app in LOCAL_APPS:
