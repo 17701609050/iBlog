@@ -1,4 +1,4 @@
-#-*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-
 """
 Django settings for mysite project.
 
@@ -31,7 +31,6 @@ DEBUG = True
 COMPRESS_ENABLED = True
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 # Django apps
 DJANGO_APPS = (
@@ -42,7 +41,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-    #'django.contrib.sites',
+    # 'django.contrib.sites',
 )
 
 # Third party apps
@@ -99,8 +98,6 @@ TEMPLATES = [
     },
 ]
 
-
-
 WSGI_APPLICATION = 'iBlog.wsgi.application'
 
 # haystack全文搜索配置
@@ -113,19 +110,15 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
-
-
-
 STATICFILES_FINDERS = (
-        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-        'django.contrib.staticfiles.finders.FileSystemFinder',
-        # 'compressor.finders.CompressorFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    # 'compressor.finders.CompressorFinder',
 )
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
-
+SESSION_ENGINE_ALIAS = 'redis'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -146,17 +139,13 @@ APPEND_SLASH = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-#STATIC_ROOT=os.path.join(os.path.dirname(SITE_ROOT),'static').replace('\\','/')
+# STATIC_ROOT=os.path.join(os.path.dirname(SITE_ROOT),'static').replace('\\','/')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # STATIC_ROOT=os.path.join(BASE_DIR, 'static').replace('\\','/')
-#STATIC_ROOT='/var/www/blog/static/'
+# STATIC_ROOT='/var/www/blog/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 # print STATIC_ROOT
-
-
-
-

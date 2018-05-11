@@ -4,7 +4,92 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-aaa
+<body class='login'>
+	<div class="wrapper">
+		<div class="login-body">
+			<h2>
+{#                ICG Dashboard<span style="padding-left:28%;"></span></span>#}
+{#                <img src="{{STATIC_URL}}icg/common/img/logo-big.png" />#}
+            </h2>
+			<form class='form-validate' id="login-form">
+				<div class="control-group">
+					<div class="controls">
+						<input type="text" name='username' placeholder="IDSID" class='input-block-level'/>
+                        <span></span>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="pw controls">
+						<input type="password" name="password" placeholder="Password" class='input-block-level' data-rule-required="true"/>
+                        <span></span>
+					</div>
+				</div>
+				<div class="submit">
+{#					<div class="remember">#}
+{#						<input type="checkbox" name="remember" class='icheck-me' data-skin="square" data-color="blue" id="remember"/>#}
+{#                        <label for="remember">Remember me&nbsp;</label>#}
+{#					</div>#}
+					<input type="submit" value="SIGN IN" class='btn btn-primary'>
+				</div>
+			</form>
+            <div>&nbsp;&nbsp;</div>
+		</div>
+	</div>
+        <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="/static/js/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/static/plugins/jquery-validation/jquery.validate.min.js"></script>
+{#    <script type="text/javascript" src="{{STATIC_URL}}common/jquery/jquery-2.1.1.min.js"></script>#}
+{#    <script type="text/javascript" src="{{STATIC_URL}}ui/bootstrap/2.3.0/bootstrap.min.js"></script>#}
+{#    <script type="text/javascript" src="{{STATIC_URL}}plugins/jquery-validation/jquery.validate.min.js"></script>#}
+    <script type="text/javascript">
+    {% include 'common/csrftoken.tmp' %}
+    $(function(e){
+        $('input[type="submit"]').bind('keypress', function(e) {
+            if(e.keyCode==13){
+                $("#login-form").submit();
+            }
+        });
+        $("#login-form").validate({
+            rules:{
+                user_name:{required:true},
+                user_pwd:{required:true}
+            },
+            messages:{
+                user_name:{required:"IDSID can not be null."},
+                user_pwd:{required:"Password can not be null."}
+            },
+            errorPlacement:function(error,element){
+                element.parents('.control-group ').addClass('error');
+                element.next().empty().append($(error).addClass('help-block'));
+            },
+            errorElement: "span",
+            success:function(o){
+                o.parents('.error').removeClass('error')
+                o.remove();
+            },
+            submitHandler:function(form){
+                $("body").addClass("loading");
+                form={'username':$('input[name="username"]').val(),'password':$('input[name="password"]').val()}
+                $.post('{% url "login" %}',form,function(data){
+                    if(data.result=='fail'){
+                        $('.control-group ').addClass('error');
+                        $('input[name="user_pwd"]').next().empty().append('<span class="error help-block">User name or password error.</span>');
+                    }else if(data.result=='error'){
+                        $('.control-group ').addClass('error');
+                        $('input[name="user_pwd"]').next().empty().append('<span class="error help-block">Server exception, please try again later!</span>');
+                    }else{
+                        var redUrl = location.href+'';
+                        var indexUrl = redUrl.lastIndexOf('#*redirecturl*=');
+                        var accessUri = ( indexUrl>-1 ? redUrl.substring(indexUrl+15) : "");
+                        accessUri = data && data.urls ? data.urls : accessUri;
+                        location.href = accessUri;
+                    }
+                    $("body").removeClass("loading");
+                },'json');
+            }
+        });
+    });
+    </script>
+<div class="login-modal"></div>
 </body>
 </html>

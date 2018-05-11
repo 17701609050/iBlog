@@ -7,17 +7,17 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render_to_response
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.template import TemplateDoesNotExist, RequestContext
-from .sso import do_login
+from .login_service import do_login
 
 @csrf_exempt
-def login(request):
+def user_login(request):
     if request.method == 'GET':
         return render_to_response('common/login.html',  {}, RequestContext(request))
     else:
         res = {'result': 'error'}
         response = HttpResponse()
         try:
-            if request.POST.get('user_name') is not None:
+            if request.POST.get('username') is not None:
                 (result, s,) = do_login(request, True)
                 res.update({'result': ('success' if result else 'fail')})
         except Exception as e:
