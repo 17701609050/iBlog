@@ -76,7 +76,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'iBlog.middleware.SessionInterceptor',
 )
+
 
 ROOT_URLCONF = 'iBlog.urls'
 

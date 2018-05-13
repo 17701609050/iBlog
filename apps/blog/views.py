@@ -4,6 +4,7 @@
 # some function would be used in views
 from django.shortcuts import render_to_response
 from django import template
+from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Blog, Tag, Category1, Category2, Profile, \
     Profile_Tag, Friend, Friend_Tag
@@ -14,7 +15,7 @@ def index(request):
     content = {
         'category1': __category1,
     }
-    return render_to_response('common/home.html', content)
+    return render_to_response('common/home.html', content, RequestContext(request))
 
 
 def blog_index(request, blog_url):
@@ -49,7 +50,7 @@ def blog_index(request, blog_url):
         'tags': tags,
         'friends': friends
     }
-    return render_to_response('blog/blog_index.html', content)
+    return render_to_response('blog/blog_index.html', content, RequestContext(request))
 
 
 def __get_latest(objs, max_num=8):
@@ -144,7 +145,7 @@ def blog_detail(request, blog_id):
                                'category2': blog.category2.display_name,
                                'category1_url': category1.lower(),
                                'category2_url': category2_url
-                               })
+                               }, RequestContext(request))
 
 
 def tag(request, tag_id):
@@ -170,7 +171,7 @@ def tag(request, tag_id):
         'friends': friends
     }
 
-    return render_to_response('blog/tag.html', content)
+    return render_to_response('blog/tag.html', content, RequestContext(request))
 
 
 def profile(request):
@@ -183,4 +184,4 @@ def profile(request):
                                # 'updates':updates,
                                'profile_tags': profile_tags,
                                'category1': __category1,
-                               })
+                               }, RequestContext(request))

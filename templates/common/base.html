@@ -30,8 +30,10 @@
             }
         </style>
 
+
     </head>
     <body>
+
         {% include "common/header.html" %}
 
         <div class="container-fluid" style="margin-top: 50px">
@@ -49,7 +51,10 @@
             <script src="/static/js/jquery-1.11.3.min.js"></script>
             <script src="/static/js/bootstrap/bootstrap.min.js"></script>
             <script src="/static/js/main.js"></script>
+            <script>
+                    {% include 'common/csrftoken.tmp' %}
+            </script>
         {#	{% endcompress%}#}
-
     </body>
+
 </html>

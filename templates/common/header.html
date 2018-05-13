@@ -16,20 +16,24 @@
         <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav">
-                <li><a href="/"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
-                <li class="dropdown-inverse">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
-                            class="glyphicon glyphicon-pencil"></span>&nbsp;博客<b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        {% for cate in category1 %}
-                            <li><a href="/blog/{{ cate.category_1 }}">{{ cate.display_name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                <li><a href="/profile"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>
-                <li><a href="/feed/main.xml"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;RSS</a></li>
-                <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span>&nbsp;管理</a></li>
+                {% if request.session_data.sys_menu_html %}
+                    {% autoescape off %}{{request.session_data.sys_menu_html}}{% endautoescape %}
+                {% else %}
+                    <li><a href="/"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+                {% endif %}
+{#                <li class="dropdown-inverse">#}
+{#                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span#}
+{#                            class="glyphicon glyphicon-pencil"></span>&nbsp;博客<b class="caret"></b>#}
+{#                    </a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                        {% for cate in category1 %}#}
+{#                            <li><a href="/blog/{{ cate.category_1 }}">{{ cate.display_name }}</a></li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+{#                </li>#}
+{#                <li><a href="/profile"><span class="glyphicon glyphicon-user"></span>&nbsp;Profile</a></li>#}
+{#                <li><a href="/feed/main.xml"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;RSS</a></li>#}
+{#                <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span>&nbsp;管理</a></li>#}
             </ul>
 
             <div role="search" id="zh-top-search" class="zu-top-search" style="position: relative;float: left;margin: 7px 0 0 12px;">
@@ -40,6 +44,30 @@
                     </button>
                 </form>
             </div>
+            <div style="float: right">
+                {% if request.user.username %}
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user">
+                            <a href="/logout/" rel="tooltip" data-placement="bottom" title="" data-original-title="Sign out"></span>
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span id="logined_name" style="padding-left:5px;">{{ request.user.username }}</span></a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user">
+                            <a href="/login/" rel="tooltip" data-placement="bottom" title="" data-original-title="Login"></span>
+    {#                        <span class="glyphicon glyphicon-user"></span>#}
+                            <span style="padding-left:5px;">Login</span></a>
+                        </li>
+                    </ul>
+                {% endif %}
+
+            </div>
         </div>
     </div>
 </nav>
+<script>
+    var session_menu = {{request.session_data.author_role|safe}};
+    console.log(session_menu)
+</script>

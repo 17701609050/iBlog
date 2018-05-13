@@ -1,208 +1,24 @@
 # -*- coding: UTF-8 -*-
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.utils import timezone
-from .models import SysRPermissionUser
+from django.conf import settings
+from django.core.cache import cache
+from .service import SessionArgs, SysPermUserService, SysRoleService, SysFunService, SysAuthService, SysMenuService, string2JSON
+from .models import SysRPermissionUser, SysMRole, SysMFun, SysMMenu, SysMAuthority, DjLogSessionData
 
-class SessionArgs(object):
-    ENCRYPT_KEY = 119  # encrypt number key
-    ENCRYPT_STRING = '***_icg_***'  # encrypt string
-    USER_TOKEN = 'sessionid'  # user cookie key
-    STAFF_TOKEN = 'IDSID'  # staff idsid cookie key
-    UNAME_KEY = 'u_name'  # login name
-    AUTHOR_ROLES = "author_role"  # login user author list
-    SYS_MENU_HTML = 'sys_menu_html'  # login user menu string
-    SYS_FUN_LIST = 'sys_fun_list'  # login user function string
-    SYS_USER_CONFIG = 'sys_user_config'  # login user customize configuration
-    USER_ROLE_MENU_FILTER = 'user_role_menu_filter'  # filter the menu's regular expression
-    X_USER_ORIGIN = 'ICG_REST_API'
-    # admin list
-    SUPPER_ADMIN = 'icgadmin'
-    ADMIN_LIST = ('icgadmin', 'admin',)
-    ANONYMOUS_ROLE = 'anonymous'
-    CATEGORY_OWNER = 'session_map'
-    USER_BLACKLIST_PREFIX = 'USER_BLACKLIST:'
+if settings.SESSION_REDIS_PREFIX is not None:
+    CACHE_PREFIX = settings.SESSION_REDIS_PREFIX + ':'
+else:
+    CACHE_PREFIX = ''
 
-class BaseService(object):
-    def __init__(self, clazz):
-        self.clazz = clazz
+sysper_instance = SysPermUserService(SysRPermissionUser)
+sysrole_instance = SysRoleService(SysMRole)
+sysfun_instance = SysFunService(SysMFun)
+sysmenu_instance = SysMenuService(SysMMenu)
+syauth_instance = SysAuthService(SysMAuthority)
 
-    def get(self, pk, m=None):
-        """Entity object by primary key query
-         :param pk: primary key
-         :return: to query the entity objects
-        """
-        m = m if m else self.clazz
-        try:
-            m1 = self.clazz.objects.get(pk=pk)
-        except m.DoesNotExist:
-            m1 = None
-        return m1
-
-    def fetch(self, conds):
-        """Conditional query entity object
-        :param conds: query conditional
-        :return: to query the entity objects
-        """
-        try:
-            m1 = self.clazz.objects.get(**conds)
-        except self.clazz.MultipleObjectsReturned:
-            m1 = self.clazz.objects.filter(**conds).first()
-        except self.clazz.DoesNotExist:
-            m1 = None
-        return m1
-
-    def find(self, m):
-        """ Find an object
-         :param m: Condition of object lookup
-         :return: the result set
-        """
-        result = None
-        try:
-            result = m.__class__.objects.get(pk=m.pk)
-        except m.__class__.DoesNotExist:
-            result = None
-        except Exception, e:
-            # logging.getLogger('django').info(e)
-            raise e
-        finally:
-            return result
-
-    def find_all(self, m=None):
-        """ Find all
-         :param m: table objects
-         :return: the result set
-        """
-        result = None
-        try:
-            m = m and m.__class__ or self.clazz
-            result = m.objects.all()
-        except Exception, e:
-            # logging.getLogger('django').info(e)
-            raise e
-        finally:
-            return result
-
-    def filter_list(self, m, usedFieldNameList=None, *order, **args):
-        """Find an object
-          :param m: Condition of object lookup
-        """
-        result = None
-        try:
-            if not args:
-                for field in m._meta.fields:
-                    if field.name in usedFieldNameList:
-                        args[field.name] = getattr(m, field.name)
-            if order:
-                result = m.__class__.objects.filter(**args).order_by(*order)
-            else:
-                result = m.objects.filter(**args)  # m.__class__
-        except Exception, e:
-            # logging.getLogger('django').error(e)
-            raise e
-        finally:
-            return result
-
-
-
-    def find_list(self, m, *order):
-        """ Find a collection of objects QuerySet
-           :param m: Criteria object m looking
-        """
-        if order:
-            return m.objects.all().order_by(*order)
-        else:
-            return m.objects.all()
-
-    def create(self, m, **argz):
-        """ Conditions created by the combination of
-            :param m: Entity Object
-        """
-        pk_args = {}
-        fk_suffix = "_id"
-        for field in m._meta.fields:
-            if field.name in argz:
-                pk_args[field.name] = argz[field.name]
-            else:
-                if field.get_internal_type().lower() == "foreignkey":
-                    fk_name = field.name + fk_suffix
-                    if fk_name in argz:
-                        pk_args[fk_name] = argz[fk_name]
-
-        return m.objects.create(**pk_args)
-
-    def update(self, m, pk, **argz):
-        """ Conditional update
-        :param m: Entity Object
-        :param pk: Primary key
-        """
-        pk_args = {}
-        fk_suffix = "_id"
-        for field in m._meta.fields:
-            if field.name in argz:
-                pk_args[field.name] = argz[field.name]
-            else:
-                if field.get_internal_type().lower() == "foreignkey":
-                    fk_name = field.name + fk_suffix
-                    if fk_name in argz:
-                        pk_args[fk_name] = argz[fk_name]
-
-        return m.objects.filter(pk=pk).update(**pk_args)
-
-    def update_by_fk(self, fk, **argz):
-        """ Conditional update
-        :param fk: Foreign key
-        """
-        pk_args = {}
-        fk_suffix = "_id"
-        for field in self.clazz._meta.fields:
-            if field.name in argz:
-                pk_args[field.name] = argz[field.name]
-            else:
-                if field.get_internal_type().lower() == "foreignkey":
-                    fk_name = field.name + fk_suffix
-                    if fk_name in argz:
-                        pk_args[fk_name] = argz[fk_name]
-        qs = self.clazz.objects.filter(**fk)
-        if len(qs) > 0:
-            return qs.update(**pk_args)
-        else:
-            return qs.create(**pk_args)
-
-    def update_cascade(self, m, pk, **argz):
-        """ Conditional update
-        :param m: Entity Object
-        :param pk: Primary key
-        """
-        m = self.get(pk=pk, m=m)
-        pk_args = {}
-        for field in m._meta.fields:
-            if field.get_internal_type().lower() == "foreignkey":
-                foreign_args = {}
-                foreign_model = getattr(m, field.name)
-                perfix = foreign_model.__class__.__name__.lower() + '_' + field.name
-                for arg in argz:
-                    foreign_cols = foreign_model._meta.get_all_field_names()
-                    foreign_field = arg.replace(perfix, '')
-                    if arg.startswith(perfix) and foreign_field in foreign_cols:
-                        foreign_args[foreign_field] = argz[arg]
-                foreign_model.update(**foreign_model)
-            else:
-                if field.name in argz:
-                    pk_args[field.name] = argz[field.name]
-
-        m.update(**argz)
-        return m
-
-class SysPermUserService(BaseService):
-    def __init__(self, clazz):
-        super(SysPermUserService, self).__init__(clazz)
-        self.clazz = SysRPermissionUser
-
-    def getUserPermByName(self, userName):
-        sysPermUser = SysRPermissionUser()
-        sysPermUser.user_name = userName
-        return self.find(sysPermUser)
 
 def do_login(request, manual=None):
     """
@@ -265,7 +81,7 @@ def build_user_role(request):
     if SessionArgs.AUTHOR_ROLES in request.session:
         return request.session[SessionArgs.AUTHOR_ROLES]
     else:
-        userRole = sysPermUserService.getUserPermByName(request.user.username)
+        userRole = sysper_instance.getUserPermByName(request.user.username)
         if userRole is None:
             # allow anonymous access
             user_role = SessionArgs.ANONYMOUS_ROLE
@@ -276,50 +92,62 @@ def build_user_role(request):
 
         return user_role
 
-
 def build_user_session(request, user_role):
     def build_session(req, cache_key, u_role):
         user_role_code = []
         user_role_menu_filter = {}
-        for item in sysRoleService.findRoleIDByCodes(u_role.split(',')):
+        user_role_menu_list = []
+        for item in sysrole_instance.findRoleIDByCodes(u_role.split(',')):
             user_role_code.append(item['role_code'])
-            if item['remark'] and str(item['remark']).strip() != '':
-                role_menu_filter = string2JSON(item['remark'])
-                for menu_filter in role_menu_filter:
-                    if menu_filter in user_role_menu_filter:
-                        user_role_menu_filter[menu_filter] += "," + role_menu_filter[menu_filter]
-                    else:
-                        user_role_menu_filter[menu_filter] = role_menu_filter[menu_filter]
-        user_auth_list = sysAuthService.findDinMenuFunByMutilRole(user_role_code)
-        all_fun_list = {}  # all function dict
-        sys_fun_list = []  # all menu list
-        for fun_obj in sysFunService.find_list():
-            all_fun_list[fun_obj.fun_code] = fun_obj.toDic()
-        for sysMenu in sysMenuService.find_list():
-            sys_menu_dict = sysMenu.toDic()  # system function list
-            sys_menu_dict['functions'] = []
-            if sysMenu.menu_code in user_auth_list:
-                if user_auth_list.get(sysMenu.menu_code):
-                    for fun_code in user_auth_list[sysMenu.menu_code]:
-                        sys_menu_dict['functions'].append(all_fun_list.get(fun_code, ''))
-                sys_fun_list.append(sys_menu_dict)
+            # if item['remark'] and str(item['remark']).strip() != '':
+            #     role_menu_filter = string2JSON(item['remark'])
+            #     for menu_filter in role_menu_filter:
+            #         if menu_filter in user_role_menu_filter:
+            #             user_role_menu_filter[menu_filter] += "," + role_menu_filter[menu_filter]
+            #         else:
+            #             user_role_menu_filter[menu_filter] = role_menu_filter[menu_filter]
+        print user_role_code
+        menu_code_list = []
+        for rolecode in user_role_code:
+            menucode = syauth_instance.find_menu_code(rolecode)
+            menu_code_list += menucode
+        print list(set(menu_code_list))
+        menu_code_list = sorted(list(set(menu_code_list)))
+        menu_tree_list = sysmenu_instance.get_menu_node_tree_by_root(menu_code_list)
+        menu_html_string = sysmenu_instance.get_menus_html(menu_tree_list)
+        print menu_html_string
+        # user_auth_list = syauth_instance.findDinMenuFunByMutilRole(user_role_code)
+        # all_fun_list = {}  # all function dict
+        # sys_fun_list = []  # all menu list
+        # for fun_obj in sysfun_instance.find_list():
+        #     all_fun_list[fun_obj.fun_code] = fun_obj.__dict__
+        # for sysMenu in sysmenu_instance.find_list():
+        #     sys_menu_dict = sysMenu.__dict__  # system function list
+        #     sys_menu_dict['functions'] = []
+        #     if sysMenu.menu_code in user_auth_list:
+        #         if user_auth_list.get(sysMenu.menu_code):
+        #             for fun_code in user_auth_list[sysMenu.menu_code]:
+        #                 sys_menu_dict['functions'].append(all_fun_list.get(fun_code, ''))
+        #         sys_fun_list.append(sys_menu_dict)
 
         # get tree node
         # is_rest_request = bool(req.META.get('X_USER_ORIGIN') and req.META['X_USER_ORIGIN'])
         # if not is_rest_request: #@bug: REST USER is no separate authority
-        menu_tree = sysMenuService.get_menu_node_tree_by_root()
-        menu_html_string = get_menus_string_from_session(req, menu_tree, user_auth_list)
-        menu_html_string = sysMenuService.get_validation_report_menu_style_string(req, user_auth_list, menu_html_string)
+        # menu_tree = SysMMenu.get_menu_node_tree_by_root()
+        # menu_html_string = get_menus_string_from_session(req, menu_tree, user_auth_list)
+        # menu_html_string = SysMMenu.get_validation_report_menu_style_string(req, user_auth_list, menu_html_string)
 
         # save into redis
-        return {SessionArgs.SYS_MENU_HTML: menu_html_string,
-                SessionArgs.SYS_FUN_LIST: sys_fun_list,
+        return {
+                SessionArgs.SYS_MENU_HTML: menu_html_string,
+                # SessionArgs.SYS_MENU_LIST: menu_html_string,
                 SessionArgs.AUTHOR_ROLES: user_role,
                 SessionArgs.USER_TOKEN: cache_key,
                 SessionArgs.ENCRYPT_STRING: request.session.session_key,
-                SessionArgs.USER_ROLE_MENU_FILTER: user_role_menu_filter}
+                SessionArgs.USER_ROLE_MENU_FILTER: user_role_menu_filter
+        }
 
-    role_cache_key = CACHE_PREFIX + sysCategoryService.saveOrUpdateCategory(SessionArgs.CATEGORY_OWNER, user_role)
+    role_cache_key = CACHE_PREFIX # + sysCategoryService.saveOrUpdateCategory(SessionArgs.CATEGORY_OWNER, user_role)
     _session_data = build_session(request, role_cache_key, user_role)
 
     if settings.SESSION_ENGINE_ALIAS == 'redis':
