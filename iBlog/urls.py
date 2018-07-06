@@ -27,7 +27,7 @@ from apps.blog.sitemap import sitemaps
 from apps.blog.LatestEntriesFeed import LatestEntriesFeed
 
 import apps.blog.views as blog_views
-import views as sys_views
+# import views as sys_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -43,7 +43,7 @@ urlpatterns += [
     url(r'^$', blog_views.index, name='index'),
     # url(r'^login/$', sys_views.user_login, name='login'),
     url(r'^home/$', blog_views.index, name='home'),
-    url(r'^logout/$', sys_views.user_logout, name='logout'),
+    # url(r'^logout/$', sys_views.user_logout, name='logout'),
     url(r'^profile/$', blog_views.profile, name='profile'),
 ]
 # Auto-add the applications.
