@@ -141,7 +141,8 @@ def blog_detail(request, blog_id):
     return render_to_response('blog/detail.html',
                               {'blog': blog,
                                'blog_tags': blog_tags,
-                               'category1': blog.category1.display_name,
+                               'category1_display_name': blog.category1.display_name,
+                               'category1': [cate1 for cate1 in Category1.objects.order_by('add_time')],
                                'category2': blog.category2.display_name,
                                'category1_url': category1.lower(),
                                'category2_url': category2_url

@@ -64,8 +64,8 @@
                 {% endblock %}
                 {% for blog_info in obj_infos %}
                     {% include "blog/list_style.html" %}
-                {% empty %}
-		            <h3>这个人好懒，一个字都没写</h3>
+{#                {% empty %}#}
+{#		            <h3>这个人好懒，一个字都没写</h3>#}
                 {% endfor %}
 
                 {% include "blog/pager.html" %}
