@@ -6,6 +6,7 @@
 # @Project : Automation-Hub
 # -----------------------------------------------------
 import requests
+from pyquery import PyQuery as pq
 
 
 class FindBlogs(object):
@@ -16,17 +17,35 @@ class FindBlogs(object):
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0",
             "Cookie": ";"
             }
+        self.search_content = None
 
     def search_blogs(self, searchkey):
-        content = []
         result = requests.get(self.url_index+searchkey, headers=self.headers)
         if result.status_code == 200:
-            print result.content
-            content = result.content
-        return content
+            self.search_content = result.content
+        return self.search_content
+
+    def parse_html(self, search_html):
+        blogs = []
+        if search_html:
+            doc = pq(search_html)
+            searchItem = doc('#searchResult .searchItem')
+            res = searchItem.items()
+            for item in res:
+                blog_dic = {}
+                blog_dic['text'] = item('h3 a').text()
+                blog_dic['href'] = item('h3 a').attr('href')
+                blog_dic['content'] = item('span').text()
+                blogs.append(blog_dic)
+            import pprint
+            pprint.pprint(blogs)
+        return blogs
 
 
 if __name__ == "__main__":
     blog = FindBlogs()
-    blog.search_blogs("django-middleware")
+    search_result = blog.search_blogs("django-middleware")
+    blogs = blog.parse_html(search_result)
+
+
 
