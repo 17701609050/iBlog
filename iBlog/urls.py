@@ -41,7 +41,7 @@ urlpatterns = [
 
 urlpatterns += [
     url(r'^$', blog_views.index, name='index'),
-    url(r'^login/$', sys_views.user_login, name='login'),
+    # url(r'^login/$', sys_views.user_login, name='login'),
     url(r'^home/$', blog_views.index, name='home'),
     url(r'^logout/$', sys_views.user_logout, name='logout'),
     url(r'^profile/$', blog_views.profile, name='profile'),
