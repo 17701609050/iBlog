@@ -22,8 +22,10 @@ class FindBlogs(object):
 
     def search_blogs(self, searchkey, pageindex="1"):
         result = requests.get(self.url_index.format(searchkey, pageindex), headers=self.headers)
+        print result.status_code
         if result.status_code == 200:
             self.search_content = result.content.encode('UTF-8')
+        print self.search_content
         if self.search_content:
             return self.parse_html(self.search_content)
         return self.search_content
