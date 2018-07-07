@@ -27,7 +27,7 @@ from apps.blog.sitemap import sitemaps
 from apps.blog.LatestEntriesFeed import LatestEntriesFeed
 
 import apps.blog.views as blog_views
-# import views as sys_views
+import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}),
     url(r'^feed/main\.xml$', LatestEntriesFeed()),
-    url(r'^search/', include('haystack.urls')),
+    url(r'^search/', views.search, name='search'),
 ]
 
 urlpatterns += [

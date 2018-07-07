@@ -32,9 +32,22 @@
                 {% block title_list %}
                 {% endblock %}
                 {% for blog_info in obj_infos %}
-                    {% include "blog/list_style.html" %}
-{#                {% empty %}#}
-{#		            <h3>这个人好懒，一个字都没写</h3>#}
+                    <a href="{{   blog_info|get_value:'id' }}" target=_blank>
+                        <div class="blog_list">
+{#                            <span class="label label-primary"></span>#}
+                            <div class="blog_title">
+                                <h3>
+                                    {{ blog_info|get_value:"title" }}
+                                </h3>
+                                <div class="blog_title_info"><div class="blog_title_info_content">{{ blog_info.content|urlizetrunc:"-5" }}</div></div>
+                                <p>&nbsp;&nbsp;{{ blog_info|get_value:"pub_time" }} {{ blog_info|get_value:"page_views" }}&nbsp;&nbsp;</p>
+                            </div>
+
+                                <div class="blog_img">
+                                    <img src="{{blog_info|get_value:'head_pic_url' }}" />
+                                </div>
+                        </div>
+                    </a>
                 {% endfor %}
 
                 {% include "blog/pager.html" %}
@@ -75,11 +88,7 @@
                         <h3 class="catListTitle"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;二级分类</h3>
                         <div>
                             <ul style="margin: 0px;padding: 0px">
-{#                                <li>#}
-{#                                    <a href="#home" data-toggle="tab">#}
-{#                                         所有文章#}
-{#                                    </a>#}
-{#                                </li>#}
+
                                 {% for cate2 in category2 %}
                                     <li><a href="/blog/{{ cate2.category1.category_1 }}/?cate2={{ cate2.category_2 }}">{{ cate2.display_name }}</a></li>
                                 {% endfor %}
