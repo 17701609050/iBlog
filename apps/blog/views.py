@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Blog, Tag, Category1, Category2, Profile, \
     Profile_Tag, Friend, Friend_Tag
 
+
 def index(request):
     # the home page
     __category1 = [cate1 for cate1 in Category1.objects.order_by('add_time')]
@@ -16,6 +17,15 @@ def index(request):
         'category1': __category1,
     }
     return render_to_response('common/home.html', content, RequestContext(request))
+
+
+def baidu_verify_f4AkJW8eUN(request):
+    # the baidu verify page
+    # __category1 = [cate1 for cate1 in Category1.objects.order_by('add_time')]
+    # content = {
+    #     'category1': __category1,
+    # }
+    return render_to_response('baidu_verify_f4AkJW8eUN.html')
 
 
 def blog_index(request, blog_url):

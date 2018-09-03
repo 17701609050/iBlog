@@ -45,6 +45,7 @@ urlpatterns += [
     url(r'^home/$', blog_views.index, name='home'),
     # url(r'^logout/$', sys_views.user_logout, name='logout'),
     url(r'^profile/$', blog_views.profile, name='profile'),
+    url(r'^baidu_verify_f4AkJW8eUN.html/$', blog_views.baidu_verify_f4AkJW8eUN, name='baidu_verify_f4AkJW8eUN'),
 ]
 # Auto-add the applications.
 for app in LOCAL_APPS:
