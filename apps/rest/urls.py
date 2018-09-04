@@ -16,11 +16,17 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
+from rest_framework.routers import DefaultRouter
 from apps.rest.blog.viewsets import BlogView
+
+router = DefaultRouter()
+
+router.register(r'blogs', BlogView, 'blogs')
 
 urlpatterns = [
     url(r'^blog_all/$', BlogView.as_view({'get': 'list'})),
 
 ]
+urlpatterns += router.urls
 

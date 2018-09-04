@@ -47,6 +47,7 @@ DJANGO_APPS = (
 # Third party apps
 THIRD_PARTY_APPS = (
     'DjangoUeditor',
+    'django_filters',
     'rest_framework',
     'rest_framework_swagger',
     'haystack',
@@ -101,6 +102,23 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'iBlog.wsgi.application'
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     # drf的这一阶段主要是做验证,middleware的auth主要是设置session和user到request对象
+    #     # 默认的验证是按照验证列表从上到下的验证
+    #     'rest_framework.authentication.BasicAuthentication',
+    #     'rest_framework.authentication.SessionAuthentication',
+    #     "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+    # )
+}
 
 # haystack全文搜索配置
 HAYSTACK_CONNECTIONS = {

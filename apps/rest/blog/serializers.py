@@ -3,6 +3,7 @@
 from apps.blog.models import Blog
 from apps.rest.base.viewsets import *
 
+
 class BlogViewSerializer(serializers.ModelSerializer):
 
     class Meta:
