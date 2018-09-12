@@ -9,7 +9,7 @@
 
 {% block content %}
     <div class="row" >
-        {% include "common/sowing_map.html" %}
+{#        {% include "common/sowing_map.html" %}#}
     </div>
     <div class="container">
     <div class="row">
@@ -106,5 +106,9 @@
     </div>
 
 </div>
-
+<script>
+    $.getJSON('/rest/blogs/?search={{ search_key }}',{},function(result){
+        console.log(result)
+    });
+</script>
 {% endblock %}

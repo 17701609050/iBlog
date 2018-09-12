@@ -37,22 +37,23 @@ from apps.blog.views import Category1, Category2, __get_blog_info, __my_paginati
 
 def search(request):
     search_key = request.GET.get('q', '')
+
     # pageindex = request.GET.get('page', '1')
     # 获取categoty1的所有分类,过滤出cate1的blog
     category1 = [cate1 for cate1 in Category1.objects.order_by('add_time')]
     cate1 = Category1.objects.get(category_1='study')
 
     category2 = Category2.objects.filter(category1_id=cate1)
-    blogs = searchblog.search_blogs(search_key)
-    blogs, obj_page_range = __my_pagination(request, blogs)
-    for blog in blogs:
-        if len(blog['content'].encode('unicode-escape').decode('string_escape')) > 80:
-            blog['content'] = blog['content'][0:80] + ' ...'
-        else:
-            blog['content'] = blog['content'][0:60]
+    # blogs = searchblog.search_blogs(search_key)
+    # blogs, obj_page_range = __my_pagination(request, blogs)
+    # for blog in blogs:
+    #     if len(blog['content'].encode('unicode-escape').decode('string_escape')) > 80:
+    #         blog['content'] = blog['content'][0:80] + ' ...'
+    #     else:
+    #         blog['content'] = blog['content'][0:60]
     content = {
-        'obj_infos': blogs,
-        'obj_page_range': obj_page_range,
+        # 'obj_infos': blogs,
+        # 'obj_page_range': obj_page_range,
         'category1': category1,
         'category2': category2,
         'search_key': search_key

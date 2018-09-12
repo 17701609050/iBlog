@@ -25,7 +25,7 @@ router = DefaultRouter()
 router.register(r'blogs', BlogView, 'blogs')
 
 urlpatterns = [
-    url(r'^blog_all/$', BlogView.as_view({'get': 'list'})),
+    url(r'^blogs/$', BlogView.as_view({'get': 'list'})),
 
 ]
 urlpatterns += router.urls

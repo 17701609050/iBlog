@@ -23,14 +23,13 @@ class BlogView(MultipleFieldLookupMixin,
 
     @list_route(methods=['GET'])
     def get_blogs(self, request, *args, **kwargs):
-        obj = Blog
-        data = obj.objects.all()
-        page = self.paginate_queryset(data)
+        Blogs = Blog.objects.all()
+        page = self.paginate_queryset(Blogs)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
 
-        serializer = self.get_serializer(data, many=True)
+        serializer = self.get_serializer(Blogs, many=True)
         return Response(serializer.data)
 
 

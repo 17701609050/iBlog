@@ -20,6 +20,10 @@
         <link rel="stylesheet" type="text/css" href="/static/css/index.css">
         <link rel="stylesheet" type="text/css" href="/static/css/style.css">
         <link rel="stylesheet" type="text/css" href="/static/css/detail.css">
+
+        <script src="/static/js/jquery-1.11.3.min.js"></script>
+        <script src="/static/js/bootstrap/bootstrap.min.js"></script>
+        <script src="/static/js/main.js"></script>
     {#	{% endcompress %}#}
         <style>
             .intr{
@@ -48,9 +52,7 @@
         </div>
 
         {#	{% compress js %}#}
-            <script src="/static/js/jquery-1.11.3.min.js"></script>
-            <script src="/static/js/bootstrap/bootstrap.min.js"></script>
-            <script src="/static/js/main.js"></script>
+
             <script>
                     {% include 'common/csrftoken.tmp' %}
             </script>
@@ -58,15 +60,21 @@
     </body>
 <script>
     $(function(){
-    var urlstr = location.pathname;
-    $('.dropdown-toggle').each(function(){
-         if (urlstr==this.pathname){
-              $(this).css("background", "#ffffff").css("color", "black");
-{#              if ($(this).parent().parent().parent().attr('class')=="dropdown"){#}
-{#                  $(this).parent().parent().parent().addClass('active');#}
-{#              }#}
-         }
+        var urlstr = location.pathname;
+        $('#headerMenu a').each(function(){
+             if (urlstr==this.pathname){
+                  $(this).css("background", "#ffffff").css("color", "black");
+                  var parrent_a = $(this).parent().parent().prev();
+                  if (parrent_a.attr('class')=="dropdown-toggle"){
+                      parrent_a.css("background", "#ffffff").css("color", "black");
+                  }
+             }
+        })
+        $('#navibar a').each(function(){
+            if (urlstr==this.pathname){
+                $(this).css("background", "#ffffff").css("color", "black");
+            }
+        })
     })
-})
 </script>
 </html>
