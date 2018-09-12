@@ -418,9 +418,9 @@ url-prefix()
     /*margin: 0 auto;*/
     /*position: relative;*/
 /*}*/
-.tab-content .tab-pane{
-	padding:0px;
-}
+/*.tab-content .tab-pane{*/
+	/*padding:0px;*/
+/*}*/
 
 .sidebar-block h3 {
     background-color: #169fe6;

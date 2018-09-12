@@ -9,7 +9,7 @@
             </button>
             <a href="/" class="navbar-brand">
 {#                Blog#}
-                 <img src="/static/img/favicon-48.ico" id="logo"/>
+{#                 <img src="/static/img/favicon-48.ico" id="logo"/>#}
             </a>
         </div>
 
@@ -34,16 +34,18 @@
                 <li><a href="/profile"><span class="glyphicon glyphicon-user"></span>&nbsp;个人简介</a></li>
                 <li><a href="/feed/main.xml"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;订阅</a></li>
                 <li><a href="/admin"><span class="glyphicon glyphicon-cog"></span>&nbsp;管理</a></li>
+
+                <div role="search" id="zh-top-search" class="zu-top-search" style="position: relative;float: left;margin: 7px 0 0 12px;">
+                    <form method="GET" action="{% url 'search' %}" id="zh-top-search-form" class="zu-top-search-form" style="position: relative;width: 367px;">
+                        <input type="text" class="zu-top-search-input" id="q" name="q" autocomplete="off" value="{{  search_key }}" maxlength="100" placeholder="搜索你感兴趣的内容..." role="combobox" aria-autocomplete="list">
+                        <button type="submit" class="zu-top-search-button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </form>
+                </div>
             </ul>
 
-            <div role="search" id="zh-top-search" class="zu-top-search" style="position: relative;float: left;margin: 7px 0 0 12px;">
-                <form method="GET" action="{% url 'search' %}" id="zh-top-search-form" class="zu-top-search-form" style="position: relative;width: 367px;">
-                    <input type="text" class="zu-top-search-input" id="q" name="q" autocomplete="off" value="{{  search_key }}" maxlength="100" placeholder="搜索你感兴趣的内容..." role="combobox" aria-autocomplete="list">
-                    <button type="submit" class="zu-top-search-button">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </form>
-            </div>
+
 {#            <div style="float: right">#}
 {#                {% if request.user.username %}#}
 {#                    <ul class="nav navbar-nav">#}
@@ -68,6 +70,6 @@
     </div>
 </nav>
 <script>
-    var session_menu = {{request.session_data.author_role|safe}};
-    console.log(session_menu)
+{#    var session_menu = {{request.session_data.author_role|safe}};#}
+{#    console.log(session_menu)#}
 </script>

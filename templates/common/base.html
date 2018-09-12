@@ -56,5 +56,17 @@
             </script>
         {#	{% endcompress%}#}
     </body>
-
+<script>
+    $(function(){
+    var urlstr = location.pathname;
+    $('.dropdown-toggle').each(function(){
+         if (urlstr==this.pathname){
+              $(this).css("background", "#ffffff").css("color", "black");
+{#              if ($(this).parent().parent().parent().attr('class')=="dropdown"){#}
+{#                  $(this).parent().parent().parent().addClass('active');#}
+{#              }#}
+         }
+    })
+})
+</script>
 </html>
