@@ -4,9 +4,9 @@ from .models import Blog
 
 
 class LatestEntriesFeed(Feed):
-    title = u"刘文图熙1895"
+    title = u"zipinglv个人博客"
     link = "blog.rocks"
-    description = "关注刘文图熙1895的最新动态"
+    description = "ziping.lv的个人动态,与大家一起交流学习"
 
     def items(self):
         return Blog.objects.order_by('-pub_time')[:5]

@@ -29,26 +29,6 @@
     <div class="row">
         <div class="col-lg-8 col-md-7 col-md-offset-1  col-sm-8 remove_padding">
             <div id="timeline">
-                {% block title_list %}
-                {% endblock %}
-                {% for blog_info in obj_infos %}
-                    <a href="{{   blog_info|get_value:'id' }}" target=_blank>
-                        <div class="blog_list">
-{#                            <span class="label label-primary"></span>#}
-                            <div class="blog_title">
-                                <h3>
-                                    {{ blog_info|get_value:"title" }}
-                                </h3>
-                                <div class="blog_title_info"><div class="blog_title_info_content">{{ blog_info.content|urlizetrunc:"-5" }}</div></div>
-                                <p>&nbsp;&nbsp;{{ blog_info|get_value:"pub_time" }} {{ blog_info|get_value:"page_views" }}&nbsp;&nbsp;</p>
-                            </div>
-
-                                <div class="blog_img">
-                                    <img src="{{blog_info|get_value:'head_pic_url' }}" />
-                                </div>
-                        </div>
-                    </a>
-                {% endfor %}
 
                 {% include "blog/pager.html" %}
 
@@ -106,9 +86,11 @@
     </div>
 
 </div>
+<script src="/static/js/blog/blog.js"></script>
 <script>
-    $.getJSON('/rest/blogs/?search={{ search_key }}',{},function(result){
-        console.log(result)
-    });
+var searchKey = "{{ search_key | safe }}";
+var offset = "{{ offset | safe }}";
+var limit = "{{ limit | safe }}";
 </script>
+
 {% endblock %}

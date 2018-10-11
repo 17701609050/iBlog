@@ -37,6 +37,8 @@ from apps.blog.views import Category1, Category2, __get_blog_info, __my_paginati
 
 def search(request):
     search_key = request.GET.get('q', '')
+    offset = request.GET.get('offset', '0')
+    limit = request.GET.get('limit', '4')
 
     # pageindex = request.GET.get('page', '1')
     # 获取categoty1的所有分类,过滤出cate1的blog
@@ -56,6 +58,8 @@ def search(request):
         # 'obj_page_range': obj_page_range,
         'category1': category1,
         'category2': category2,
-        'search_key': search_key
+        'search_key': search_key,
+        'offset': offset,
+        'limit': limit,
     }
     return render_to_response('blog/search_blog_result.html', content, RequestContext(request))

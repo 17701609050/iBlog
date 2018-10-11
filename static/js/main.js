@@ -1,5 +1,5 @@
-$(document).ready(function(){
-  
+var blog = {};
+blog.resizeClassBlogList = function(){
 	main_pic_width=$("#head_img").width();
 	$("#head_img").height(main_pic_width*0.5);
 
@@ -20,7 +20,7 @@ $(document).ready(function(){
 	}
 
 	blog_img_height=$(".blog_img").height();
-	
+
 	if($(document).outerWidth()>450)
 	{
 		$(".blog_img").width(blog_img_height/0.5625);
@@ -28,8 +28,9 @@ $(document).ready(function(){
 	else{
 		$(".blog_img").width(blog_img_height/0.75);
 	}
-
-
+}
+$(document).ready(function(){
+	blog.resizeClassBlogList();
 	//random tag colors
 
 	var tag_class=["label-default","label-success","label-primary","label-danger","label-info","label-warning"];
