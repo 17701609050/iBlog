@@ -19,8 +19,11 @@ $(function () {
 })
 
 search_blog.prototype = {
+
     urlparames: window.location.href,
     searchKey: getUrlParam("q", this.urlparames),
+    pageoffset: getUrlParam("offset", this.urlparames)?getUrlParam("offset", this.urlparames):this.offset,
+    pagelimit: getUrlParam("limit", this.urlparames)?getUrlParam("limit", this.urlparames):this.limit,
     load: function(callback){
         this.get_data(callback);
     },
@@ -62,21 +65,22 @@ search_blog.prototype = {
                 '</a>'
         }
         console.log(This.data);
-        var pages = this.total%this.limit;
+        var pages =  Math.round(this.total/parseInt(this.limit));
         console.log(pages)
 
         blogHtml += '<ul class="pagination">';
         if (This.data.previous){
+            this.offset = 0;
             blogHtml += '<li><a href="?q='+this.searchKey+'&offset='+this.offset+'">&laquo;</a></li>'
         }else{
             blogHtml += '<li class="active"><a>&laquo;</a></li>';
         }
         for(var p=1;p<pages+1;p++){
-            this.offset = (p-1)*this.limit;
-            if (p==this.offset){
-                blogHtml += '<li><a href="?q='+this.searchKey+'&offset='+(this.offset)+'">'+p+'</a></li>'
+            var pageOffset = (p-1)*parseInt(this.limit);
+            if (parseInt(this.pageoffset)==pageOffset){
+                blogHtml += '<li class="active"><a href="?q='+this.searchKey+'&offset='+pageOffset+'">'+p+'</a></li>'
             }else{
-                blogHtml += '<li class="active"><a>'+p+'</a></li>';
+                blogHtml += '<li><a href="?q='+this.searchKey+'&offset='+pageOffset+'">'+p+'</a></li>';
             }
         }
 
