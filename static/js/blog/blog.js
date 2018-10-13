@@ -6,8 +6,8 @@ document.write("<script language=javascript src='/static/js/main.js'></script>")
 function search_blog(){
     this.blogClass = blog; // main.js中的blog
 
-    this.offset = offset;
-    this.limit = limit;
+    this.offset = parseInt(offset);
+    this.limit = parseInt(limit);
     this.searchUrl = '/rest/blogs/';
     this.funtion_name_list = ['generateBlogList', 'resizeBlogClass'];
 }
@@ -22,7 +22,7 @@ search_blog.prototype = {
 
     urlparames: window.location.href,
     searchKey: getUrlParam("q", this.urlparames),
-    pageoffset: getUrlParam("offset", this.urlparames)?getUrlParam("offset", this.urlparames):this.offset,
+    // pageoffset: getUrlParam("offset", this.urlparames)?getUrlParam("offset", this.urlparames):this.offset,
     pagelimit: getUrlParam("limit", this.urlparames)?getUrlParam("limit", this.urlparames):this.limit,
     load: function(callback){
         this.get_data(callback);
@@ -46,11 +46,11 @@ search_blog.prototype = {
         var blogHtml = '';
         var blogs = This.data.results;
         this.total = This.data.count;
-        console.log(blogs)
         for(var i=0;i<blogs.length;i++){
             var blog = blogs[i];
             blogHtml += '<a href="/blog/blog_detail/blog_'+blog.id+'/" target=_blank>'+
                     '<div class="blog_list">'+
+                        '<span class="label label-primary">'+blog.category2_name+'</span>'+
                         '<div class="blog_title">'+
                             '<h2>'+blog.title+''+
                             '</h2>'+
@@ -64,26 +64,32 @@ search_blog.prototype = {
                     '</div>'+
                 '</a>'
         }
-        console.log(This.data);
-        var pages =  Math.round(this.total/parseInt(this.limit));
-        console.log(pages)
-
+        var pages =  Math.ceil(this.total/parseInt(this.limit));
+        var currentPageOffset = parseInt(getUrlParam("offset", this.urlparames)?getUrlParam("offset", this.urlparames):this.offset);
         blogHtml += '<ul class="pagination">';
         if (This.data.previous){
-            this.offset = 0;
-            blogHtml += '<li><a href="?q='+this.searchKey+'&offset='+this.offset+'">&laquo;</a></li>'
+            blogHtml += '<li><a href="?q='+this.searchKey+'&offset='+(this.offset-this.limit)+'"><em style="font-style: normal">上一页</em></a></li>'
         }else{
-            blogHtml += '<li class="active"><a>&laquo;</a></li>';
+            blogHtml += '<li><a><em style="font-style: normal">上一页</em></a></li>';
         }
-        for(var p=1;p<pages+1;p++){
+        var currentPage = 0;
+        var pageCount = pages+1;
+        for(var p=1;p<pageCount;p++){
             var pageOffset = (p-1)*parseInt(this.limit);
-            if (parseInt(this.pageoffset)==pageOffset){
+            if (currentPageOffset==pageOffset){
+                currentPage = p;
                 blogHtml += '<li class="active"><a href="?q='+this.searchKey+'&offset='+pageOffset+'">'+p+'</a></li>'
             }else{
                 blogHtml += '<li><a href="?q='+this.searchKey+'&offset='+pageOffset+'">'+p+'</a></li>';
             }
         }
-
+        if (This.data.next){
+            blogHtml += '<li><a href="?q='+this.searchKey+'&offset='+(this.offset+this.limit)+'"><em style="font-style: normal">下一页</em></a></li>'
+        }else{
+            blogHtml += '<li><a><em style="font-style: normal">下一页</em></a></li>';
+        }
+        // var currentPage = currentPageOffset?Math.round(currentPageOffset*this.limit/This.data.count+1):1;
+        blogHtml += '&nbsp;&nbsp;<li><a>共'+This.data.count+'条数据&nbsp;当前:'+currentPage+'/'+pages+'页&nbsp</a></li>'
         $("#timeline").html(blogHtml);
     },
     resizeBlogClass: function(){

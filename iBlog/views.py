@@ -5,40 +5,18 @@ import json
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render_to_response
+from django.conf import settings
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.template import TemplateDoesNotExist, RequestContext
 # from .login_service import do_login
 from apps.blog.search_blogs import searchblog
-from apps.blog.views import Category1, Category2, __get_blog_info, __my_pagination, Blog
-# @csrf_exempt
-# def user_login(request):
-#     if request.method == 'GET':
-#         return render_to_response('common/login.html',  {}, RequestContext(request))
-#     else:
-#         res = {'result': 'error'}
-#         response = HttpResponse()
-#         try:
-#             if request.POST.get('username') is not None:
-#                 (result, s,) = do_login(request, True)
-#                 res.update({'result': ('success' if result else 'fail')})
-#         except Exception as e:
-#             raise e
-#         finally:
-#             res.update({'user_token': request.session.session_key})
-#             response.write(json.dumps(res).encode('utf-8'))
-#             return response
-#
-# @csrf_exempt
-# def user_logout(request):
-#     # do something for logout
-#     logout(request)
-#     return render_to_response("common/logout.html", {}, RequestContext(request))
+from apps.blog.views import Category1, Category2, Tag, Friend, __get_blog_info, __my_pagination, Blog
 
 
 def search(request):
     search_key = request.GET.get('q', '')
-    offset = request.GET.get('offset', '0')
-    limit = request.GET.get('limit', '4')
+    offset = request.GET.get('offset', 0)
+    limit = request.GET.get('limit', settings.REST_FRAMEWORK["PAGE_SIZE"])
 
     # pageindex = request.GET.get('page', '1')
     # 获取categoty1的所有分类,过滤出cate1的blog
@@ -53,11 +31,15 @@ def search(request):
     #         blog['content'] = blog['content'][0:80] + ' ...'
     #     else:
     #         blog['content'] = blog['content'][0:60]
+    tags = Tag.objects.all()
+    friends = Friend.objects.all()
     content = {
         # 'obj_infos': blogs,
         # 'obj_page_range': obj_page_range,
         'category1': category1,
         'category2': category2,
+        'tags': tags,
+        'friends': friends,
         'search_key': search_key,
         'offset': offset,
         'limit': limit,

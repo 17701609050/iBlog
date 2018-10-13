@@ -3,7 +3,7 @@
 
 # some function would be used in views
 from django.shortcuts import render_to_response
-from django import template
+from django.conf import settings
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Blog, Tag, Category1, Category2, Profile, \
@@ -83,7 +83,7 @@ def __get_blog_info(objs, _category1, _category2):
 
     for blog in objs:
         if len(blog.brief.encode('unicode-escape').decode('string_escape')) > 60:
-            content = blog.brief[0:60]+' ...'
+            content = blog.brief[0:60] + ' ...'
         else:
             content = blog.brief[0:60]
         blog_info.append({
@@ -101,7 +101,7 @@ def __get_blog_info(objs, _category1, _category2):
 
 
 # pagination
-def __my_pagination(request, objs, display_num=10, after_range=10, before_range=9):
+def __my_pagination(request, objs, display_num=settings.REST_FRAMEWORK["PAGE_SIZE"], after_range=10, before_range=9):
     paginator = Paginator(objs, display_num)
 
     try:

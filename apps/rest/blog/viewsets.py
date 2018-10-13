@@ -3,7 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
 from apps.rest.base.mixins import *
 from apps.rest.blog.serializers import *
-from apps.blog.models import Blog
+from apps.blog.models import Blog, Category2
 
 
 class BlogView(MultipleFieldLookupMixin,
@@ -15,11 +15,25 @@ class BlogView(MultipleFieldLookupMixin,
     serializer_class = BlogViewSerializer
     filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
     filter_fields = ('id', 'title', 'pub_time', 'brief', 'content', 'page_views')
-    search_fields = ('id', 'title', 'brief', 'content', 'page_views')
+    search_fields = ('id', 'title', 'brief', 'content', 'page_views', 'category2__display_name', 'category1__display_name')
     ordering = ('-pub_time')
 
     def get_serializer_class(self):
         return BlogViewSerializer
+
+    def list(self, request):
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            serializer_data = serializer.data
+            for serializer in serializer_data:
+                category2 = Category2.objects.get(id=serializer["category2"])
+                serializer.update({"category2_name": category2.display_name})
+            return self.get_paginated_response(serializer_data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     @list_route(methods=['GET'])
     def get_blogs(self, request, *args, **kwargs):

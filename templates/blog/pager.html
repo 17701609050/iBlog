@@ -1,22 +1,23 @@
-<ul class="pager">
+<ul class="pagination">
 
 	{% if obj_infos.has_previous %}
-		<li><a href="?page={{ obj_infos.previous_page_number }}&q={{ search_key }}">&laquo;</a></li>
+		<li><a href="?page={{ obj_infos.previous_page_number }}"><em style="font-style: normal">上一页</em></a></li>
 	{% else %}
-		<li class="active"><a>&laquo;</a></li>
+		<li><a><em style="font-style: normal">上一页</em></a></li>
 	{% endif %}
 
 	{% for p in obj_page_range %}
       {% ifequal p obj_infos.number %}
      	 <li class="active"><a>{{p}}</a></li>
       {% else %}
-      	<li><a href="?page={{p}}&q={{ search_key }}" title="第{{p}}页">{{p}}</a><li>
+      	<li><a href="?page={{p}}" title="第{{p}}页">{{p}}</a><li>
       {% endifequal %}
     {% endfor %}
 
 	{% if obj_infos.has_next %}
-    	<li><a href="?page={{ obj_infos.next_page_number }}&q={{ search_key }}">&raquo;</a></li>
+    	<li><a href="?page={{ obj_infos.next_page_number }}"><em style="font-style: normal">下一页</em></a></li>
     {% else %}
-    	<li class="active"> <a>&raquo;</a></li>
+    	<li> <a><em style="font-style: normal">下一页</em></a></li>
     {% endif %}
+    <li><a>共{{ obj_infos.paginator.count }}条数据&nbsp;当前:{{ obj_infos.number }}/{{ obj_infos.paginator.num_pages }}页&nbsp</a></li>
 </ul>

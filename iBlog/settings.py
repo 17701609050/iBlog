@@ -109,7 +109,7 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 4,
+    'PAGE_SIZE': 10,
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
     # 'DEFAULT_AUTHENTICATION_CLASSES': (
     #     # drf的这一阶段主要是做验证,middleware的auth主要是设置session和user到request对象
