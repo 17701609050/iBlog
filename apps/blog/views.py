@@ -2,7 +2,7 @@
 # Create your views here.
 
 # some function would be used in views
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.conf import settings
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -16,7 +16,7 @@ def index(request):
     content = {
         'category1': __category1,
     }
-    return render_to_response('common/home.html', content, RequestContext(request))
+    return render(request, 'common/home.html', content)
 
 
 def baidu_verify_w3IViTxMcb(request):
@@ -25,7 +25,7 @@ def baidu_verify_w3IViTxMcb(request):
     # content = {
     #     'category1': __category1,
     # }
-    return render_to_response('baidu_verify_w3IViTxMcb.html')
+    return render(request, 'baidu_verify_w3IViTxMcb.html')
 
 
 def blog_index(request, blog_url):
@@ -60,7 +60,7 @@ def blog_index(request, blog_url):
         'tags': tags,
         'friends': friends
     }
-    return render_to_response('blog/blog_index.html', content, RequestContext(request))
+    return render(request, 'blog/blog_index.html', content)
 
 
 def __get_latest(objs, max_num=8):
@@ -115,12 +115,12 @@ def __my_pagination(request, objs, display_num=settings.REST_FRAMEWORK["PAGE_SIZ
     except:
         objects = paginator.page(1)
 
-    if page > after_range:
-        page_range = paginator.page_range[page - after_range:page + before_range]
-    else:
-        page_range = paginator.page_range[0:page + before_range]
+    # if page > after_range:
+    #     page_range = paginator.page_range[page - after_range:page + before_range]
+    # else:
+    #     page_range = paginator.page_range[0:page + before_range]
 
-    return objects, page_range
+    return objects, paginator.page_range
 
 
 def __get_blog_list(request, obj_list):
@@ -148,7 +148,7 @@ def blog_detail(request, blog_id):
     category1 = blog.category1.category_1
     category2 = blog.category2.category_2
     category2_url = category1.lower() + '#' + category2
-    return render_to_response('blog/detail.html',
+    return render(request, 'blog/detail.html',
                               {'blog': blog,
                                'blog_tags': blog_tags,
                                'category1_display_name': blog.category1.display_name,
@@ -156,7 +156,7 @@ def blog_detail(request, blog_id):
                                'category2': blog.category2.display_name,
                                'category1_url': category1.lower(),
                                'category2_url': category2_url
-                               }, RequestContext(request))
+                               })
 
 
 def tag(request, tag_id):
@@ -182,7 +182,7 @@ def tag(request, tag_id):
         'friends': friends
     }
 
-    return render_to_response('blog/tag.html', content, RequestContext(request))
+    return render(request, 'blog/tag.html', content)
 
 
 def profile(request):
@@ -190,9 +190,9 @@ def profile(request):
     pro_file = Profile.objects.get(title='Profile')
     # updates=Profile.objects.get(title='Updates')
     profile_tags = pro_file.tags.all()
-    return render_to_response('common/profile.html',
+    return render(request, 'common/profile.html',
                               {'profile': pro_file,
                                # 'updates':updates,
                                'profile_tags': profile_tags,
                                'category1': __category1,
-                               }, RequestContext(request))
+                               })

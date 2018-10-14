@@ -12,6 +12,8 @@ class Category1(models.Model):
         return self.category_1
 
     class Meta:
+        verbose_name = '一级分类'
+        verbose_name_plural = '一级分类'
         ordering = ['-add_time']
 
 
@@ -25,6 +27,8 @@ class Category2(models.Model):
         return self.category_2
 
     class Meta:
+        verbose_name = '二级分类'
+        verbose_name_plural = '二级分类'
         ordering = ['-add_time']
 
 
@@ -36,6 +40,8 @@ class Tag(models.Model):
         return self.tag
 
     class Meta:
+        verbose_name = '标签'
+        verbose_name_plural = '标签'
         ordering = ['-add_time']
 
 
@@ -54,6 +60,8 @@ class Blog(models.Model):
         return self.title
 
     class Meta:
+        verbose_name = '博客'
+        verbose_name_plural = '博客'
         ordering = ['-pub_time']
 
 
@@ -65,6 +73,8 @@ class Profile_Tag(models.Model):
         return self.tag
 
     class Meta:
+        verbose_name = '个人简介标签'
+        verbose_name_plural = '个人简介标签'
         ordering = ['-add_time']
 
 
@@ -79,6 +89,8 @@ class Profile(models.Model):
         return self.title
 
     class Meta:
+        verbose_name = '个人简介'
+        verbose_name_plural = '个人简介'
         ordering = ['-pub_time']
 
 
@@ -90,6 +102,8 @@ class Friend_Tag(models.Model):
         return self.tag
 
     class Meta:
+        verbose_name = '友情链接标签'
+        verbose_name_plural = '友情链接标签'
         ordering = ['-add_time']
 
 
@@ -102,4 +116,6 @@ class Friend(models.Model):
         return self.name
 
     class Meta:
+        verbose_name = '友情链接'
+        verbose_name_plural = '友情链接'
         ordering = ['name']

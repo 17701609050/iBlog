@@ -4,7 +4,7 @@ import traceback
 import json
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.conf import settings
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.template import TemplateDoesNotExist, RequestContext
@@ -44,4 +44,4 @@ def search(request):
         'offset': offset,
         'limit': limit,
     }
-    return render_to_response('blog/search_blog_result.html', content, RequestContext(request))
+    return render(request, 'blog/search_blog_result.html', content)

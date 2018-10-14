@@ -15,8 +15,9 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url, patterns
+from django.conf.urls import include, url
 from django.contrib import admin
+import xadmin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic.base import RedirectView
@@ -31,6 +32,7 @@ import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^xadmin/', include(xadmin.site.urls)),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'^favicon.ico$', RedirectView.as_view(url='/static/img/favicon-defalt.ico',  permanent=True)),
     url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),
@@ -49,5 +51,5 @@ urlpatterns += [
 ]
 # Auto-add the applications.
 for app in LOCAL_APPS:
-    urlpatterns += patterns('', url(r'^{0}/'.format(app), include('apps.' + app + '.urls')), )  # without namespace
+    urlpatterns += [url(r'^{0}/'.format(app), include('apps.' + app + '.urls')), ]  # without namespace
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
