@@ -5,3 +5,5 @@ jieba==0.38
 Whoosh==2.7.4
 djangorestframework==3.5.3
 django-rest-swagger==2.1.1
+django_filter==1.1.0
+xadmin==0.6.1

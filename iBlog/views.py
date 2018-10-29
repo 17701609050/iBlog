@@ -11,7 +11,7 @@ from django.template import TemplateDoesNotExist, RequestContext
 # from .login_service import do_login
 from apps.blog.search_blogs import searchblog
 from apps.blog.views import Category1, Category2, Tag, Friend, __get_blog_info, __my_pagination, Blog
-
+from rest_framework_jwt.views import obtain_jwt_token
 
 def search(request):
     search_key = request.GET.get('q', '')
@@ -45,3 +45,8 @@ def search(request):
         'limit': limit,
     }
     return render(request, 'blog/search_blog_result.html', content)
+
+
+def user_login(request):
+
+    return render(request, 'common/login.html', {})

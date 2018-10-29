@@ -15,22 +15,33 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+import xadmin
 from django.conf.urls import include, url
 from django.contrib import admin
-import xadmin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic.base import RedirectView
 from django.contrib.sitemaps.views import sitemap, index
-
+from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
+from rest_framework_jwt.views import obtain_jwt_token
 from .settings import LOCAL_APPS
 from apps.blog.sitemap import sitemaps
 from apps.blog.LatestEntriesFeed import LatestEntriesFeed
+from apps.oauth.views import github_auth
 
 import apps.blog.views as blog_views
 import views
 
+
+
+schema_view = get_schema_view(
+    title='Blog API Docs',
+    renderer_classes=[OpenAPIRenderer, SwaggerUIRenderer]
+)
+
 urlpatterns = [
+    url(r'^docs/$', schema_view, name='docs'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^xadmin/', include(xadmin.site.urls)),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
@@ -38,16 +49,18 @@ urlpatterns = [
     url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}),
     url(r'^feed/main\.xml$', LatestEntriesFeed()),
-    url(r'^search/', views.search, name='search'),
+    url(r'^baidu_verify_w3IViTxMcb.html/$', blog_views.baidu_verify_w3IViTxMcb, name='baidu_verify_w3IViTxMcb'),
+    url(r'^api-token-auth/', obtain_jwt_token)
 ]
 
 urlpatterns += [
     url(r'^$', blog_views.index, name='index'),
-    # url(r'^login/$', sys_views.user_login, name='login'),
+    url(r'^login/$', views.user_login, name='user-login'),
+    url(r'^user-login/$', obtain_jwt_token, name='login'),
     url(r'^home/$', blog_views.index, name='home'),
     # url(r'^logout/$', sys_views.user_logout, name='logout'),
     url(r'^profile/$', blog_views.profile, name='profile'),
-    url(r'^baidu_verify_w3IViTxMcb.html/$', blog_views.baidu_verify_w3IViTxMcb, name='baidu_verify_w3IViTxMcb'),
+    url(r'^search/', views.search, name='search'),
 ]
 # Auto-add the applications.
 for app in LOCAL_APPS:

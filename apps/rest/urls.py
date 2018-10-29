@@ -18,14 +18,23 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
-from apps.rest.blog.viewsets import BlogView
+from apps.rest.blog.viewsets import BlogViewSets, Category1ViewSets, Category2ViewSets, TagViewSets, \
+    FriendTagViewSets, ProfileViewSets, ProfileTagViewSets, FriendViewSets
 
 router = DefaultRouter()
 
-router.register(r'blogs', BlogView, 'blogs')
+router.register(r'blogs', BlogViewSets, 'blogs')
+router.register(r'first-category', Category1ViewSets, 'first-category')
+router.register(r'second-category', Category2ViewSets, 'second-category')
+router.register(r'profiles', ProfileViewSets, 'profiles')
+router.register(r'friends', FriendViewSets, 'friends')
+router.register(r'tags', TagViewSets, 'tag')
+router.register(r'friend-tag', FriendTagViewSets, 'friend-tag')
+router.register(r'profile-tag', ProfileTagViewSets, 'profile-tag')
+
 
 urlpatterns = [
-    url(r'^blogs/$', BlogView.as_view({'get': 'list'})),
+    # url(r'^blogs/$', BlogView.as_view({'get': 'list'})),
 
 ]
 urlpatterns += router.urls

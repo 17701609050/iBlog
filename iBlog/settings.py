@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import datetime
 import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -51,7 +52,7 @@ THIRD_PARTY_APPS = (
     'django_filters',
     'rest_framework',
     'rest_framework_swagger',
-    'haystack',
+    # 'haystack',
     'xadmin',
     'crispy_forms',
 )
@@ -114,13 +115,50 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     # drf的这一阶段主要是做验证,middleware的auth主要是设置session和user到request对象
-    #     # 默认的验证是按照验证列表从上到下的验证
-    #     'rest_framework.authentication.BasicAuthentication',
-    #     'rest_framework.authentication.SessionAuthentication',
-    #     "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
-    # )
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # drf的这一阶段主要是做验证,middleware的auth主要是设置session和user到request对象
+        # 默认的验证是按照验证列表从上到下的验证
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+    )
+}
+
+
+JWT_AUTH = {
+    'JWT_ENCODE_HANDLER':
+    'rest_framework_jwt.utils.jwt_encode_handler',
+
+    'JWT_DECODE_HANDLER':
+    'rest_framework_jwt.utils.jwt_decode_handler',
+
+    'JWT_PAYLOAD_HANDLER':
+    'rest_framework_jwt.utils.jwt_payload_handler',
+
+    'JWT_PAYLOAD_GET_USER_ID_HANDLER':
+    'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
+
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+    'rest_framework_jwt.utils.jwt_response_payload_handler',
+
+    # 'JWT_SECRET_KEY': settings.SECRET_KEY,
+    # 'JWT_GET_USER_SECRET_KEY': None,
+    # 'JWT_PUBLIC_KEY': None,
+    # 'JWT_PRIVATE_KEY': None,
+    # 'JWT_ALGORITHM': 'HS256',
+    # 'JWT_VERIFY': True,
+    # 'JWT_VERIFY_EXPIRATION': True,
+    # 'JWT_LEEWAY': 0,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),
+    'JWT_AUDIENCE': None,
+    'JWT_ISSUER': None,
+
+    'JWT_ALLOW_REFRESH': False,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+    'JWT_AUTH_COOKIE': '',
+
 }
 
 # haystack全文搜索配置
@@ -138,6 +176,15 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     # 'compressor.finders.CompressorFinder',
 )
+
+# github第三方登录配置
+# 请求gihhub第三方登录url
+GITHUB_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
+GITHUB_CLIENTID = '562508c3b735bbb0c0b4'
+GITHUB_CLIENTSECRET = '15c2a5f79c6b75fdd1268944de733c3a74a439e5'
+
+# 这里是github认证处理的url,就是自己处理登陆逻辑(被坑好好久)
+GITHUB_CALLBACK = 'http://zipinglv.pythonanywhere.com/oauth/github/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

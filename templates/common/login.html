@@ -96,6 +96,8 @@
                 $("body").addClass("loading");
                 form={'username':$('input[name="username"]').val(),'password':$('input[name="password"]').val()}
                 $.post('{% url "login" %}',form,function(data){
+                    console.log(data)
+                    localStorage.jwt = data.token ;  // 保存数据
                     if(data.result=='fail'){
                         $('.control-group ').addClass('error');
                         $('input[name="username"]').next().empty().append('<span class="error help-block">User name or password error.</span>');
@@ -107,7 +109,7 @@
                         var indexUrl = redUrl.lastIndexOf('#*redirecturl*=');
                         var accessUri = ( indexUrl>-1 ? redUrl.substring(indexUrl+15) : "{%url 'index'%}");
                         accessUri = data && data.urls ? data.urls : accessUri;
-                        location.href = accessUri;
+                        {#location.href = accessUri;#}
                     }
                     $("body").removeClass("loading");
                 },'json');
