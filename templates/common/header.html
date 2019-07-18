@@ -47,24 +47,32 @@
 
 
             <div style="float: right">
-                {% if request.user.username %}
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown user">
-                            <a href="/logout/" rel="tooltip" data-placement="bottom" title="" data-original-title="Sign out"></span>
-                            <span class="glyphicon glyphicon-user"></span>
-                            <span id="logined_name" style="padding-left:5px;">{{ request.user.username }}</span></a>
-                        </li>
-                    </ul>
-                {% else %}
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a class="" href="/oauth/github_login/" style="height:50px;">
-                                <img src="/static/img/github.ico"  style="margin-top: -14px">
-                            </a>
-                        </li>
-                    </ul>
-                {% endif %}
+                <ul class="nav navbar-nav">
+                    <li>
+{#                        <div class="zan">#}
 
+                            <img class="dianzan" src="/static/img/dianzan.png">
+                            <b class="likes">3254</b>
+{#                        </div>#}
+                    </li>
+                    {% if request.user.username %}
+
+                            <li class="dropdown user">
+                                <a href="/logout/" rel="tooltip" data-placement="bottom" title="" data-original-title="Sign out"></span>
+                                <span class="glyphicon glyphicon-user"></span>
+                                <span id="logined_name" style="padding-left:5px;">{{ request.user.username }}</span></a>
+                            </li>
+
+                    {% else %}
+
+                            <li>
+                                <a class="" href="/oauth/github_login/" style="height:50px;">
+                                    <img src="/static/img/github.ico"  style="margin-top: -14px">
+                                </a>
+                            </li>
+
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </div>
