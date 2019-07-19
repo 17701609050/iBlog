@@ -119,3 +119,10 @@ class Friend(models.Model):
         verbose_name = '友情链接'
         verbose_name_plural = '友情链接'
         ordering = ['name']
+
+
+class Zan(models.Model):
+    ip_address = models.CharField(max_length=100, default='')
+
+    def __unicode__(self):
+        return self.ip_address

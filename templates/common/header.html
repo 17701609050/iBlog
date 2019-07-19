@@ -1,3 +1,4 @@
+{% load blog_tags %}
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background: linear-gradient(to bottom,#086ed5,#055db5);" role="navigation" id="topnavibar">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -49,11 +50,9 @@
             <div style="float: right">
                 <ul class="nav navbar-nav">
                     <li>
-{#                        <div class="zan">#}
-
+                            {% csrf_token %}
                             <img class="dianzan" src="/static/img/dianzan.png">
-                            <b class="likes">3254</b>
-{#                        </div>#}
+                            <b id="likes" class="likes">{% num %}</b>
                     </li>
                     {% if request.user.username %}
 
@@ -78,6 +77,30 @@
     </div>
 </nav>
 <script>
-{#    var session_menu = {{request.session_data.author_role|safe}};#}
-{#    console.log(session_menu)#}
+$(".dianzan").click(function () {
+    var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+    $.ajax({
+        url: "/zan/",
+        data: { 'csrfmiddlewaretoken': csrf},
+        type: "POST",
+        async: false,
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            console.log(result);
+            if (result['error']){
+                alert(JSON.stringify(result['error']));
+                return;
+            }else{
+                $("#likes").empty().append(result.num)
+            }
+
+        },
+        error: function (e) {
+           alert('server exception!');
+        }
+    });
+})
 </script>

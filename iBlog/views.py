@@ -6,12 +6,14 @@ from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.conf import settings
-from django.http.response import HttpResponseRedirect, HttpResponse
+from django.http.response import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.template import TemplateDoesNotExist, RequestContext
 # from .login_service import do_login
 from apps.blog.search_blogs import searchblog
 from apps.blog.views import Category1, Category2, Tag, Friend, __get_blog_info, __my_pagination, Blog
 from rest_framework_jwt.views import obtain_jwt_token
+from apps.blog.models import Zan
+
 
 def search(request):
     search_key = request.GET.get('q', '')
@@ -50,3 +52,17 @@ def search(request):
 def user_login(request):
 
     return render(request, 'common/login.html', {})
+
+
+def zan(request):
+    if request.META.has_key('HTTP_X_FORWARDED_FOR'):
+        ip_address = request.META['HTTP_X_FORWARDED_FOR']
+    else:
+        ip_address = request.META['REMOTE_ADDR']
+    num = Zan.objects.update_or_create(ip_address=ip_address)
+    zan_count = 3218 + Zan.objects.all().count()
+    if num:
+        return JsonResponse({"num": zan_count})
+    else:
+        return JsonResponse({"error": ''})
+
