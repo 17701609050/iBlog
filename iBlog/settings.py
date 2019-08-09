@@ -60,6 +60,7 @@ THIRD_PARTY_APPS = (
 # System api apps
 API_APPS = (
     'apps.blog',
+    'apps.resource',
     'apps.rest',
 )
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + API_APPS
@@ -219,3 +220,60 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 # print STATIC_ROOT
+
+# logging setting
+LOG_PATH = os.path.join(BASE_DIR, 'log')
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {  # log format
+        'standard': {
+            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s]- %(message)s'}
+    },
+    'filters': {  # filter
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'mail_admins': {  # send an email to admin
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        },
+        'file_handler': {  # log to the file
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            # 'filename': os.path.join('/var/www/log', "autoHub", 'autoHubLog.txt'),  # log file
+            'filename':  os.path.join(LOG_PATH, 'debug.log'),
+            # 'maxBytes': 1024 * 1024 * 5,  # file size
+            'backupCount': 500,  # bk file number
+            'formatter': 'standard',  # log format
+        },
+        'console': {  # log to console
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
+        },
+    },
+    'loggers': {  # logging manager
+        'django': {
+            'handlers': ['console', 'file_handler'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        'django.request': {
+            'handlers': ['file_handler', 'console', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.security.DisallowedHost': {
+            'handlers': ['null'],
+            'propagate': False,
+        },
+    }
+}

@@ -187,7 +187,7 @@ def tag(request, tag_id):
 
 def profile(request):
     __category1 = [cate1 for cate1 in Category1.objects.order_by('add_time')]
-    pro_file = Profile.objects.get(title='Profile')
+    pro_file = Profile.objects.all()[0]
     # updates=Profile.objects.get(title='Updates')
     profile_tags = pro_file.tags.all()
     return render(request, 'common/profile.html',
