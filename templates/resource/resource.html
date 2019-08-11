@@ -1,26 +1,66 @@
 {% extends "common/base.html" %}
-
+{% load resource_tags %}
 {% block content %}
-
-    <div class="single-content">
-        {% for resource in resources %}
-        <div class="single-content-c">
-            <div class="single-content-c-main" style="">
-                <div class="single-main-header">
-                    <h1 class="title">{{ resource.name }}</h1>
-                    <p class="time">{{ resource.add_time|date:"Y-m-d H:i:s" }}</p>
-                    <div class="single-tags" style="margin-top: 20px;">
-                         <a href="https://www.jqhtml.com/down/tag/%e6%9d%83%e5%a8%81%e6%8c%87%e5%8d%97" rel="tag">Python</a>
+<div id="resourceContent">
+    <div class="content-c">
+        <div class="content-list">
+            <div class="content-list-header">
+                <h3>
+                    {% if tag %}
+                        标签： {{ tag.tag }}
+                    {% elif category %}
+                        分类： {{ category.display_name }}
+                    {% endif %}
+                </h3>
+            </div>
+            {% for resource in obj_infos %}
+                <div class="content-list-item">
+                    <span class="resource">{{ resource.name }}</span>
+                    <div class="info">
+                        <a class="type" href="{% url 'resource_category' resource.category.id %}">分类：{{ resource.category.display_name }}</a>
+                        <a class="type" href="">标签：{{ resource|get_value }}</a>
+                        <br>
+                        <p>{{ resource.add_time|date:"Y-m-d H:i:s" }}</p>
+                        <p>百度网盘提取码： {{ resource.extraction_code }}
+                            <a href="{{ resource.link }}" target="_blank">下载 <i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i></a>
+                        </p>
                     </div>
-                </div>
-                <div class="single-main-con">
-                    <p>{{ resource.name }}
-                        <a href="{{ resource.link }}"><i class="fa fa-download" aria-hidden="true"></i>下载</a>
-                    </p>
-                </div>
 
+                </div>
+            {% endfor %}
+            {% include "blog/pager.html" %}
+        </div>
+
+        <div class="tags">
+            <div class="">
+              <h3 class="catListTitle">资源标签</h3>
+            </div>
+            <div id="tags" class="">
+                <h5>
+                    {% for tag in tags %}
+                        <a href="{% url 'resource_tags' tag.id %}" >
+                          <span class="label label-default label-primary">{{ tag.tag }}</span>
+                        </a>
+                    {% endfor %}
+                </h5>
             </div>
         </div>
-        {% endfor %}
+
+        <div class="tags">
+            <div class="">
+              <h3 class="catListTitle">资源分类</h3>
+            </div>
+            <div class="sidebar-block">
+
+                <ul style="margin: 0px;padding: 0px">
+                    {% for cate in categorys %}
+                        <li><a href="{% url 'resource_category' cate.id %}">{{ cate.display_name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
     </div>
+
+</div>
 {% endblock %}

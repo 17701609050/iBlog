@@ -18,12 +18,26 @@ class ResourceCategory(models.Model):
         ordering = ['-add_time']
 
 
-class Resource(models.Model):
-    name = models.CharField(max_length=250, db_index=True, unique=True)
-    category = models.ForeignKey(ResourceCategory, verbose_name=u'资源分类')
-    tag = models.ManyToManyField(Tag, blank=True, verbose_name=u'标签')
-    link = models.CharField(max_length=255)
+class ResourceTag(models.Model):
+    tag = models.CharField(max_length=30, db_index=True, unique=True)
     add_time = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return self.tag
+
+    class Meta:
+        verbose_name = '资源标签'
+        verbose_name_plural = '资源标签'
+        ordering = ['-add_time']
+
+
+class Resource(models.Model):
+    name = models.CharField(max_length=250, db_index=True, unique=True, verbose_name=u'资源名称')
+    category = models.ForeignKey(ResourceCategory, verbose_name=u'资源分类')
+    tag = models.ManyToManyField(ResourceTag, blank=True, verbose_name=u'标签')
+    link = models.CharField(max_length=255)
+    add_time = models.DateTimeField()
+    extraction_code = models.CharField(max_length=20, default='')
 
     def __unicode__(self):
         return self.name
