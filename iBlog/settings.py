@@ -55,6 +55,8 @@ THIRD_PARTY_APPS = (
     # 'haystack',
     'xadmin',
     'crispy_forms',
+    'ckeditor',
+    'mptt',
 )
 
 # System api apps

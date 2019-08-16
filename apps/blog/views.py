@@ -5,9 +5,12 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.template import RequestContext
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Blog, Tag, Category1, Category2, Profile, \
-    Profile_Tag, Friend, Friend_Tag
+    Profile_Tag, Friend, Friend_Tag, Comment
 
 
 def index(request):
@@ -148,6 +151,9 @@ def blog_detail(request, blog_id):
     category1 = blog.category1.category_1
     category2 = blog.category2.category_2
     category2_url = category1.lower() + '#' + category2
+    # 为评论引入表单
+    comment_form = CommentForm()
+    comments = Comment.objects.filter(article_id=blog_id)
     return render(request, 'blog/detail.html',
                               {'blog': blog,
                                'blog_tags': blog_tags,
@@ -155,7 +161,9 @@ def blog_detail(request, blog_id):
                                'category1': [cate1 for cate1 in Category1.objects.order_by('add_time')],
                                'category2': blog.category2.display_name,
                                'category1_url': category1.lower(),
-                               'category2_url': category2_url
+                               'category2_url': category2_url,
+                               'comments': comments,
+                               'comment_form': comment_form,
                                })
 
 
@@ -196,3 +204,67 @@ def profile(request):
                                'profile_tags': profile_tags,
                                'category1': __category1,
                                })
+
+
+def post_comment(request, blog_id, parent_comment_id=None):
+    article = get_object_or_404(Blog, id=blog_id)
+
+    # 处理 POST 请求
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.article = article
+            new_comment.user = request.user
+
+            # 二级回复
+            if parent_comment_id:
+                parent_comment = Comment.objects.get(id=parent_comment_id)
+                # 若回复层级超过二级，则转换为二级
+                new_comment.parent_id = parent_comment.get_root().id
+                # 被回复人
+                new_comment.reply_to = parent_comment.user
+                new_comment.save()
+
+                # 给其他用户发送通知
+                # if not parent_comment.user.is_superuser and not parent_comment.user == request.user:
+                #     notify.send(
+                #         request.user,
+                #         recipient=parent_comment.user,
+                #         verb='回复了你',
+                #         target=article,
+                #         action_object=new_comment,
+                #     )
+
+                # return HttpResponse("200 OK")
+                return JsonResponse({"code": "200 OK", "new_comment_id": new_comment.id})
+
+            new_comment.save()
+
+            # 给管理员发送通知
+            # if not request.user.is_superuser:
+                # notify.send(
+                #     request.user,
+                #     recipient=User.objects.filter(is_superuser=1),
+                #     verb='回复了你',
+                #     target=article,
+                #     action_object=new_comment,
+                # )
+
+            # 添加锚点
+            redirect_url = '/blog/blog_detail/blog_'+blog_id + '#comment_elem_' + str(new_comment.id)
+            return redirect(redirect_url)
+        else:
+            return HttpResponse("表单内容有误，请重新填写。")
+    # 处理 GET 请求
+    elif request.method == 'GET':
+        comment_form = CommentForm()
+        context = {
+            'comment_form': comment_form,
+            'article_id': blog_id,
+            'parent_comment_id': parent_comment_id
+        }
+        return render(request, 'blog/reply.html', context)
+    # 处理其他请求
+    else:
+        return HttpResponse("仅接受GET/POST请求。")
