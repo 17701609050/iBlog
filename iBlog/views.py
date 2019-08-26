@@ -49,11 +49,6 @@ def search(request):
     return render(request, 'blog/search_blog_result.html', content)
 
 
-def user_login(request):
-
-    return render(request, 'common/login.html', {})
-
-
 def zan(request):
     if request.META.has_key('HTTP_X_FORWARDED_FOR'):
         ip_address = request.META['HTTP_X_FORWARDED_FOR']

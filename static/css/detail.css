@@ -44,7 +44,7 @@ hr{
 
 
 #content a{
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 }
 
 #content a:link{
@@ -58,7 +58,7 @@ hr{
 }
 
 #content a:hover{
-	color: #ffffff;
+	/*color: #ffffff;*/
 	text-decoration: underline;
 }
 
@@ -202,7 +202,7 @@ hr{
 		color: #bbb;
 		text-align: left;
 		font-size: 1rem;
-		font-size: 16px;
+		font-size: 14px;
 		overflow: hidden;
 		margin: 0;
 		padding: 0 0.8em 0.8em 0.8em;

@@ -83,6 +83,7 @@ a:visited{
 a:hover{
 	color: #ff0000;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 a:active{

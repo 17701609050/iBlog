@@ -2,7 +2,7 @@
 {% block content %}
 <style>
     .children{
-        margin-left: 50px;
+        margin-left: 40px;
     }
 </style>
     <div class="container">
@@ -87,17 +87,18 @@
                                             col-12
                                             {% endif %}"
                                     id="comment_elem_{{ comment.id }}"
+                                     style="margin: 10px;border-bottom: 1px dashed  #d9d9d9;"
                                 >
-                                    <hr>
+{#                                    <hr>#}
                                     <p>
-                                        <strong style="color: pink">
+                                        <strong style="color: #3194d0">
                                             {{ comment.user }}
                                         </strong>
 
                                         <!-- 显示被回复人 -->
                                         {% if comment.reply_to %}
-                                            <i class="" style="color: cornflowerblue;">回复</i>
-                                            <strong style="color: pink">
+                                            ：@
+                                            <strong style="color: #3194d0">
                                                 {{ comment.reply_to }}
                                             </strong>
                                         {% endif %}
@@ -112,16 +113,16 @@
 
                                         <!-- 加载 modal 的按钮 -->
                                         {% if user.is_authenticated %}
-                                            <button type="button"
-                                                    class="btn btn-light btn-sm text-muted"
+
+                                            <a class="btn"
                                                     onclick="load_modal({{ blog.id }}, {{ comment.id }})"
-                                            >
+                                            ><span class="glyphicon glyphicon-comment"></span>
                                                 回复
-                                            </button>
+                                            </a>
                                         {% else %}
-                                            <a class="btn btn-light btn-sm text-muted"
-                                                href=""
-                                            >
+                                            <a class="btn"
+
+                                            ><span class="glyphicon glyphicon-comment"></span>
                                                 回复
                                             </a>
                                         {% endif %}
@@ -134,19 +135,20 @@
                                          role="dialog"
                                          aria-labelledby="CommentModalCenter"
                                          aria-hidden="true"
+                                         style="height: 600px"
                                     >
                                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                            <div class="modal-content" style="height: 480px">
+                                            <div class="modal-content" >
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalCenterTitle">回复 {{ comment.user }}：</h5>
                                                 </div>
-                                                <div class="modal-body" id="modal_body_{{ comment.id }}"></div>
+                                                <div class="modal-body" style="height: 480px" id="modal_body_{{ comment.id }}"></div>
                                             </div>
                                         </div>
                                     </div>
 
                                     {% if not comment.is_leaf_node %}
-                                        <div class="children">
+                                        <div class="children" style="border-left: 2px solid #d9d9d9;">
                                             {{ children }}
                                         </div>
                                     {% endif %}
@@ -156,10 +158,6 @@
                         {% endrecursetree %}
                     </div>
                  </div>
-
-{#                 <div id="comments">#}
-{#                      <div class="ds-thread" data-thread-key="blog{{ blog.id }}" data-title="{{ blog.title }}" data-url="/blog_detail/blog_{{ blog.id }}"></div>#}
-{#                 </div>#}
 
             </div>
         </div>

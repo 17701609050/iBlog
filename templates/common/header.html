@@ -56,21 +56,21 @@
                             <b id="likes" class="likes">{% num %}</b>
                     </li>
                     {% if request.user.username %}
-
-                            <li class="dropdown user">
-                                <a href="/logout/" rel="tooltip" data-placement="bottom" title="" data-original-title="Sign out"></span>
+                        <li class="dropdown-inverse">
+                            <a  class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span>
-                                <span id="logined_name" style="padding-left:5px;">{{ request.user.username }}</span></a>
-                            </li>
-
+                                <span id="logined_name">
+                                    {{ request.user.username }}
+                                </span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a target="_self" href="{% url 'logout' %}"> 登出</a></li>
+                            </ul>
+                        </li>
                     {% else %}
-
-                            <li>
-                                <a class="" href="/oauth/github_login/" style="height:50px;">
-                                    <img src="/static/img/github.ico"  style="margin-top: -14px">
-                                </a>
-                            </li>
-
+                        <li><a href="{% url 'login' %}" style="font-size: 16px"> 登录</a></li>
+                        <li><a href="{% url 'sign_up' %}" style="font-size: 16px"> 注册</a></li>
                     {% endif %}
                 </ul>
             </div>
