@@ -28,11 +28,9 @@ from rest_framework_jwt.views import obtain_jwt_token
 from .settings import LOCAL_APPS
 from apps.blog.sitemap import sitemaps
 from apps.blog.LatestEntriesFeed import LatestEntriesFeed
-from apps.oauth.views import github_auth
 
 import apps.blog.views as blog_views
 import views
-
 
 
 schema_view = get_schema_view(

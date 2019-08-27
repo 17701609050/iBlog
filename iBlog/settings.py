@@ -189,6 +189,11 @@ GITHUB_CLIENTSECRET = '15c2a5f79c6b75fdd1268944de733c3a74a439e5'
 # 这里是github认证处理的url,就是自己处理登陆逻辑(被坑好好久)
 GITHUB_CALLBACK = 'http://zipinglv.pythonanywhere.com/oauth/github/'
 
+# 微博第三方认证
+WEIBO_APP_ID = "3633532818"
+WEIBO_APP_KEY = "d8d1576c7b5a8340fcf78868e9b52a7b"
+WEIBO_CALLBACK = "http://zipinglv.pythonanywhere.com/oauth/weibo/"
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 SESSION_ENGINE_ALIAS = 'redis'

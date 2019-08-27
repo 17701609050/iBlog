@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import UserLoginForm, UserRegisterForm
+from ..utils.email import send_verify_email
 
 
 def user_login(request):
@@ -39,6 +40,7 @@ def user_sign_up(request):
             # 保存好数据后立即登录并返回博客列表页面
             user = authenticate(username=request.POST['username'], password=request.POST['password'])
             login(request, user)
+            # send_verify_email(user.email, 'http://zipinglx.sh.intel.com:8081')
             return redirect("/profile/")
         else:
             return HttpResponse("注册表单输入有误。请重新输入~")
@@ -53,4 +55,4 @@ def user_sign_up(request):
 # 用户退出
 def user_logout(request):
     logout(request)
-    return redirect("/")
+    return redirect("/user/login/")

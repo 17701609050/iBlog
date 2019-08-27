@@ -51,3 +51,26 @@ DATABASES = {
 # SESSION_REDIS_SENTINEL_LIST = None
 # SESSION_REDIS_SENTINEL_MASTER_ALIAS = None
 # SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+GITHUB_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
+GITHUB_CLIENTID = '173bfda13180b1bf9fb2'
+GITHUB_CLIENTSECRET = 'c262e8debfbc9f704b4d94bf40ffb52bc97683cb'
+
+# 这里是github认证处理的url,就是自己处理登陆逻辑(被坑好好久)
+GITHUB_CALLBACK = 'http://zipinglx.sh.intel.com:8081/oauth/github/'
+
+WEIBO_APP_ID = "3633532818"
+WEIBO_APP_KEY = "d8d1576c7b5a8340fcf78868e9b52a7b"
+WEIBO_CALLBACK = "http://zipinglx.sh.intel.com:8081/oauth/weibo/"
+
+
+SERVER_EMAIL = "auto-hub-site-report@intel.com"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '17701609050@163.com'
+# #在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'lzp7230823w'
+DEFAULT_FROM_EMAIL = 'auto-hub-site@intel.com'
+ROBOT_ACCOUNT_EMAIL = '17701609050@163.com'
+
