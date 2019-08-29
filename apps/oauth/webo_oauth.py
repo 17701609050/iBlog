@@ -5,8 +5,10 @@ import time
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
+from apps.user.models import Profile
 
 
 class OAuthWB:
@@ -43,16 +45,20 @@ class OAuthWB:
         return json.loads(response.text)
 
 
-def weibo_login(request):   # 跳转授权页面
+def weibo_login(request, targetUri):   # 跳转授权页面
+    request.session['targetUri'] = targetUri
     return HttpResponseRedirect(
-        'https://api.weibo.com/oauth2/authorize?client_id={0}&redirect_uri={1}'.format(settings.WEIBO_APP_ID,
-                                                                                       settings.WEIBO_CALLBACK)
+        'https://api.weibo.com/oauth2/authorize?client_id={0}&redirect_uri={1}'.format(
+            settings.WEIBO_APP_ID,
+            settings.WEIBO_CALLBACK
+            )
     )
 
 
 def webo_auth(request):
     """登录之后，会跳转到这里。需要判断code和state"""
     code = request.GET.get('code', None)
+    targetUri = request.session['targetUri']
     sina = OAuthWB(settings.WEIBO_APP_ID, settings.WEIBO_APP_KEY, settings.WEIBO_CALLBACK)
     user_info = sina.get_access_token(code)
     time.sleep(0.1)  # 防止还没请求到token就进行下一步
@@ -61,14 +67,17 @@ def webo_auth(request):
     new_user_info = sina.get_user_info(user_info)
     print new_user_info
     username = new_user_info['name']
+    profile_image_url = new_user_info.get('profile_image_url', '')
     password = '111111'
     try:
         user1 = User.objects.get(username=username)
     except:
         user2 = User.objects.create_user(username=username, password=password)
-        user2.save()
+        Profile.objects.create(head_pic_url=profile_image_url, user=user2)
 
     # 登陆认证
     user = authenticate(username=username, password=password)
     login(request, user)
+    if targetUri:
+        return redirect(targetUri)
     return HttpResponseRedirect(reverse('index'))

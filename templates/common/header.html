@@ -33,7 +33,7 @@
                     </ul>
                 </li>
                 <li><a href="/resource/"><span class="glyphicon glyphicon-share"></span>&nbsp;资源分享</a></li>
-                <li><a href="/profile/"><span class="glyphicon glyphicon-user"></span>&nbsp;关于我</a></li>
+                <li><a href="/profile/"><span class="glyphicon glyphicon-user"></span>&nbsp;关于作者</a></li>
                 <li><a href="/feed/main.xml"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;订阅</a></li>
                 <li><a href="/xadmin/"><span class="glyphicon glyphicon-cog"></span>&nbsp;管理</a></li>
 
@@ -58,13 +58,18 @@
                     {% if request.user.username %}
                         <li class="dropdown-inverse">
                             <a  class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span>
+                                {% if request.user.profile.head_pic_url %}
+                                    <img style="height: 20px;width: 20px" src="{{ request.user.profile.head_pic_url }}">
+                                {% else %}
+                                    <span class="glyphicon glyphicon-user"></span>
+                                {% endif %}
                                 <span id="logined_name">
                                     {{ request.user.username }}
                                 </span>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
+                                <li><a target="_self" href="{% url 'profile' %}"> 个人主页</a></li>
                                 <li><a target="_self" href="{% url 'logout' %}"> 登出</a></li>
                             </ul>
                         </li>

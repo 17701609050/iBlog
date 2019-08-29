@@ -3,10 +3,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import UserLoginForm, UserRegisterForm
+from apps.user.models import Profile
 from ..utils.email import send_verify_email
 
 
 def user_login(request):
+    target_uri = request.POST.get('targetUri') or request.GET.get('targetUri')
     if request.method == 'POST':
         user_login_form = UserLoginForm(data=request.POST)
         if user_login_form.is_valid():
@@ -18,6 +20,8 @@ def user_login(request):
             if user:
                 # 将用户数据保存在 session 中，即实现了登录动作
                 login(request, user)
+                if target_uri:
+                    return redirect(target_uri)
                 return redirect("/profile/")
             else:
                 return HttpResponse("账号或密码输入有误。请重新输入~")
@@ -26,6 +30,8 @@ def user_login(request):
     elif request.method == 'GET':
         user_login_form = UserLoginForm()
         context = {'form': user_login_form}
+        if target_uri:
+            context.update({'targetUri': target_uri})
         return render(request, 'common/login.html', context)
 
 
@@ -56,3 +62,9 @@ def user_sign_up(request):
 def user_logout(request):
     logout(request)
     return redirect("/user/login/")
+
+
+def profile(request):
+    pro_file = Profile.objects.get(user=request.user)
+    profile_tags = pro_file.tags.all()
+    return render(request, 'common/profile.html', {'profile': pro_file, 'profile_tags': profile_tags})

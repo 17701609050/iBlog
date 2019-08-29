@@ -4,10 +4,11 @@ import urllib2
 import json
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from apps.user.models import Profile
 
 
 GITHUB_CLIENTID = settings.GITHUB_CLIENTID
@@ -25,11 +26,11 @@ def _get_refer_url(request):
 
 
 # 第一步: 请求github第三方登录
-def githhub_login(request):
+def githhub_login(request, targetUri):
     data = {
         'client_id': GITHUB_CLIENTID,
         'client_secret': GITHUB_CLIENTSECRET,
-        'redirect_uri': GITHUB_CALLBACK,
+        'redirect_uri': GITHUB_CALLBACK+'?targetUri={}'.format(targetUri),
         'state': _get_refer_url(request),
     }
 
@@ -47,6 +48,7 @@ def github_auth(request):
         return render(request, template_html)
 
     code = request.GET.get('code')
+    targetUri = request.GET.get('targetUri')
 
     # 第二步
     # 将得到的code，通过下面的url请求得到access_token
@@ -82,17 +84,17 @@ def github_auth(request):
     username = data['name']
     # print('username:', username)
     password = '111111'
-
+    profile_image_url = data.get('avatar_url', '')
     # 如果不存在username，则创建
     try:
-        user1 = User.objects.get(username=username)
+        user = User.objects.get(username=username)
     except:
         user2 = User.objects.create_user(username=username, password=password)
-        user2.save()
-        # profile = User.objects.create(user=user2)
-        # profile.save()
+        Profile.objects.create(head_pic_url=profile_image_url, user=user2)
 
     # 登陆认证
     user = authenticate(username=username, password=password)
     login(request, user)
+    if targetUri:
+        return redirect(targetUri)
     return HttpResponseRedirect(reverse('index'))

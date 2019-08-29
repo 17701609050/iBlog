@@ -120,9 +120,8 @@
                                                 回复
                                             </a>
                                         {% else %}
-                                            <a class="btn"
-
-                                            ><span class="glyphicon glyphicon-comment"></span>
+                                            <a class="btn" href="/user/login?targetUri={{ request.build_absolute_uri }}">
+                                                <span class="glyphicon glyphicon-comment"></span>
                                                 回复
                                             </a>
                                         {% endif %}

@@ -63,6 +63,7 @@ THIRD_PARTY_APPS = (
 API_APPS = (
     'apps.blog',
     'apps.resource',
+    'apps.user',
     'apps.rest',
 )
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + API_APPS
@@ -72,6 +73,8 @@ APPS_DIR = os.path.join(BASE_DIR, 'apps')
 UNINSTALL_APPS = ()
 LOCAL_APPS = [o for o in os.listdir(APPS_DIR) if os.path.isdir(os.path.join(APPS_DIR, o)) and
               not o.startswith('.') and o not in UNINSTALL_APPS]
+
+# AUTH_PROFILE_MODULE = 'user.Profile'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
