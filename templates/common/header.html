@@ -22,15 +22,15 @@
                 {% else %}
                     <li><a href="/"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
                 {% endif %}
-                <li class="dropdown-inverse">
-                    <a  class="dropdown-toggle" data-toggle="dropdown"><span
-                            class="glyphicon glyphicon-pencil"></span>&nbsp;博客<b class="caret"></b>
+                <li>
+                    <a href="/blog/study/">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;博客
                     </a>
-                    <ul class="dropdown-menu">
-                        {% for cate in category1 %}
-                            <li><a href="/blog/{{ cate.category_1 }}/">{{ cate.display_name }}</a></li>
-                        {% endfor %}
-                    </ul>
+{#                    <ul class="dropdown-menu">#}
+{#                        {% for cate in category1 %}#}
+{#                            <li><a href="/blog/{{ cate.category_1 }}/">{{ cate.display_name }}</a></li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
                 </li>
                 <li><a href="/resource/"><span class="glyphicon glyphicon-share"></span>&nbsp;资源分享</a></li>
                 <li><a href="/profile/"><span class="glyphicon glyphicon-user"></span>&nbsp;关于作者</a></li>
