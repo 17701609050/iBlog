@@ -23,7 +23,7 @@
                     <li><a href="/"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
                 {% endif %}
                 <li>
-                    <a href="/blog/study/">
+                    <a href="/blog/all/">
                         <span class="glyphicon glyphicon-pencil"></span>&nbsp;博客
                     </a>
 {#                    <ul class="dropdown-menu">#}
@@ -37,48 +37,45 @@
                 <li><a href="/feed/main.xml"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;订阅</a></li>
                 <li><a href="/xadmin/"><span class="glyphicon glyphicon-cog"></span>&nbsp;管理</a></li>
 
-                <div role="search" id="zh-top-search" class="zu-top-search" style="position: relative;float: left;margin: 7px 0 0 12px;">
+                <li role="search" id="zh-top-search" class="zu-top-search" style="position: relative;float: left;margin: 7px 0 0 12px;">
                     <form method="GET" action="{% url 'search' %}" id="zh-top-search-form" class="zu-top-search-form" style="position: relative;width: 367px;">
                         <input type="text" class="zu-top-search-input" id="q" name="q" autocomplete="off" value="{{  search_key }}" maxlength="100" placeholder="搜索你感兴趣的内容..." role="combobox" aria-autocomplete="list">
                         <button type="submit" class="zu-top-search-button">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                     </form>
-                </div>
+                </li>
+                <li>
+                    {% csrf_token %}
+                    &nbsp;&nbsp;&nbsp;
+
+                    <img class="dianzan" src="/static/img/dianzan.png">
+                    <b id="likes" class="likes">{% num %}</b>
+                </li>
+                {% if request.user.username %}
+                    <li class="dropdown-inverse">
+                        <a  class="dropdown-toggle" data-toggle="dropdown">
+                            {% if request.user.profile.head_pic_url %}
+                                <img style="height: 20px;width: 20px" src="{{ request.user.profile.head_pic_url }}">
+                            {% else %}
+                                <span class="glyphicon glyphicon-user"></span>
+                            {% endif %}
+                            <span id="logined_name">
+                                {{ request.user.username }}
+                            </span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a target="_self" href="{% url 'profile' %}"> 个人主页</a></li>
+                            <li><a target="_self" href="{% url 'logout' %}"> 登出</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" style="font-size: 16px"> 登录</a></li>
+                    <li><a href="{% url 'sign_up' %}" style="font-size: 16px"> 注册</a></li>
+                {% endif %}
             </ul>
 
-
-            <div style="float: right">
-                <ul class="nav navbar-nav">
-                    <li>
-                            {% csrf_token %}
-                            <img class="dianzan" src="/static/img/dianzan.png">
-                            <b id="likes" class="likes">{% num %}</b>
-                    </li>
-                    {% if request.user.username %}
-                        <li class="dropdown-inverse">
-                            <a  class="dropdown-toggle" data-toggle="dropdown">
-                                {% if request.user.profile.head_pic_url %}
-                                    <img style="height: 20px;width: 20px" src="{{ request.user.profile.head_pic_url }}">
-                                {% else %}
-                                    <span class="glyphicon glyphicon-user"></span>
-                                {% endif %}
-                                <span id="logined_name">
-                                    {{ request.user.username }}
-                                </span>
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a target="_self" href="{% url 'profile' %}"> 个人主页</a></li>
-                                <li><a target="_self" href="{% url 'logout' %}"> 登出</a></li>
-                            </ul>
-                        </li>
-                    {% else %}
-                        <li><a href="{% url 'login' %}" style="font-size: 16px"> 登录</a></li>
-                        <li><a href="{% url 'sign_up' %}" style="font-size: 16px"> 注册</a></li>
-                    {% endif %}
-                </ul>
-            </div>
         </div>
     </div>
 </nav>

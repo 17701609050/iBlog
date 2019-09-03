@@ -8,17 +8,18 @@
 {% load blog_tags %}
 
 {% block content %}
-    <div class="row" >
-        {% include "common/sowing_map.html" %}
-    </div>
+{#    <div class="row" >#}
+{#        {% include "common/sowing_map.html" %}#}
+{#    </div>#}
     <div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-10 col-md-offset-1 col-sm-12 hidden-xs remove_padding">
             {% block navibar %}
-            <nav class="navbar" style="background: #169fe6" role="navigation" id="navibar">
+            <nav class="navbar" style="" role="navigation" id="navibar">
                 <ul class="nav navbar-nav">
+                    <li><a href="/blog/all/" style="">全部</a></li>
                     {% for cate in category1 %}
-                        <li><a href="/blog/{{ cate.category_1 }}/" style="color: #fff">{{ cate.display_name }}</a></li>
+                        <li><a href="/blog/{{ cate.category_1 }}/" style="">{{ cate.display_name }}</a></li>
                     {% endfor %}
                   </ul>
             </nav>

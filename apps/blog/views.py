@@ -35,11 +35,14 @@ def blog_index(request, blog_url):
     cate2 = request.GET.get("cate2", "")
     # 获取categoty1的所有分类,过滤出cate1的blog
     category1 = [cate1 for cate1 in Category1.objects.order_by('add_time')]
-    cate1 = Category1.objects.get(category_1=blog_url)
-    blogs_list = Blog.objects.filter(category1=cate1)
-
-    # 过滤出cate2的blog
-    category2 = Category2.objects.filter(category1_id=cate1)
+    if blog_url == 'all':
+        blogs_list = Blog.objects.all()
+        category2 = Category2.objects.all()
+    else:
+        cate1 = Category1.objects.get(category_1=blog_url)
+        blogs_list = Blog.objects.filter(category1=cate1)
+        # 过滤出cate2的blog
+        category2 = Category2.objects.filter(category1_id=cate1)
     if cate2:
         _category2 = category2.filter(category_2=cate2)
         blogs_list = blogs_list.filter(category2=_category2)

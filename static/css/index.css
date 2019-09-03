@@ -1,15 +1,19 @@
 #topnavibar{
 	color: #fff;
 }
+#headerMenu{
+	margin: 0px auto;
+	width: 1160px;
+	float: none;
+}
 #navibar{
 	width: 100%;
-	filter:alpha(opacity=90);
-	-moz-opacity:0.9;
-	-khtml-opacity: 0.9;
 	opacity: 0.9;
 	border: none;
 	border-radius: 0px;
 	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .likes{
@@ -18,7 +22,7 @@
 .dianzan {
     width: 35px;
     height: 35px;
-	margin-top: 8px;
+	margin-top: 4px;
     text-align: center;
     cursor: pointer;
 }
@@ -81,7 +85,9 @@
 .navbar-inverse .navbar-nav>li>a {
      color: #fff;
 }
-
+#navbar li>a {
+	color: #000000;
+}
 /*.pagination li a{*/
 	/*background-color: rgba(34,34,34,0.9);*/
 	/*color: #dddddd;*/
@@ -608,9 +614,9 @@
 @media (min-width: 1120px) {
 	.blog_list{
 	width: 100%;
-	padding:1.5rem 1.5rem 1.5rem 1rem;
+	padding:1.0rem 1.0rem 1.0rem 1rem;
 	background-color: #fff;
-	margin-bottom: 1em;
+	margin-bottom: 5px;
 	vertical-align: middle;
 	}
 
@@ -625,7 +631,7 @@
 	}
 
 	.blog_list:hover{
-		background-color: #3b97d7;
+		background-color: #eeeeee;
 		border-left: 4px solid #3366cc;
 	}
 
@@ -640,9 +646,11 @@
 	}
 
 	.blog_title h2{
-		width: 100%;
-		font-size: 1.475rem;
-		font-size: 22px;
+		/*width: 100%;*/
+		font-size: 1.2rem;
+		font-weight: 600;
+		line-height: 1.2;
+		color: #2e3135;
 	}
 
 	.blog_img{

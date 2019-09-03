@@ -65,3 +65,4 @@ urlpatterns += [
 for app in LOCAL_APPS:
     urlpatterns += [url(r'^{0}/'.format(app), include('apps.' + app + '.urls')), ]  # without namespace
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
