@@ -48,14 +48,14 @@
             <div id="right_column">
 
                 <div class="sidebar-block">
-                    <h3 class="catListTitle"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;最近发表</h3>
+                    <h3 class="catListTitle"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;最新更新</h3>
 
                     <div style="border: 1px solid #dedede;">
-                        <ol style="">
+                        <ul style="">
                             {% for blog in obj_latest %}
                                 <li><a href="{% url 'blog_detail' blog|get_value:'id' %} " target=_blank>{{ blog|get_value:'title' }}</a></li>
                             {% endfor %}
-                        </ol>
+                        </ul>
                     </div>
                 </div>
 

@@ -26,29 +26,13 @@
     text-align: center;
     cursor: pointer;
 }
-/*#head_img{*/
-	/*width: 100%;*/
-	/*overflow: hidden;*/
-	/*vertical-align: middle;*/
-	/*margin-top: 50px;*/
-/*}*/
-
-
-/*#head_img img{*/
-	/*width:100%;*/
-	/*height: 100%;*/
-/*}*/
-
-
-/*@media \0screen\,screen\9*/
-/*.blog_list{*/
-	/*background-color: #333;*/
-	/*filter:alpha(opacity=90);*/
-	/*position: static;*/
-	/**zoom:1;*/
-/*}*/
-
-
+.userImg {
+	border-radius: 50%;
+	width: 32px;
+	height: 32px;
+	background-repeat: no-repeat;
+	background-color: #eee;
+}
 /*
 * blog列表
 */
@@ -83,7 +67,10 @@
 }
 
 .navbar-inverse .navbar-nav>li>a {
-     color: #fff;
+	color: #fff;
+	padding-top: 10px;
+	padding-bottom: 8px;
+	line-height: 30px;
 }
 #navbar li>a {
 	color: #000000;

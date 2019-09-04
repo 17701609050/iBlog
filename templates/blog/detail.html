@@ -87,44 +87,46 @@
                                             col-12
                                             {% endif %}"
                                     id="comment_elem_{{ comment.id }}"
-                                     style="margin: 10px;border-bottom: 1px dashed  #d9d9d9;"
+                                     style=""
                                 >
 {#                                    <hr>#}
-                                    <p>
+                                    <span>
                                         <strong style="color: #3194d0">
-                                            {{ comment.user }}
+                                         <img class="userImg"
+                                              src="{{ comment.user.profile.head_pic_url }}"> {{ comment.user }}
                                         </strong>
 
                                         <!-- 显示被回复人 -->
                                         {% if comment.reply_to %}
-                                            ：@
+                                            回复
                                             <strong style="color: #3194d0">
                                                 {{ comment.reply_to }}
                                             </strong>
                                         {% endif %}
 
-                                    </p>
-                                    <div>{{ comment.body|safe }}</div>
+                                    </span>
+                                    <div style="margin-left: 35px">{{ comment.body|safe }}</div>
 
                                     <div>
-                                        <span style="color: gray">
+                                        <p style="margin-left: 35px;color: gray">
                                             {{ comment.created|date:"Y-m-d H:i" }}
-                                        </span>
 
-                                        <!-- 加载 modal 的按钮 -->
-                                        {% if user.is_authenticated %}
+                                            <!-- 加载 modal 的按钮 -->
+                                            {% if user.is_authenticated %}
 
-                                            <a class="btn"
-                                                    onclick="load_modal({{ blog.id }}, {{ comment.id }})"
-                                            ><span class="glyphicon glyphicon-comment"></span>
-                                                回复
-                                            </a>
-                                        {% else %}
-                                            <a class="btn" href="/user/login?targetUri={{ request.build_absolute_uri }}">
-                                                <span class="glyphicon glyphicon-comment"></span>
-                                                回复
-                                            </a>
-                                        {% endif %}
+                                                <a class="btn"
+                                                        onclick="load_modal({{ blog.id }}, {{ comment.id }})"
+                                                ><span class="glyphicon glyphicon-comment"></span>
+                                                    回复
+                                                </a>
+                                            {% else %}
+                                                <a class="btn" href="/user/login?targetUri={{ request.build_absolute_uri }}">
+                                                    <span class="glyphicon glyphicon-comment"></span>
+                                                    回复
+                                                </a>
+                                            {% endif %}
+                                        </p>
+
                                     </div>
 
                                     <!-- Modal -->
@@ -147,7 +149,7 @@
                                     </div>
 
                                     {% if not comment.is_leaf_node %}
-                                        <div class="children" style="border-left: 2px solid #d9d9d9;">
+                                        <div class="children" style="">
                                             {{ children }}
                                         </div>
                                     {% endif %}

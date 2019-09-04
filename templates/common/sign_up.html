@@ -22,22 +22,26 @@
                         <fieldset>
                             <div class="form-group">
                                 <label for="username">用户名</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
+                                <input type="text" class="form-control" id="username" name="username" required value="{{ form.data.username }}" />
+                                <p style="color: red">{{ error_msg.username }}</p>
                             </div>
                             <!-- 邮箱 -->
                             <div class="form-group">
                                 <label for="email">邮箱</label>
-                                <input type="text" class="form-control" id="email" name="email">
+                                <input type="text" class="form-control" id="email" name="email" value="{{ form.data.email }}" />
+                                <p style="color: red">{{ error_msg.email }}</p>
                             </div>
                             <!-- 密码 -->
                             <div class="form-group">
                                 <label for="password">设置密码</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control" id="password" name="password" required value="{{ form.data.password }}" />
+                                <p style="color: red">{{ error_msg.password }}</p>
                             </div>
                             <!-- 确认密码 -->
                             <div class="form-group">
                                 <label for="password2">确认密码</label>
-                                <input type="password" class="form-control" id="password2" name="password2" required>
+                                <input type="password" class="form-control" id="password2" name="password2" required value="{{ form.data.password2 }}" />
+                                <p style="color: red">{{ error_msg.password2 }}</p>
                             </div>
                             <!-- 提交按钮 -->
                             <div class="submit">

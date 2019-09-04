@@ -215,6 +215,9 @@ def post_comment(request, blog_id, parent_comment_id=None):
     # 处理 POST 请求
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
+        if not request.user.username:
+            redirect_url = '/user/login/?targetUri=/blog/blog_detail/blog_'+blog_id
+            return redirect(redirect_url)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.article = article

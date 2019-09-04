@@ -43,7 +43,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^xadmin/', include(xadmin.site.urls)),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
-    url(r'^favicon.ico$', RedirectView.as_view(url='/static/img/favicon-defalt.ico',  permanent=True)),
+    url(r'^favicon.ico$', RedirectView.as_view(url='/static/img/favicon.ico',  permanent=True)),
     url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}),
     url(r'^feed/main\.xml$', LatestEntriesFeed()),

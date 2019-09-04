@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import uuid
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.db import transaction
 from django.contrib.auth import authenticate, login, logout
 from .forms import UserLoginForm, UserRegisterForm
 from apps.user.models import Profile
@@ -22,11 +25,9 @@ def user_login(request):
                 login(request, user)
                 if target_uri:
                     return redirect(target_uri)
-                return redirect("/profile/")
+                return redirect("/blog/all/")
             else:
-                return HttpResponse("账号或密码输入有误。请重新输入~")
-        else:
-            return HttpResponse("账号或密码输入不合法")
+                return render(request, 'common/login.html', {'form': user_login_form, 'error_msg': '用户名或密码错误'})
     elif request.method == 'GET':
         user_login_form = UserLoginForm()
         context = {'form': user_login_form}
@@ -38,22 +39,26 @@ def user_login(request):
 def user_sign_up(request):
     if request.method == 'POST':
         user_register_form = UserRegisterForm(data=request.POST)
+        context = {'form': user_register_form}
         if user_register_form.is_valid():
-            new_user = user_register_form.save(commit=False)
-            # 设置密码
-            new_user.set_password(user_register_form.cleaned_data['password'])
-            new_user.save()
+            username = user_register_form.cleaned_data['username']
+            email = user_register_form.cleaned_data['email']
+            password = user_register_form.cleaned_data['password2']
+            with transaction.atomic():
+                new_user = User.objects.create_user(username=username, email=email, password=password)
+                uid = ''.join(str(uuid.uuid4()).split('-'))
+                Profile.objects.create(user=new_user, uid=uid)
             # 保存好数据后立即登录并返回博客列表页面
             user = authenticate(username=request.POST['username'], password=request.POST['password'])
             login(request, user)
             # send_verify_email(user.email, 'http://zipinglx.sh.intel.com:8081')
-            return redirect("/profile/")
+            return redirect("/user/profile/{}/".format(uid))
         else:
-            return HttpResponse("注册表单输入有误。请重新输入~")
+            context['error_msg'] = user_register_form.errors
+            return render(request, 'common/sign_up.html', context)
     elif request.method == 'GET':
         user_register_form = UserRegisterForm()
-        context = {'form': user_register_form}
-        return render(request, 'common/sign_up.html', context)
+        return render(request, 'common/sign_up.html', {'form': user_register_form})
     else:
         return HttpResponse("请使用GET或POST请求数据")
 
@@ -64,7 +69,7 @@ def user_logout(request):
     return redirect("/user/login/")
 
 
-def profile(request):
-    pro_file = Profile.objects.get(user=request.user)
+def profile(request, uid):
+    pro_file = Profile.objects.get(uid=uid)
     profile_tags = pro_file.tags.all()
     return render(request, 'common/profile.html', {'profile': pro_file, 'profile_tags': profile_tags})
