@@ -2,6 +2,7 @@
 import requests
 import json
 import time
+import uuid
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -67,13 +68,14 @@ def webo_auth(request):
     new_user_info = sina.get_user_info(user_info)
     print new_user_info
     username = new_user_info['name']
-    profile_image_url = new_user_info.get('profile_image_url', '')
+    profile_image_url = new_user_info.get('avatar_large', '')
     password = '111111'
     try:
         user1 = User.objects.get(username=username)
     except:
         user2 = User.objects.create_user(username=username, password=password)
-        Profile.objects.create(head_pic_url=profile_image_url, user=user2)
+        uid = ''.join(str(uuid.uuid4()).split('-'))
+        Profile.objects.create(head_pic_url=profile_image_url, user=user2, uid=uid)
 
     # 登陆认证
     user = authenticate(username=username, password=password)

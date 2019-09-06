@@ -2,6 +2,7 @@
 import requests
 import json
 import time
+import uuid
 import urllib, urllib2, urlparse
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -93,13 +94,14 @@ def qq_auth(request):  # 第三方QQ登录，回调函数
     infos = oauth_qq.get_qq_info()
     print infos
     username = infos['nickname']
-    # profile_image_url = infos.get('profile_image_url', '')
+    profile_image_url = infos.get('figureurl_qq', '')
     password = '111111'
     try:
         user1 = User.objects.get(username=username)
     except:
         user2 = User.objects.create_user(username=username, password=password)
-        Profile.objects.create(user=user2)
+        uid = ''.join(str(uuid.uuid4()).split('-'))
+        Profile.objects.create(head_pic_url=profile_image_url, user=user2, uid=uid)
 
         # 登陆认证
     user = authenticate(username=username, password=password)

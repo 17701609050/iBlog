@@ -2,6 +2,7 @@
 import urllib
 import urllib2
 import json
+import uuid
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -90,7 +91,8 @@ def github_auth(request):
         user = User.objects.get(username=username)
     except:
         user2 = User.objects.create_user(username=username, password=password)
-        Profile.objects.create(head_pic_url=profile_image_url, user=user2)
+        uid = ''.join(str(uuid.uuid4()).split('-'))
+        Profile.objects.create(head_pic_url=profile_image_url, user=user2, uid=uid)
 
     # 登陆认证
     user = authenticate(username=username, password=password)
