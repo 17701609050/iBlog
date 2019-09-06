@@ -212,14 +212,14 @@ def get_current_host_ip():
         s.close()
     return ip
 print get_current_host_ip()
-if get_current_host_ip() == '10.239.144.223':  # '47.103.28.249'
+if get_current_host_ip() == '172.19.232.246':  # '47.103.28.249'
     GITHUB_CLIENTID = '1974fa4300940b35ea71'
     GITHUB_CLIENTSECRET = '44cc84e8b7d4d5282aa5577f3aafd75e8b2d3407'
-    GITHUB_CALLBACK = 'http://zipinglv.club/oauth/github/'
+    GITHUB_CALLBACK = 'http://www.zipinglv.club/oauth/github/'
 
     WEIBO_APP_ID = "841152038"
     WEIBO_APP_KEY = "da0e6fb4eafc3b6a76c9662b2066d7ff"
-    WEIBO_CALLBACK = 'http://zipinglv.club/oauth/weibo/'
+    WEIBO_CALLBACK = 'http://www.zipinglv.club/oauth/weibo/'
 
     QQ_APP_ID = '101782337'
     QQ_KEY = '7c676a72bbd3913a82820007d81df9d9'
