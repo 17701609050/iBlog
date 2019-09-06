@@ -15,6 +15,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 import datetime
 import sys
+import socket
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -196,6 +197,33 @@ GITHUB_CALLBACK = 'http://zipinglv.pythonanywhere.com/oauth/github/'
 WEIBO_APP_ID = "3633532818"
 WEIBO_APP_KEY = "d8d1576c7b5a8340fcf78868e9b52a7b"
 WEIBO_CALLBACK = "http://zipinglv.pythonanywhere.com/oauth/weibo/"
+
+QQ_APP_ID = '101780430'
+QQ_KEY = '8eb5176485d562275b7b83bf4d37d1d3'
+QQ_RECALL_URL = 'https://zipinglv.pythonanywhere.com/oauth/qq'
+
+
+def get_current_host_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
+print get_current_host_ip()
+if get_current_host_ip() == '10.239.144.223':  # '47.103.28.249'
+    GITHUB_CLIENTID = '1974fa4300940b35ea71'
+    GITHUB_CLIENTSECRET = '44cc84e8b7d4d5282aa5577f3aafd75e8b2d3407'
+    GITHUB_CALLBACK = 'http://zipinglv.club/oauth/github/'
+
+    WEIBO_APP_ID = "841152038"
+    WEIBO_APP_KEY = "da0e6fb4eafc3b6a76c9662b2066d7ff"
+    WEIBO_CALLBACK = 'http://zipinglv.club/oauth/weibo/'
+
+    QQ_APP_ID = '101782337'
+    QQ_KEY = '7c676a72bbd3913a82820007d81df9d9'
+    QQ_RECALL_URL = 'http://www.zipinglv.club/oauth/qq'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

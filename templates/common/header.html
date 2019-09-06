@@ -60,8 +60,8 @@
                             {% else %}
                                 <span class="glyphicon glyphicon-user"></span>
                             {% endif %}
-                            <span id="logined_name">
-                                {{ request.user.username }}
+                            <span id="logined_name" title="{{ request.user.username }}">
+                                {{ request.user.username|truncatechars_html:10 }}
                             </span>
                             <b class="caret"></b>
                         </a>

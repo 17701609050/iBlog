@@ -48,13 +48,13 @@ hr{
 }
 
 #content a:link{
-	color: #bbbbbb;
-	text-decoration: underline;
+	/*color: #bbbbbb;*/
+	/*text-decoration: underline;*/
 }
 
 #content a:visited{
-	color: #dddddd;
-	text-decoration: underline;
+	/*color: #dddddd;*/
+	/*text-decoration: underline;*/
 }
 
 #content a:hover{

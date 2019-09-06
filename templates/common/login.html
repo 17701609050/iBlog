@@ -44,7 +44,7 @@
                                     </li>
                                     <li><a class="weibo" href="{% url 'weibo_login' targetUri %}"><i class="iconfont ic-weibo"></i></a></li>
                                     <li><a id="weixin" class="weixin" target="_blank" href="/users/auth/wechat"><i class="iconfont ic-wechat"></i></a></li>
-                                    <li><a id="qq" class="qq" target="_blank" href="/users/auth/qq_connect"><i class="iconfont ic-qq_connect"></i></a></li>
+                                    <li><a id="qq" class="qq" target="_blank" href="{% url 'qq_login' targetUri %}"><i class="iconfont ic-qq_connect"></i></a></li>
                                 </ul>
 
                             <div class="weibo-geetest-captcha"></div>

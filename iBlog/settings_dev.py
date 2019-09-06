@@ -58,10 +58,15 @@ GITHUB_CLIENTSECRET = 'c262e8debfbc9f704b4d94bf40ffb52bc97683cb'
 # 这里是github认证处理的url,就是自己处理登陆逻辑(被坑好好久)
 GITHUB_CALLBACK = 'http://zipinglx.sh.intel.com:8081/oauth/github/'
 
-WEIBO_APP_ID = "3633532818"
-WEIBO_APP_KEY = "d8d1576c7b5a8340fcf78868e9b52a7b"
+WEIBO_APP_ID = "4084172258"
+WEIBO_APP_KEY = "634304cdff7b812ebffd4fb53cf811eb"
 WEIBO_CALLBACK = "http://zipinglx.sh.intel.com:8081/oauth/weibo/"
 
+
+# OAuth设置
+QQ_APP_ID = '101780430'
+QQ_KEY = '8eb5176485d562275b7b83bf4d37d1d3'
+QQ_RECALL_URL = 'https://zipinglv.pythonanywhere.com/oauth/qq'
 
 SERVER_EMAIL = "auto-hub-site-report@intel.com"
 
