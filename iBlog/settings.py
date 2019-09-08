@@ -66,6 +66,7 @@ API_APPS = (
     'apps.resource',
     'apps.user',
     'apps.rest',
+    'apps.movie',
 )
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + API_APPS
 
