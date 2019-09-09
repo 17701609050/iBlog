@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^generatemoviehistory', views.generatemoviehistory, name='generatemoviehistory'),
     url(r'^searchmovie/$', views.searchmovie,name='searchmovie'),
     url(r'^addmovie/$', views.addmovie, name='addmovie'),
+    url(r'^movie-detail/(?P<id>\w+)/$', views.movie_detail, name='movie_detail'),
 ]

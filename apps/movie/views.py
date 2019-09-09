@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .service import movie_service
 # Create your views here.
 
 
@@ -62,7 +63,10 @@ def getmovielist(request):
         page_range=paginator.page_range[page-after_range_num:page+before_range_num]
     else:
         page_range = paginator.page_range[0:int(page)+before_range_num]
-    return render(request,'movie/allfilms.html', locals())
+    movie_cate = movie_service.movie_cate
+    movie_country = movie_service.movie_country
+    movie_time = movie_service.movie_time
+    return render(request, 'movie/allfilms.html', locals())
 
 # 获得最新的电影列表
 def getlatestmovielist(request):
@@ -225,6 +229,10 @@ def addmovie(request):
             messages.add_message(request,messages.SUCCESS,u'电影添加成功.')
     else:
         form = MovieInfoForm();
-    return render(request,'webuser/addmovie.html',{'form':form})
+    return render(request, 'webuser/addmovie.html',{'form':form})
 
+
+def movie_detail(request, id):
+    movie = Movie.objects.get(pk=id)
+    return render(request, 'movie/movieDetail.html', {'movie': movie, 'movie_cate': movie_service.movie_cate})
 

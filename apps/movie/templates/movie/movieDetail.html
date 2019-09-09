@@ -1,0 +1,125 @@
+{% extends "common/base.html" %}
+{% block content %}
+<style>
+    .children{
+        margin-left: 40px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-10 col-md-offset-1 col-sm-12 remove_padding">
+            <div id="content">
+                <h1>{{ movie.moviename }}</h1>
+                <h5 class="blog_info">
+                    {{ movie.dateyear}}&nbsp;&nbsp;<span class="play"></span>阅读量: {{ movie.doubancounter }}
+                </h5>
+                <div class="bdsharebuttonbox">
+                    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+                    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+                    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+                    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友">QQ好友</a>
+                </div>
+                <script>
+                    window._bd_share_config={
+                        "common":{
+                            "bdSnsKey":{},
+                            "bdText":"分享 文章 「 {{ blog.title}} 」 ",
+                            "bdMini":"2",
+                            "bdMiniList":false,
+                            "bdPic":"",
+                            "bdStyle":"1",
+                            "bdSize":"16"
+                        },
+                        "share":{"bdSize":16}};
+                    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='' +
+                        'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                </script>
+
+                <h5 class="tag">
+                    <span class="glyphicon glyphicon-tags" ></span>&nbsp;
+    {#                           {% for tag in blog_tags %}#}
+                    <a href="" class="tag_link"><span class="label">{{ movie.style }}</span></a>&nbsp;&nbsp;
+    {#                           {% endfor %}#}
+                </h5>
+                <div id="">
+                    <img src="/media/img/{{ movie.image }}">
+                </div>
+                <br/>
+
+                <p><span class="">电影年份：{{ movie.dateyear }}</span></p>&nbsp;&nbsp;
+                <p><span class="">豆瓣评分：{{ movie.doubanscore }}
+                    {% if movie.doubanlink %}
+                        (<a target="_blank" href="{{ movie.doubanlink }}">豆瓣链接</a>)
+                    {% endif %}
+                </span></p>&nbsp;&nbsp;
+                <p><span class="">IMDB评分：
+                    {% if movie.imdbscore %}{{ movie.imdbscore }}{% endif %}
+                    {% if movie.imdblink %}(<a target="_blank" href="{{ movie.imdblink }}">IMDB链接</a>){% endif %}
+                </span></p>&nbsp;&nbsp;
+                <p><span class="">演员表：{{ movie.actor }}</span></p>&nbsp;&nbsp;
+                <p><span class="">电影类型：{{ movie.style }}</span></p>&nbsp;&nbsp;
+
+                {% if movie.dyttdetail %}{{ movie.dyttdetail|safe }}{% endif %}
+
+                <p><span class="">下载地址：
+                    {% if movie.movieaddress %}
+                        <a href="{{ movie.movieaddress }}">{{ movie.movieaddress }}</a>
+                    {% else %}
+                        暂不支持下载
+                    {% endif %}
+                </span></p>&nbsp;&nbsp;
+                <div>
+                    <form
+                        action="/blog/post-comment/{{ blog.id }}/"
+                        method="POST"
+                    >
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="body">
+                                <strong>
+                                    说点什么吧：
+                                </strong>
+                            </label>
+                            <div>
+                                {{ comment_form.media }}
+                                {{ comment_form.body }}
+                            </div>
+                        </div>
+                            <!-- 提交按钮 -->
+                        <button type="submit" class="btn btn-primary ">发送</button>
+                    </form>
+                </div>
+            <br>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function load_modal(article_id, comment_id) {
+        var modal_body = '#modal_body_' + comment_id;
+        var modal_id = '#comment_' + comment_id;
+
+        // 加载编辑器
+        if ($(modal_body).children().length === 0) {
+            var content = '<iframe src="/blog/post-comment/' +
+                article_id +
+                '/' +
+                comment_id +
+                '" frameborder="0" style="width: 100%; height: 100%;"></iframe>';
+            $(modal_body).append(content);
+        };
+
+        $(modal_id).modal('show');
+    };
+
+    // 处理二级回复
+    function post_reply_and_show_it(new_comment_id) {
+        var next_url = "/blog/blog_detail/blog_"+ {{ blog.id }};
+        // 去除 url 尾部 '/' 符号
+        next_url = next_url.charAt(next_url.length - 1) == '/' ? next_url.slice(0, -1) : next_url;
+        // 刷新并定位到锚点
+        window.location.replace(next_url + "#comment_elem_" + new_comment_id);
+    };
+</script>
+{% endblock %}
