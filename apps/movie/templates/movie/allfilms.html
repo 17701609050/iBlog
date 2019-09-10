@@ -68,7 +68,7 @@
                                             <span class="glyphicon glyphicon-star havesee"></span>
                                             <div class="post-thumbnail">
                                             <a href="#" class="inimg" target="_blank" title="{{movie.moviename}}">
-                                                <img src="/media/img/{{movie.image}}" alt="{{movie.moviename}}"/>
+                                                <img src="/media/movie/{{movie.image}}" alt="{{movie.moviename}}"/>
 
                                             </a>
                                                 <div class="img_title" style="display:none">
@@ -124,22 +124,22 @@
                         </ul>
 
                       <!--分页符开始-->
-                        <nav class="movieList_page">
+                        <ul class="pagination">
                             {% if movielist.has_previous %}
-                                <a href="?page={{ movielist.previous_page_number }}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="下一页">上一页</a>&nbsp;
+                                <li><a href="?page={{ movielist.previous_page_number }}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="下一页">上一页</a></li>&nbsp;
                             {% endif %}
                             {% for p in page_range %}
                                 {% ifequal p movielist.number %}
-                                    <span>{{p}}</span>
+                                    <li class="active"><a>{{p}}</a></li>
                                 {% else %}
-                                    <a href="?page={{p}}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="第{{p}}页">{{p}}</a>
+                                    <li><a href="?page={{p}}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="第{{p}}页">{{p}}</a></li>
                                 {% endifequal %}
                             {% endfor %}
 
                             {% if movielist.has_next %}
-                                <a href="?page={{ movielist.next_page_number }}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="下一页">下一页</a>;
+                                <li><a href="?page={{ movielist.next_page_number }}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="下一页">下一页</a></li>
                             {% endif %}
-                        </nav>
+                        </ul>
                         <!--分页符结束-->
                     </div>
              </div>

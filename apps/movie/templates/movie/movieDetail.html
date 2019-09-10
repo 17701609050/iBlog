@@ -43,7 +43,7 @@
     {#                           {% endfor %}#}
                 </h5>
                 <div id="">
-                    <img src="/media/img/{{ movie.image }}">
+                    <img src="/media/{{ movie.image }}">
                 </div>
                 <br/>
 
@@ -59,9 +59,10 @@
                 </span></p>&nbsp;&nbsp;
                 <p><span class="">演员表：{{ movie.actor }}</span></p>&nbsp;&nbsp;
                 <p><span class="">电影类型：{{ movie.style }}</span></p>&nbsp;&nbsp;
-
-                {% if movie.dyttdetail %}{{ movie.dyttdetail|safe }}{% endif %}
-
+                <p><span class="">电影简介：</span></p>&nbsp;&nbsp;
+                {% if movie.aboutmovie %}{{ movie.aboutmovie|safe }}{% endif %}
+                <br/>
+                <br/>
                 <p><span class="">下载地址：
                     {% if movie.movieaddress %}
                         <a href="{{ movie.movieaddress }}">{{ movie.movieaddress }}</a>

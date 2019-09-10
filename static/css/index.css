@@ -676,7 +676,7 @@
 .movieList{padding:0px;}
 .movieList_tab{border-bottom: 2px solid #00b7ee;margin-bottom: 1rem;}
 .movieList_tab li{display: inline-block;padding:0.5rem 1.5rem;cursor: pointer;color:#333;}
-.movieList_tab li.current{background:#00b7ee;color: #fff;}
+.movieList_tab li.current{background:#0366d6;color: #fff;}
 .movieList_con{margin-bottom: 1rem;font-size: 15px;line-height: 2rem;}
 .movieList_page{text-align: center;}
 .movieList_con_cell_info{border: 1px solid #ddd;position: relative;}
@@ -802,3 +802,29 @@ img{
     color:#333;
     text-decoration:none;
     }
+.pagination{
+	margin-top: 0px;
+}
+.pagination>li>a, .pagination>li>span {
+    margin-left: -1px;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    color: #0366d6;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background: #fff;
+    border: 1px solid #e1e4e8;
+
+}
+.pagination>.active>a, .pagination>.active>a:hover, .pagination>.active>a:focus, .pagination>.active>span, .pagination>.active>span:hover, .pagination>.active>span:focus {
+    background-color: #0366d6;
+    border-color: #0366d6;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #0366d6;
+    border-color: #0366d6;
+}
