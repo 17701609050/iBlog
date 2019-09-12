@@ -34,9 +34,10 @@ class UeditorPlugin(BaseAdminPlugin):
         js += '<script type="text/javascript" src="%s"></script>' % (settings.STATIC_URL + "/ueditor/ueditor.all.min.js")
         nodes.append(js)
 
+
 class BlogAdmin(object):
     list_display = ('title', 'pub_time', 'category1', 'category2', 'page_views')
-    serch_field = ('category1', 'category2')
+    search_field = ('category1', 'category2')
     list_filter = ('category1', 'category2')
     style_fields = {'content': 'ueditor'}
 
@@ -51,6 +52,7 @@ class Category2Admin(object):
 
 class ProfileAdmin(object):
     list_display = ('title', 'pub_time')
+    style_fields = {'content': 'ueditor'}
 
 
 class FriendAdmin(object):

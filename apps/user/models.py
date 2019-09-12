@@ -20,8 +20,9 @@ class ProfileTag(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     title = models.CharField(u'标题', max_length=100)
-    head_pic_url = models.CharField(u'头图链接', max_length=250, default='/static/img/favicon.ico',
-                                    null=True, blank=True)
+    user_image = models.ImageField(upload_to="img/", blank=True, null=True, default='favicon.ico')  # 表示图片保存地址
+    # head_pic_url = models.CharField(u'头图链接', max_length=250, default='/static/img/favicon.ico',
+    #                                 null=True, blank=True)
     phone_number = models.CharField(u'手机号', max_length=20, blank=True)
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(u'修改时间', auto_now=True)

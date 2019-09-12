@@ -85,17 +85,18 @@ class Profile_Tag(models.Model):
 
 class Profile(models.Model):
     title = models.CharField(u'标题', max_length=100)
-    head_pic_url = models.CharField(u'头图链接', max_length=250, default='/static/img/default.jpg', null=True, blank=True)
+    user_image = models.ImageField(upload_to="img/", blank=True, null=True, default='favicon.ico')
+    # head_pic_url = models.CharField(u'头图链接', max_length=250, default='/static/img/default.jpg', null=True, blank=True)
     pub_time = models.DateTimeField(auto_now_add=True)
-    content = UEditorField(u'正文', width=900, height=600, toolbars="full", imagePath="", settings={})
+    content = UEditorField(u'正文', width='100%', height=600, toolbars="full", imagePath="", settings={})
     tags = models.ManyToManyField(Profile_Tag, blank=True, verbose_name=u'标签')
 
     def __unicode__(self):
         return self.title
 
     class Meta:
-        verbose_name = '个人简介'
-        verbose_name_plural = '个人简介'
+        verbose_name = '作者个人简介'
+        verbose_name_plural = '作者个人简介'
         ordering = ['-pub_time']
 
 

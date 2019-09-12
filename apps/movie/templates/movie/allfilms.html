@@ -167,20 +167,20 @@
                         </h5>
                         <ul class="rankBar_list">
                             {% for sidemovie in imdbmovie_list %}
-                            <li class="sider-movie"><a href="{{sidemovie.movieaddress}}" target="_blank" >{{sidemovie.moviename}}</a></li>
+                            <li class="sider-movie"><a href="/movie/movie-detail/{{ sidemovie.id }}/" target="_blank" >{{sidemovie.moviename}}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
-                    <div class="rankBar">
-                        <h5 class="rankBar_title">
-                            美剧排行榜
-                        </h5>
-                        <ul class="rankBar_list">
-                            {% for usamovie in usamovie_list %}
-                            <li class="sider-movie"><a href="{{usamovie.movieaddress}}" target="_blank">{{usamovie.moviename}}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+{#                    <div class="rankBar">#}
+{#                        <h5 class="rankBar_title">#}
+{#                            美剧排行榜#}
+{#                        </h5>#}
+{#                        <ul class="rankBar_list">#}
+{#                            {% for usamovie in usamovie_list %}#}
+{#                            <li class="sider-movie"><a href="{{usamovie.movieaddress}}" target="_blank">{{usamovie.moviename}}</a></li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    </div>#}
                  </div>
                  <!--排行榜结束-->
             </div>

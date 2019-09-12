@@ -7,7 +7,7 @@
 {#                <img src="{{ profile.head_pic_url }}">#}
 {#             </div>#}
             <div id="content">
-                <h1><img src="{{ profile.head_pic_url }}"><br>{{ profile.title }}</h1>
+                <h1><img src="{{ profile.user_image.url }}" style="width:300px;height: 300px"><br>{{ profile.title }}</h1>
                 <h5 class="tag">
                     <span class="glyphicon glyphicon-tags" ></span>&nbsp;
                        {% for tag in profile_tags %}
@@ -21,7 +21,7 @@
                 {{ updates.content|safe }}
             </div>
              <div id="comments">
-                  <div class="ds-thread" data-thread-key=" Profile" data-title="Profile" data-url="http://hill1895.rocks/profile"></div>
+                  <div class="ds-thread" data-thread-key=" Profile" data-title="Profile" data-url=""></div>
     {#            <script type="text/javascript">#}
     {#             var duoshuoQuery = {short_name:"blog"};#}
     {#               (function() {#}

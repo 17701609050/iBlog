@@ -292,11 +292,11 @@ LOGGING = {
         },
         'file_handler': {  # log to the file
             'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             # 'filename': os.path.join('/var/www/log', "autoHub", 'autoHubLog.txt'),  # log file
             'filename':  os.path.join(LOG_PATH, 'debug.log'),
-            # 'maxBytes': 1024 * 1024 * 5,  # file size
-            'backupCount': 500,  # bk file number
+            'maxBytes': 1024 * 1024 * 10,
+            'backupCount': 50,
             'formatter': 'standard',  # log format
         },
         'console': {  # log to console
