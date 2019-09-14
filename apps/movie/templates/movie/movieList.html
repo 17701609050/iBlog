@@ -1,0 +1,229 @@
+{% extends "common/base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load static %}
+{% load movie_tags %}
+{% block title%}电影列表 {% endblock %}
+ {% block head %}
+
+    <script src="{% static 'js/movies.js' %}"></script>
+    {% endblock %}
+
+
+
+ {% block content %}
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+
+ <!--主体内容 -->
+    <div id="mainbody" class="moviebody">
+         <div class="container">
+            <div class="row">
+                 <div class="col-md-2" id="siderbar">
+                      <div class="sidebar">
+                        <div class="sidebar_cell">
+                            <div class="sidebar_cell_title">类型</div>
+                            <div class="sidebar_cell_list">
+                                {% for cate in movie_cate %}
+                                    <a href="/movie/movie-list/type/{{ cate }}/">{{ cate }}</a>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <div class="sidebar_cell">
+                            <div class="sidebar_cell_title">地区</div>
+                            <div class="sidebar_cell_list">
+                                {% for country in movie_country %}
+                                    <a href="/movie/movie-list/country/{{ country }}/">{{ country }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="sidebar_cell">
+                            <div class="sidebar_cell_title">时间</div>
+                            <div class="sidebar_cell_list">
+                                {% for year in movie_time %}
+                                    <a href="/movie/movie-list/year/{{ year }}/">{{ year }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+
+                <div class="col-md-8">
+{#                    <form method="GET" action="/movie/movie-search/" id="zh-top-search-form" class="zu-top-search-form" style="position: relative;width: 100%">#}
+                        <input type="text" class="zu-top-search-input" id="movie_search_key" name="search_key" autocomplete="off" value="{{ search_key }}" maxlength="100" placeholder="搜索电影名，导演， 演员 ..." role="combobox" aria-autocomplete="list">
+                        <button id="movieSearch" type="button" class="zu-top-search-button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        <script>
+                            $("#movieSearch").click(function () {
+                                let key = $("#movie_search_key").val();
+                                if(key){
+                                    location.href = '/movie/movie-search/'+key+'/';
+                                }
+
+
+                            })
+
+                            $("#movie_search_key").keypress(function (e) {
+                                if (e.which == 13) {
+                                    $("#movieSearch").click();
+                                }
+                            });
+                        </script>
+{#                    </form>#}
+                    <div class="movieList">
+                        <ul class="movieList_tab">
+                            <li role="presentation" {% if type == 'suggest' %} class="current" {% endif %}><a href="{% url 'movie_list' %}" class="currentmovietype"> {% trans '全部' %}</a></li>
+{#                            <li {% if type == 'festival'%} class="current" {% endif %} ><a href="{% url 'getfilmfestlist' %}" class="currentmovietype">电影节</a></li>#}
+                            <li><a href="" class="currentmovietype">最新</a></li>
+                            <li><a href="{% url 'movie_list_douban' %}" class="currentmovietype">豆瓣高分</a></li>
+                            <li><a href="{% url 'movie_list_imdb' %}" class="currentmovietype">IMDB高分</a></li>
+                        </ul>
+
+
+                        <ul class="movieTab_con">
+                            <!--选项卡切换之最新-->
+                            <li class="current">
+                               <div class="movieList_con row">
+                                    {% for movie in obj_infos.object_list %}
+                                    <div class="col-md-4">
+                                      <div class="movieList_con_cell">
+                                        <div class="thumbnail movieList_con_cell_info" href="/movie/movie-detail/{{ movie.id }}/">
+{#                                            <span class="glyphicon glyphicon-star havesee"></span>#}
+                                            <div class="post-thumbnail">
+                                                <a href="/movie/movie-detail/{{ movie.id }}/" class="inimg" target="_blank" title="{{movie.moviename}}{{ movie.translation_name }}">
+                                                    <img src="/media/movie/{{movie.movie_head_pic}}" alt="{{movie.moviename}}{{ movie.translation_name }}"/>
+
+                                                </a>
+                                                <div class="img_title" style="display:none">
+                                                    <small class="imdbscore">{{movie.style}}</small><br>
+                                                    <small class="imdbscore">{{movie.country}}</small>
+                                                    <small class="imdbscore">{{movie.dateyear}}</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="caption movie-info">
+                                                <ul class="movie-info">
+                                                    <li>
+                                                        <a href="/movie/movie-detail/{{ movie.id }}/" class="" title="{{ movie.translation_name }}({{movie.moviename}})">{{movie.chinese_movie_name|get_movie_name}}</a>
+                                                    </li>
+                                                </ul>
+{#                                                <ul>#}
+{#                                                {% if movie.movieaddress%}#}
+{#                                                    <a href="/movie/movie-detail/{{ movie.id }}/" target="_blank" class="btn btn-primary btn-sm btn-movie" role="button" id="{{movie.id}}">详情</a>#}
+{#                                                {% endif %}#}
+{#                                                {% if movie.downloadlink%}#}
+{#                                                <a href="{{movie.downloadlink}}" target="_blank"  class="btn btn-primary btn-sm" role="button">下载</a>#}
+{#                                                {% endif %}#}
+{#                                                </ul>#}
+                                                <ul class="movie-info">
+                                                    <li title="{{ movie.actor }}">主演: {{ movie.actor|truncatechars_html:25 }}</li>
+                                                </ul>
+                                                <ul class="movie-info">
+                                                    <li>
+                                                        <span>国家: {{movie.country|slice:"15"}}</span>
+s
+                                                    </li>
+
+                                                </ul>
+                                                <ul class="movie-info">
+                                                    <li>
+                                                        <span>评分: {{movie.doubanscore}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                                        {{movie.doubancounter}}
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                   {% endfor %}
+                            </div>
+
+
+                            </li>
+
+
+
+
+                            <!--选项卡切换之最热-->
+                            <li>
+
+
+                            </li>
+
+                            <!--最新电影结束-->
+
+                        </ul>
+
+                      <!--分页符开始-->
+                        {% include "blog/pager.html" %}
+{#                        <ul class="pagination">#}
+{#                            {% if obj_infos.has_previous %}#}
+{#                                <li><a href="?page={{ obj_infos.previous_page_number }}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="下一页">上一页</a></li>&nbsp;#}
+{#                            {% endif %}#}
+{#                            {% for p in page_range %}#}
+{#                                {% ifequal p obj_infos.number %}#}
+{#                                    <li class="active"><a>{{p}}</a></li>#}
+{#                                {% else %}#}
+{#                                    <li><a href="?page={{p}}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="第{{p}}页">{{p}}</a></li>#}
+{#                                {% endifequal %}#}
+{#                            {% endfor %}#}
+{##}
+{#                            {% if obj_infos.has_next %}#}
+{#                                <li><a href="?page={{ obj_infos.next_page_number }}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="下一页">下一页</a></li>#}
+{#                            {% endif %}#}
+{#                        </ul>#}
+                        <!--分页符结束-->
+                    </div>
+             </div>
+
+
+
+                <!--排行榜开始-->
+{#                 <div class="col-md-2">#}
+{#                    <div class="rankBar">#}
+{#                        <h5 class="rankBar_title">#}
+{#                            最热#}
+{#                        </h5>#}
+{#                        <ul class="rankBar_list">#}
+{#                            <li><a target="_blank" href="http://t.cn/RGGWv4A">美人鱼</a></li>#}
+{##}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="rankBar">#}
+{#                        <h5 class="rankBar_title">#}
+{#                            IMDB排行榜#}
+{#                        </h5>#}
+{#                        <ul class="rankBar_list">#}
+{#                            {% for sidemovie in imdbmovie_list %}#}
+{#                            <li class="sider-movie"><a href="/movie/movie-detail/{{ sidemovie.id }}/" target="_blank" >{{sidemovie.chinese_movie_name}}</a></li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="rankBar">#}
+{#                        <h5 class="rankBar_title">#}
+{#                            美剧排行榜#}
+{#                        </h5>#}
+{#                        <ul class="rankBar_list">#}
+{#                            {% for usamovie in usamovie_list %}#}
+{#                            <li class="sider-movie"><a href="{{usamovie.movieaddress}}" target="_blank">{{usamovie.moviename}}</a></li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                 </div>#}
+                 <!--排行榜结束-->
+            </div>
+        </div>
+     </div>
+    <!--主体内容结束-->
+
+{% endblock %}
+
+{% block allfilms %}
+
+{% endblock %}

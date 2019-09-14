@@ -1,190 +1,151 @@
 # -*- coding: utf-8 -*-
 import random
 from django.shortcuts import render,redirect
-from models import Movie,MovieHistory
+from models import Movie, MovieHistory
 from forms import MovieInfoForm
+from django.views.generic import TemplateView
 from django.core.paginator import Paginator,InvalidPage,EmptyPage,PageNotAnInteger
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count, Q
+from apps.utils.Pager import Page
 from .service import movie_service
 # Create your views here.
 
 
-# 获得推荐电影列表和默认
-def getmovielist(request):
-    type = 'suggest'
-    after_range_num =5
-    before_range_num=4
-    try:
-        page=request.GET.get('page')
-        if page is not None:
-            page =int(page)
-        filtertype=request.GET.get('filtertype')
-        filterparam=request.GET.get('filterparam')
-        if page<1:
-            page=1
-    except ValueError:
-        page=1
-    moviequery = Movie.objects.filter(movieaddress__isnull=False,doubanscore__gte=7.5,doubancounter__gte=2000)
-    if request.user.is_authenticated():
-        moviequery = moviequery.exclude(id__in=MovieHistory.objects.filter(user=request.user).values_list('movie_id',flat=True))
-        movie_list = moviequery
-        if filtertype == 'style':
-            movie_list = moviequery.filter(style__contains=filterparam).order_by('-doubanscore','-doubancounter')
-        elif filtertype == 'area':
-            movie_list = moviequery.filter(country__contains=filterparam).order_by('-doubanscore','-doubancounter')
-        elif filtertype == 'year':
-            if filterparam=='20':
-                movie_list = moviequery.filter(dateyear__lte='2001-12-20').order_by('-doubanscore','-doubancounter')
-            else:
-                movie_list = moviequery.filter(dateyear__contains=filterparam).order_by('-doubanscore','-doubancounter')
-    else:
-        movie_list = moviequery
-        if filtertype == 'style':
-            movie_list = moviequery.filter(style__contains=filterparam).order_by('-doubanscore','-doubancounter')
-        elif filtertype == 'area':
-            movie_list = moviequery.filter(country__contains=filterparam).order_by('-doubanscore','-doubancounter')
-        elif filtertype == 'year':
-            if filterparam=='20':
-                movie_list = moviequery.filter(dateyear__lte='2001-12-20').order_by('-doubanscore','-doubancounter')
-            else:
-                movie_list = moviequery.filter(dateyear__contains=filterparam).order_by('-doubanscore','-doubancounter')
-    random_num = random.randint(0,99)
-    imdbmovie_list = Movie.objects.order_by('doubanscore')[random_num:random_num+6]
-    usamovie_list = Movie.objects.filter(country__contains='美').order_by('doubanscore')[random_num:random_num+6]
-    paginator = Paginator(movie_list,12)
-    try:
-        movielist = paginator.page(page)
-    except(EmptyPage,InvalidPage,PageNotAnInteger):
-        movielist=paginator.page(1)
-    if page>=after_range_num:
-        page_range=paginator.page_range[page-after_range_num:page+before_range_num]
-    else:
-        page_range = paginator.page_range[0:int(page)+before_range_num]
-    movie_cate = movie_service.movie_cate
-    movie_country = movie_service.movie_country
-    movie_time = movie_service.movie_time
-    return render(request, 'movie/allfilms.html', locals())
+class MovieTemplateMixin(TemplateView, Page):
+    template_name = 'movie/movieList.html'
+    after_range_num = 5
+    before_range_num = 4
 
-# 获得最新的电影列表
-def getlatestmovielist(request):
-    type = 'latest'
-    after_range_num =5
-    before_range_num=4
-    try:
-        page=request.GET.get('page')
-        if page is not None:
-            page =int(page)
-        filtertype=request.GET.get('filtertype')
-        filterparam=request.GET.get('filterparam')
-        if page<1:
-            page=1
-    except ValueError:
-        page=1
+    def get_page_num(self, request):
+        try:
+            page_num = request.GET.get('page')
+            if page_num is not None:
+                page_num = int(page_num)
+            if page_num < 1:
+                page_num = 1
+        except ValueError:
+            page_num = 1
+        return page_num
 
-    if filtertype == 'style':
-        movie_list = Movie.objects.filter(style__contains=filterparam,movieaddress__isnull=False).order_by('-dateyear')
-    elif filtertype == 'area':
-        movie_list = Movie.objects.filter(country__contains=filterparam,movieaddress__isnull=False).order_by('-dateyear')
-    elif filtertype == 'year':
-        if filterparam=='20':
-            movie_list = Movie.objects.filter(dateyear__lte='2001-12-20',movieaddress__isnull=False).order_by('-dateyear')
+    def get_general_data(self, context):
+
+        context['movie_cate'] = movie_service.movie_cates()
+        context['movie_country'] = movie_service.movie_countrys()
+        context['movie_time'] = movie_service.movie_time
+        return context
+
+    def get_page_obj(self, page_num, movies, paginator, context):
+        context['obj_infos'] = movies
+        if page_num >= self.after_range_num:
+            page_range = paginator.page_range[page_num - self.after_range_num:page_num + self.before_range_num]
         else:
-            movie_list = Movie.objects.filter(dateyear__contains=filterparam,movieaddress__isnull=False).order_by('-dateyear')
-    else:
-        movie_list = Movie.objects.filter(movieaddress__isnull=False).order_by('-dateyear')
-    random_num = random.randint(0,99)
-    imdbmovie_list = Movie.objects.filter(movieaddress__isnull=False).order_by('doubanscore')[random_num:random_num+6]
-    usamovie_list = Movie.objects.filter(country__contains='美',movieaddress__isnull=False).order_by('doubanscore')[random_num:random_num+6]
-    paginator = Paginator(movie_list,12)
-    try:
-        movielist = paginator.page(page)
-    except(EmptyPage,InvalidPage,PageNotAnInteger):
-        movielist=paginator.page(1)
-    if page>=after_range_num:
-        page_range=paginator.page_range[page-after_range_num:page+before_range_num]
-    else:
-        page_range = paginator.page_range[0:int(page)+before_range_num]
-    return render(request,'movie/allfilms.html',locals())
-#参加电影节电影
-def getfilmfestlist(request):
-    type = 'festival'
-    after_range_num =5
-    before_range_num=4
-    try:
-        page=request.GET.get('page')
-        if page is not None:
-            page =int(page)
-        filtertype=request.GET.get('filtertype')
-        filterparam=request.GET.get('filterparam')
-        if page<1:
-            page=1
-    except ValueError:
-        page=1
-    moviequery = Movie.objects.filter(movieaddress__isnull=False,dateyear__contains=u'节')
-    if request.user.is_authenticated():
-        moviequery= moviequery.exclude(id__in=MovieHistory.objects.filter(user=request.user).values_list('movie_id',flat=True))
-        movie_list = moviequery
-        if filtertype == 'style':
-            movie_list = moviequery.filter(style__contains=filterparam).order_by('-doubanscore','-doubancounter')
-        elif filtertype == 'area':
-            movie_list = moviequery.filter(country__contains=filterparam).order_by('-doubanscore','-doubancounter')
-        elif filtertype == 'year':
-            if filterparam=='20':
-                movie_list = moviequery.filter(dateyear__lte='2001-12-20').order_by('-doubanscore','-doubancounter')
-            else:
-                movie_list = moviequery.filter(dateyear__contains=filterparam).order_by('-doubanscore','-doubancounter')
-    else:
-        movie_list = moviequery
-        if filtertype == 'style':
-            movie_list = moviequery.filter(style__contains=filterparam).order_by('-doubanscore','-doubancounter')
-        elif filtertype == 'area':
-            movie_list = moviequery.filter(country__contains=filterparam).order_by('-doubanscore','-doubancounter')
-        elif filtertype == 'year':
-            if filterparam=='20':
-                movie_list = moviequery.filter(dateyear__lte='2001-12-20').order_by('-doubanscore','-doubancounter')
-            else:
-                movie_list = moviequery.filter(dateyear__contains=filterparam).order_by('-doubanscore','-doubancounter')
-    random_num = random.randint(0,99)
-    imdbmovie_list = Movie.objects.filter(movieaddress__isnull=False).order_by('-doubanscore')[random_num:random_num+6]
-    usamovie_list = Movie.objects.filter(country__contains='美',movieaddress__isnull=False).order_by('-doubanscore')[random_num:random_num+6]
-    paginator = Paginator(movie_list,12)
-    try:
-        movielist = paginator.page(page)
-    except(EmptyPage,InvalidPage,PageNotAnInteger):
-        movielist=paginator.page(1)
-    if page>=after_range_num:
-        page_range=paginator.page_range[page-after_range_num:page+before_range_num]
-    else:
-        page_range = paginator.page_range[0:int(page)+before_range_num]
-    return render(request,'movie/allfilms.html',locals())
+            page_range = paginator.page_range[0:int(page_num) + self.before_range_num]
+        context['obj_page_range'] = page_range
+        return context
 
 
-def getmovielistbystyle(request,page=1):
-    after_range_num =5
-    before_range_num=4
-    try:
-        page=int(page)
-        if page<1:
-            page=1
-    except ValueError:
-        page=1
-    style = request.GET.get('style')
-    movie_list = Movie.objects.filter(style__contains=u'剧情')
-    paginator = Paginator(movie_list,12)
-    try:
-        movielist = paginator.page(page)
-    except(EmptyPage,InvalidPage,PageNotAnInteger):
-        movielist=paginator.page(1)
-    if page>=after_range_num:
-        page_range=paginator.page_range[page-after_range_num:page+before_range_num]
-    else:
-        page_range = paginator.page_range[0:int(page)+before_range_num]
-    return render(request,'movie/allfilms.html',locals())
+class MovieListView(MovieTemplateMixin):
 
-#生成历史记录
+    def get(self, request, *args, **kwargs):
+
+        page_num = self.get_page_num(request)
+        movies = Movie.objects.all()
+        context = self.get_general_data(self.get_context_data())
+        movies, paginator = self.page(movies, page_num)
+        context = self.get_page_obj(page_num, movies, paginator, context)
+        return self.render_to_response(context)
+
+
+class MovieSearchView(MovieTemplateMixin):
+
+    def get(self, request, key, *args, **kwargs):
+        page_num = self.get_page_num(request)
+        movies = Movie.objects.all()
+        if key:
+            movies = Movie.objects.filter(Q(moviename__contains=key) | Q(actor__contains=key) |
+                                          Q(actor__contains=key) | Q(director__contains=key) |
+                                          Q(translation_name__contains=key) | Q(chinese_movie_name__contains=key))
+
+        context = self.get_general_data(self.get_context_data())
+
+        movies, paginator = self.page(movies, page_num)
+
+        context = self.get_page_obj(page_num, movies, paginator, context)
+        context['search_key'] = key
+        return self.render_to_response(context)
+
+
+class MovieListTypeView(MovieTemplateMixin):
+
+    def get(self, request, style, *args, **kwargs):
+
+        page_num = self.get_page_num(request)
+
+        movies = Movie.objects.filter(style__contains=style).order_by('-doubanscore')
+        context = self.get_general_data(self.get_context_data())
+        movies, paginator = self.page(movies, page_num)
+
+        context = self.get_page_obj(page_num, movies, paginator, context)
+        return self.render_to_response(context)
+
+
+class MovieListCountryView(MovieTemplateMixin):
+
+    def get(self, request, country, *args, **kwargs):
+
+        page_num = self.get_page_num(request)
+
+        movies = Movie.objects.filter(country__contains=country)
+        context = self.get_general_data(self.get_context_data())
+        movies, paginator = self.page(movies, page_num)
+
+        return self.render_to_response(self.get_page_obj(page_num, movies, paginator, context))
+
+
+class MovieListYearView(MovieTemplateMixin):
+
+    def get(self, request, year, *args, **kwargs):
+
+        page_num = self.get_page_num(request)
+
+        movies = Movie.objects.filter(dateyear__contains=year)
+        context = self.get_general_data(self.get_context_data())
+        movies, paginator = self.page(movies, page_num)
+
+        return self.render_to_response(self.get_page_obj(page_num, movies, paginator, context))
+
+
+class MovieDoubanView(MovieTemplateMixin):
+
+    def get(self, request, *args, **kwargs):
+
+        page_num = self.get_page_num(request)
+
+        movies = Movie.objects.filter(doubanscore__gte=7).order_by('-doubanscore')
+        context = self.get_general_data(self.get_context_data())
+        movies, paginator = self.page(movies, page_num)
+
+        return self.render_to_response(self.get_page_obj(page_num, movies, paginator, context))
+
+
+class MovieImdbView(MovieTemplateMixin):
+
+    def get(self, request, *args, **kwargs):
+
+        page_num = self.get_page_num(request)
+
+        movies = Movie.objects.filter(imdbscore__gte=7).order_by('-imdbscore')
+        context = self.get_general_data(self.get_context_data())
+        movies, paginator = self.page(movies, page_num)
+
+        return self.render_to_response(self.get_page_obj(page_num, movies, paginator, context))
+
+
+# 生成历史记录
 def generatemoviehistory(request):
     if request.user.is_authenticated():
         user = request.user
@@ -197,18 +158,7 @@ def generatemoviehistory(request):
         moviehistory.save()
         return HttpResponse()
     return HttpResponse()
-#查找电影
-def searchmovie(request):
-    random_num = random.randint(0,99)
-    imdbmovie_list = Movie.objects.order_by('doubanscore')[random_num:random_num+6]
-    usamovie_list = Movie.objects.filter(country__contains='美').order_by('doubanscore')[random_num:random_num+6]
-    if 'q' in request.GET:
-        querystring = request.GET.get('q').strip()
-        if len(querystring)==0:
-            return redirect('/getmovielist')
-        else:
-            movielist = Movie.objects.filter(moviename__contains=querystring)
-    return render(request,'movie/searchresult.html',locals())
+
 
 @login_required
 def addmovie(request):
@@ -232,7 +182,12 @@ def addmovie(request):
     return render(request, 'webuser/addmovie.html',{'form':form})
 
 
-def movie_detail(request, id):
-    movie = Movie.objects.get(pk=id)
-    return render(request, 'movie/movieDetail.html', {'movie': movie, 'movie_cate': movie_service.movie_cate})
+class MovieDetailView(MovieTemplateMixin):
+    template_name = 'movie/movieDetail.html'
+
+    def get(self, request, id, *args, **kwargs):
+        context = self.get_general_data(self.get_context_data())
+        context['movie'] = Movie.objects.get(pk=id)
+        return self.render_to_response(context)
+
 

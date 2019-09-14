@@ -8,32 +8,40 @@ import markdown
 
 
 class Movie(models.Model):
-    moviename = models.CharField(u'电影名称', max_length=64, blank=True)   # 电影名称
+    moviename = models.CharField(u'电影名称', max_length=250, blank=True)  # 电影名称
+    translation_name = models.CharField(u'电影译名', max_length=250, blank=True)  # 电影名称
+    chinese_movie_name = models.CharField(u'中文电影名', max_length=250, blank=True)  # 中文电影名称
     doubanlink = models.CharField(u'豆瓣链接', max_length=256, null=True, blank=True)  # 在豆瓣中的链接
     doubanscore = models.CharField(u'豆瓣评分', max_length=64, null=True, blank=True)  # 豆瓣评分
     doubancounter = models.IntegerField(blank=True, null=True)  # 豆瓣评分人数
-    imdblink = models.CharField(max_length=256, null=True, blank=True) # 在Imdb中的链接
-    imdbscore = models.CharField(u'IMDB评分', max_length=64, null=True, blank=True) #在imdb中的评分
-    imdbcounter = models.IntegerField(blank=True, null=True,) #在imdb中的评分人数
-    nomovielink = models.CharField(max_length=256, null=True, blank=True)#在网站中的链接
-    nomoviescore = models.CharField(max_length=64, null=True, blank=True) #在网站中的评分
-    nomoviecounter = models.IntegerField(blank=True, null=True,) #在网站中的评分人数
-    country = models.CharField(u'上映国家', max_length=64, null=True, blank=True) #上映国家
-    dateyear = models.CharField(u'上映日期', max_length=64, null=True, blank=True) # 上映日期
-    actor = models.CharField(u'主演', max_length=256, null=True, blank=True) # 主演
-    director = models.CharField(u'导演', max_length=256, null=True, blank=True) #导演
-    style = models.CharField(u'电影类型', max_length=64, null=True, blank=True) #电影类型
-    movieaddress = models.CharField(max_length=256, null=True, blank=True) #电影播放地址
-    downloadlink = models.CharField(u'电影下载链接', max_length=256, null=True, blank=True) #电影下载链接
-    counter = models.IntegerField(blank=True, null=True) #电影在本网站播放的次数
-    original = models.CharField(blank=True, null=True, max_length=256) #电影来源 0：表示豆瓣top250 1:表示imdbtop250 2:表示普通豆瓣 3：表示普通imdb  4:表示在豆瓣和imdb中都存在 5表示：用户自添加
-    status = models.IntegerField(blank=True, null=True) #1：表示通过，0：表示未通过,2表示审核中
-    image = models.ImageField(upload_to="movie/", blank=True, null=True) #表示图片保存地址
+    imdblink = models.CharField(max_length=256, null=True, blank=True)  # 在Imdb中的链接
+    imdbscore = models.CharField(u'IMDB评分', max_length=64, null=True, blank=True)  # 在imdb中的评分
+    imdbcounter = models.IntegerField(blank=True, null=True, )  # 在imdb中的评分人数
+    nomovielink = models.CharField(max_length=256, null=True, blank=True)  # 在网站中的链接
+    nomoviescore = models.CharField(max_length=64, null=True, blank=True)  # 在网站中的评分
+    nomoviecounter = models.IntegerField(blank=True, null=True, )  # 在网站中的评分人数
+    country = models.CharField(u'上映国家', max_length=64, null=True, blank=True)  # 上映国家
+    dateyear = models.CharField(u'上映日期', max_length=64, null=True, blank=True)  # 上映日期
+    actor = models.TextField(null=True, blank=True, default='')  # 主演
+    director = models.CharField(u'导演', max_length=256, null=True, blank=True)  # 导演
+    style = models.CharField(u'电影类型', max_length=64, null=True, blank=True)  # 电影类型
+    movieaddress = models.CharField(max_length=256, null=True, blank=True)  # 电影播放地址
+    downloadlink = models.CharField(u'电影下载链接', max_length=1000, null=True, blank=True)  # 电影下载链接
+    movie_length = models.CharField(u'电影时长', max_length=50, null=True, blank=True)  # 电影时长
+    # 电影来源 0：表示豆瓣top250 1:表示imdbtop250 2:表示普通豆瓣 3：表示普通imdb  4:表示在豆瓣和imdb中都存在 5表示：用户自添加
+    original = models.CharField(blank=True, null=True, max_length=256)
+    status = models.IntegerField(blank=True, null=True)  # 1：表示通过，0：表示未通过, 2表示审核中
+    image = models.ImageField(u'电影海报', upload_to="movie/", blank=True, null=True)  # 表示电影海报保存地址
     spidertime = models.DateTimeField(u'电影入库时间', auto_now_add=True, null=True)  # 爬取电影入库时间
-    aboutmovie = UEditorField(u'关于电影', width="100%", height=600, toolbars="full", imagePath="movie", settings={}, default='') # 关于电影
+    aboutmovie = UEditorField(u'关于电影', width="100%", height=600, toolbars="full", imagePath="movie", settings={},
+                              default='')  # 关于电影
     language = models.CharField(u'电影语言', max_length=64, blank=True, null=True)  # 电影语言
-    dyttsearch = models.CharField(max_length=256, blank=True, null=True) # 电影天堂搜索结果地址
-    dyttdetail = models.CharField(max_length=256, blank=True, null=True) # 电影天堂结果详情页面
+    dyttsearch = models.CharField(max_length=256, blank=True, null=True)  # 电影天堂搜索结果地址
+    dyttdetail = models.CharField(u'电影天堂详情地址', max_length=256, blank=True, null=True)  # 电影天堂结果详情页面
+    # dytt_head_pic = models.CharField(u'电影天堂头图地址', max_length=256, blank=True, null=True)  # 电影天堂结果详情页面
+    # dytt_detail_pic = models.CharField(u'电影天堂剧情图地址', max_length=256, blank=True, null=True)  # 电影天堂结果详情页面
+    movie_head_pic = models.ImageField(u'电影详情页头图', upload_to="movie/", blank=True, null=True)  # 电影详情页头图地址
+    movie_detail_pic = models.ImageField(u'电影详情页剧情图', upload_to="movie/", blank=True, null=True)  # 电影详情页剧情图片地址
 
     class Meta:
         verbose_name = '电影'
@@ -50,10 +58,10 @@ class MovieHistory(models.Model):
     user = models.ForeignKey(User)  # 观看用户
     movie = models.ForeignKey(Movie)  # 观看电影
     date = models.DateTimeField(auto_now_add=True)  # 观看时间
-    marked = models.IntegerField(blank=True,null=True)  # 0表示观看，1表示收藏，2表示推荐
+    marked = models.IntegerField(blank=True, null=True)  # 0表示观看，1表示收藏，2表示推荐
 
     def __unicode__(self):
-        return u'{0}-{1}'.format(self.user.username,self.movie.moviename)
+        return u'{0}-{1}'.format(self.user.username, self.movie.moviename)
 
 
 class MovieComent(models.Model):
@@ -63,7 +71,7 @@ class MovieComent(models.Model):
     comment = MarkdownField()  # 评论
 
     def __unicode__(self):
-        return u'{0} - {1}'.format(self.user.username,self.movie.moviename)
+        return u'{0} - {1}'.format(self.user.username, self.movie.moviename)
 
 
 class MovieSpider(models.Model):

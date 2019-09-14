@@ -15,9 +15,20 @@
     {% endfor %}
 
 	{% if obj_infos.has_next %}
-    	<li><a href="?page={{ obj_infos.next_page_number }}"><em style="font-style: normal">下一页</em></a></li>
+    	<li><a href="?page={{ obj_infos.next_page_number }}">下一页</a></li>
 {#    {% else %}#}
 {#    	<li> <a><em style="font-style: normal">下一页</em></a></li>#}
     {% endif %}
-    <li><a>共{{ obj_infos.paginator.count }}条数据&nbsp;当前:{{ obj_infos.number }}/{{ obj_infos.paginator.num_pages }}页&nbsp</a></li>
+
+    <li><a>共{{ obj_infos.paginator.count }}条&nbsp;当前:{{ obj_infos.number }}/{{ obj_infos.paginator.num_pages }}页&nbsp</a></li>
+{#    <li><a >跳转</a></li>#}
+    <li><input id="toPage" type="text" style="width: 30px;height: 32px;border: 1px solid #e1e4e8;" value="{{ obj_infos.number }}"/>
+        <b id="goToPage" style="cursor: pointer;color:#2a6496;font-weight: bold">跳转</b>
+    </li>
 </ul>
+<script>
+    $("#goToPage").click(function () {
+        var to = $("#toPage").val();
+        location.href = '?page='+to
+    })
+</script>

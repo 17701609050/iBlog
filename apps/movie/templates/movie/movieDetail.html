@@ -9,7 +9,8 @@
     <div class="row">
         <div class="col-lg-12 col-md-10 col-md-offset-1 col-sm-12 remove_padding">
             <div id="content">
-                <h1>{{ movie.moviename }}</h1>
+                <h4>{{ movie.moviename }}</h4>
+                <h4>{{ movie.translation_name }}</h4>
                 <h5 class="blog_info">
                     {{ movie.dateyear}}&nbsp;&nbsp;<span class="play"></span>阅读量: {{ movie.doubancounter }}
                 </h5>
@@ -24,7 +25,7 @@
                     window._bd_share_config={
                         "common":{
                             "bdSnsKey":{},
-                            "bdText":"分享 文章 「 {{ blog.title}} 」 ",
+                            "bdText":"分享 文章 「 {{ movie.translation_name}} 」 ",
                             "bdMini":"2",
                             "bdMiniList":false,
                             "bdPic":"",
@@ -42,12 +43,17 @@
                     <a href="" class="tag_link"><span class="label">{{ movie.style }}</span></a>&nbsp;&nbsp;
     {#                           {% endfor %}#}
                 </h5>
-                <div id="">
-                    <img src="/media/{{ movie.image }}">
+                <div>
+                    <img src="/media/movie/{{ movie.movie_head_pic }}">
                 </div>
                 <br/>
 
+                <p><span class="">电影名：{{ movie.moviename }}</span></p>&nbsp;&nbsp;
+                <p><span class="">电影译名：{{ movie.translation_name }}</span></p>&nbsp;&nbsp;
                 <p><span class="">电影年份：{{ movie.dateyear }}</span></p>&nbsp;&nbsp;
+                <p><span class="">电影产地：{{ movie.country }}</span></p>&nbsp;&nbsp;
+                <p><span class="">电影语言：{{ movie.language }}</span></p>&nbsp;&nbsp;
+                <p><span class="">电影时长：{{ movie.movie_length }}</span></p>&nbsp;&nbsp;
                 <p><span class="">豆瓣评分：{{ movie.doubanscore }}
                     {% if movie.doubanlink %}
                         (<a target="_blank" href="{{ movie.doubanlink }}">豆瓣链接</a>)
@@ -57,70 +63,73 @@
                     {% if movie.imdbscore %}{{ movie.imdbscore }}{% endif %}
                     {% if movie.imdblink %}(<a target="_blank" href="{{ movie.imdblink }}">IMDB链接</a>){% endif %}
                 </span></p>&nbsp;&nbsp;
+                <p><span class="">导演：{{ movie.director }}</span></p>&nbsp;&nbsp;
                 <p><span class="">演员表：{{ movie.actor }}</span></p>&nbsp;&nbsp;
                 <p><span class="">电影类型：{{ movie.style }}</span></p>&nbsp;&nbsp;
-                <p><span class="">电影简介：</span></p>&nbsp;&nbsp;
+                <p><span class="">电影简介：</span></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {% if movie.aboutmovie %}{{ movie.aboutmovie|safe }}{% endif %}
+                <p><img src="/media/movie/{{ movie.movie_detail_pic }}"></p>
                 <br/>
                 <br/>
-                <p><span class="">下载地址：
-                    {% if movie.movieaddress %}
-                        <a href="{{ movie.movieaddress }}">{{ movie.movieaddress }}</a>
+                <p><span class="">迅雷下载地址：
+                    {% if movie.downloadlink %}
+                        <a href="{{ movie.downloadlink }}"><i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i></a>
                     {% else %}
                         暂不支持下载
                     {% endif %}
                 </span></p>&nbsp;&nbsp;
-                <div>
-                    <form
-                        action="/blog/post-comment/{{ blog.id }}/"
-                        method="POST"
-                    >
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="body">
-                                <strong>
-                                    说点什么吧：
-                                </strong>
-                            </label>
-                            <div>
-                                {{ comment_form.media }}
-                                {{ comment_form.body }}
-                            </div>
-                        </div>
-                            <!-- 提交按钮 -->
-                        <button type="submit" class="btn btn-primary ">发送</button>
-                    </form>
-                </div>
+
+{#                <div>#}
+{#                    <form#}
+{#                        action="/blog/post-comment/{{ blog.id }}/"#}
+{#                        method="POST"#}
+{#                    >#}
+{#                        {% csrf_token %}#}
+{#                        <div class="form-group">#}
+{#                            <label for="body">#}
+{#                                <strong>#}
+{#                                    说点什么吧：#}
+{#                                </strong>#}
+{#                            </label>#}
+{#                            <div>#}
+{#                                {{ comment_form.media }}#}
+{#                                {{ comment_form.body }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                            <!-- 提交按钮 -->#}
+{#                        <button type="submit" class="btn btn-primary ">发送</button>#}
+{#                    </form>#}
+{#                </div>#}
             <br>
             </div>
         </div>
     </div>
 </div>
-<script>
-function load_modal(article_id, comment_id) {
-        var modal_body = '#modal_body_' + comment_id;
-        var modal_id = '#comment_' + comment_id;
-
-        // 加载编辑器
-        if ($(modal_body).children().length === 0) {
-            var content = '<iframe src="/blog/post-comment/' +
-                article_id +
-                '/' +
-                comment_id +
-                '" frameborder="0" style="width: 100%; height: 100%;"></iframe>';
-            $(modal_body).append(content);
-        };
-
-        $(modal_id).modal('show');
-    };
-
-    // 处理二级回复
-    function post_reply_and_show_it(new_comment_id) {
-        var next_url = "/blog/blog_detail/blog_"+ {{ blog.id }};
-        // 去除 url 尾部 '/' 符号
-        next_url = next_url.charAt(next_url.length - 1) == '/' ? next_url.slice(0, -1) : next_url;
-        // 刷新并定位到锚点
-        window.location.replace(next_url + "#comment_elem_" + new_comment_id);
-    };
-</script>
+{#<script>#}
+{#function load_modal(article_id, comment_id) {#}
+{#        var modal_body = '#modal_body_' + comment_id;#}
+{#        var modal_id = '#comment_' + comment_id;#}
+{##}
+{#        // 加载编辑器#}
+{#        if ($(modal_body).children().length === 0) {#}
+{#            var content = '<iframe src="/blog/post-comment/' +#}
+{#                article_id +#}
+{#                '/' +#}
+{#                comment_id +#}
+{#                '" frameborder="0" style="width: 100%; height: 100%;"></iframe>';#}
+{#            $(modal_body).append(content);#}
+{#        };#}
+{##}
+{#        $(modal_id).modal('show');#}
+{#    };#}
+{##}
+{#    // 处理二级回复#}
+{#    function post_reply_and_show_it(new_comment_id) {#}
+{#        var next_url = "/blog/blog_detail/blog_"+ {{ blog.id }};#}
+{#        // 去除 url 尾部 '/' 符号#}
+{#        next_url = next_url.charAt(next_url.length - 1) == '/' ? next_url.slice(0, -1) : next_url;#}
+{#        // 刷新并定位到锚点#}
+{#        window.location.replace(next_url + "#comment_elem_" + new_comment_id);#}
+{#    };#}
+{#</script>#}
 {% endblock %}
