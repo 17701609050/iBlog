@@ -44,7 +44,7 @@
     {#                           {% endfor %}#}
                 </h5>
                 <div>
-                    <img src="/media/movie/{{ movie.movie_head_pic }}">
+                    <img src="/media/{{ movie.movie_head_pic }}">
                 </div>
                 <br/>
 
@@ -68,7 +68,7 @@
                 <p><span class="">电影类型：{{ movie.style }}</span></p>&nbsp;&nbsp;
                 <p><span class="">电影简介：</span></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {% if movie.aboutmovie %}{{ movie.aboutmovie|safe }}{% endif %}
-                <p><img src="/media/movie/{{ movie.movie_detail_pic }}"></p>
+                <p><img src="/media/{{ movie.movie_detail_pic }}"></p>
                 <br/>
                 <br/>
                 <p><span class="">迅雷下载地址：
