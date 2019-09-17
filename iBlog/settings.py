@@ -254,7 +254,7 @@ APPEND_SLASH = True
 STATIC_URL = '/static/'
 
 # STATIC_ROOT=os.path.join(BASE_DIR, 'static').replace('\\','/')
-# STATIC_ROOT='/var/www/blog/static/'
+STATIC_ROOT = '/var/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
