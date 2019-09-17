@@ -3,7 +3,7 @@
 }
 #headerMenu{
 	margin: 0px auto;
-	width: 1160px;
+	width: 1170px;
 	float: none;
 }
 #navibar{
@@ -669,7 +669,7 @@
 /* movie */
 .carousel-caption{font-size:1.4rem;line-height: 2rem;}
 .carousel-caption h2{font-size: 1.6rem;padding-bottom:0.5rem;}
-.sidebar{border:1px solid #ddd;padding: 10px;}
+.sidebar{border:1px solid #ddd;padding: 10px;background: #fff}
 .sidebar_cell{padding-bottom:1rem;margin-bottom:1rem;border-bottom: 1px solid #ccc;}
 .sidebar_cell_title{font-size:1.0rem;padding-bottom:0.5rem;font-weight: bold;}
 .sidebar_cell_list{font-size: 13px;line-height: 2rem;}
@@ -732,7 +732,8 @@ img{
     background-color:#f2f2f2;
     color:#666;
     font-size:14px;
-	margin-top: 20px;
+	padding-top: 20px;
+    padding-bottom: 20px;
     }
 .movie-info{
     background-color: #fff;
@@ -797,19 +798,19 @@ img{
     cursor:pointer;
     display:block;
     }
-.currentmovietype{
-    color:#333;
-    }
+/*.currentmovietype{*/
+    /*color:#333;*/
+    /*}*/
 .currentmovietype:hover{
     text-decoration:none;
     }
 .currentmovietype:active{
     text-decoration:none;
     }
-.currentmovietype:visited{
-    color:#0366d6;
-    text-decoration:none;
-    }
+/*.currentmovietype:visited{*/
+    /*color:#0366d6;*/
+    /*text-decoration:none;*/
+    /*}*/
 .pagination{
 	margin-top: 0px;
 }
