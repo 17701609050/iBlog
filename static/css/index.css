@@ -12,8 +12,11 @@
 	border: none;
 	border-radius: 0px;
 	text-align: center;
-	margin-top: 5px;
+	margin-top: 20px;
 	margin-bottom: 5px;
+	background: #ffffff;
+	border-bottom: 1px solid #f0f2f7;
+	font-weight: 600;
 }
 
 .likes{
@@ -50,7 +53,7 @@
 }
 .blog_title_info_content {
     font-size: 14px;
-    /*color: #333;*/
+    color: #999999;
     line-height: 200%;
 	word-wrap: break-word;
     word-break: break-all;
@@ -60,8 +63,9 @@
 
 .blog_title p{
 	position: absolute;
-	bottom: 8%;
-	color: #666666;
+	padding-bottom: 0px;
+	padding-top: 10px;
+	color: #6b6b6b;
 	text-align: right;
 
 }
@@ -257,7 +261,7 @@
 	.blog_list{
 	width: 100%;
 	padding:0.25rem 0.25rem 0.25rem 0.1rem;
-	background-color: rgba(34,34,34,0.9);
+	background-color: #eeeeee;
 	margin-bottom: 1em;
 	vertical-align: middle;
 	}
@@ -623,7 +627,7 @@
 	}
 
 	.blog_title{
-	position: absolute;
+	/*position: absolute;*/
 	top:10%;
 	width: 65%;
 	height: 100%;
@@ -634,6 +638,7 @@
 
 	.blog_title h2{
 		/*width: 100%;*/
+		word-break: break-all;
 		font-size: 1.2rem;
 		font-weight: 600;
 		line-height: 1.2;

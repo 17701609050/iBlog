@@ -100,7 +100,8 @@ def __get_blog_info(objs, _category1, _category2):
             'page_views': blog.page_views,
             'category1': blog.category1.display_name,
             'category2': blog.category2.display_name,
-            'content': content
+            'content': content,
+            'comments': blog.comments.count
         })
 
     return blog_info
