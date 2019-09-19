@@ -12,8 +12,7 @@
 	border: none;
 	border-radius: 0px;
 	text-align: center;
-	margin-top: 20px;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 	background: #ffffff;
 	border-bottom: 1px solid #f0f2f7;
 	font-weight: 600;
@@ -66,7 +65,7 @@
 	padding-bottom: 0px;
 	padding-top: 10px;
 	color: #6b6b6b;
-	text-align: right;
+	text-align: left;
 
 }
 
@@ -255,13 +254,27 @@
 
 @media (max-width: 480px) {
 	.content{width: 100%}
+	#navibar {
+		margin-top: 0px;
+		background: #f4f5f5;
+ 	}
+	#navibar  li{
+		float:left;
+	}
+	#navibar ul {
+	 	border-bottom: 2px solid #333;
+		margin-bottom: 0px;
+		margin-top: 0px;
+		/*padding-bottom: 0.4rem;*/
+		/*margin-bottom: 0.4rem;*/
+	}
 	#timeline{
 		margin-top: 1em;
 	}
 	.blog_list{
 	width: 100%;
 	padding:0.25rem 0.25rem 0.25rem 0.1rem;
-	background-color: #eeeeee;
+	background-color: #ffffff;
 	margin-bottom: 1em;
 	vertical-align: middle;
 	}
@@ -290,26 +303,30 @@
 		font-size: 10px;
 	}
 	.blog_title{
-	padding:0;
-	position: absolute;
-	width: 63%;
-	height: 100%;
-	float: left;
-	margin-left: 1em;
+		padding-top:15px;
+		position: absolute;
+		width: 63%;
+		height: 100%;
+		float: left;
+		margin-left: 1em;
+
 
 	}
 	.blog_title h2{
 		width: 100%;
-		font-size: 1rem;
-		font-size: 16px;
+		font-size: 10px;
 		top: 20%;
 	
+	}
+	.blog_title_info_content{
+		font-size: 9px;
 	}
 	.blog_title p{
 		position: absolute;
 		font-size: 0.625rem;
 		font-size: 10px;
 		top:70%;
+		width: 120%;
 
 	}
 
@@ -325,8 +342,8 @@
 
 	.blog_img img{
 		height: 100%;
-		width: 133%;
-		left: -17%;
+		width: 100%;
+		left: 0%;
 		position: relative;
 
 	}
@@ -757,6 +774,7 @@ img{
 }
 .on-hover{
     color: #4ba6e5 !important;
+    text-decoration: none !important;
     text-decoration: none !important;
     }
 .movieList_con_cell_info{

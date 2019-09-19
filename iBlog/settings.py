@@ -266,6 +266,33 @@ MEDIA_DIRS = (
 
 )
 
+CKEDITOR_CONFIGS = {
+
+    'default': {
+        'skin': 'moono-lisa',
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'toolbar_Full': [
+            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule'],
+            ['TextColor', 'BGColor'],
+            ['Smiley', 'SpecialChar'],
+            # 在工具栏中添加该功能的按钮
+            ['CodeSnippet'], ['Source'],
+
+        ],
+        'toolbar': 'Full',
+        'height': 291,
+        'width': '100%',
+        'filebrowserWindowWidth': 940,
+        'filebrowserWindowHeight': 725,
+        # 添加的插件
+        'extraPlugins': 'codesnippet',
+    }
+}
+
 # logging setting
 LOG_PATH = os.path.join(BASE_DIR, 'log')
 LOGGING = {

@@ -15,9 +15,21 @@
 
 
     <div class="row">
-{#        <div class="row">#}
-        <div class="col-lg-12 col-md-7 col-md-offset-1 col-sm-8 remove_padding">
-{#            {% block navibar %}#}
+
+        <div class="col-lg-8 col-md-7 col-md-offset-1  col-sm-8 remove_padding">
+            <div>
+                <form id="blogSearch" method="GET" action="{% url 'search' %}">
+                    <input type="text" class="zu-top-search-input" name="search_key" autocomplete="off" value="{{ search_key }}" maxlength="100" placeholder="搜索文章内容，标题， 关键字 ..." role="combobox" aria-autocomplete="list">
+                    <button id="blogSearchBtn" type="button" class="zu-top-search-button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+                <script>
+                    $("#blogSearchBtn").click(function () {
+                        $("#blogSearch").submit();
+                    })
+                </script>
+            </div>
             <nav class="navbar" style="" role="navigation" id="navibar">
                 <ul class="nav navbar-nav">
                     <li><a href="/blog/all/" style="">全部</a></li>
@@ -26,17 +38,13 @@
                     {% endfor %}
                   </ul>
             </nav>
-{#            {% endblock %}#}
-        </div>
-{#    </div>#}
-        <div class="col-lg-8 col-md-7 col-md-offset-1  col-sm-8 remove_padding">
             <div id="timeline">
                 {% block title_list %}
                 {% endblock %}
                 {% for blog_info in obj_infos %}
                     {% include "blog/list_style.html" %}
-{#                {% empty %}#}
-{#		            <h3>这个人好懒，一个字都没写</h3>#}
+                {% empty %}
+		            <h4 style="background: #fff">没找到你想要的内容。。</h4>
                 {% endfor %}
 
                 {% include "blog/pager.html" %}
@@ -72,6 +80,7 @@
 
                 </div>
 
+                {% if not search_key %}
                 <div class="sidebar-block">
                     <div class="catListTag">
                         <h3 class="catListTitle"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;二级分类</h3>
@@ -89,6 +98,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
 
                 <div class="sidebar-block">
                     <h3 class="catListTitle"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;友情链接</h3>

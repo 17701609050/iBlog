@@ -135,7 +135,7 @@ hr{
 @media (max-width: 480px) {
 	#content{
 		width: 100%;
-		background-color: rgba(34,34,34,0.9);
+		background-color: #ffffff;
 		color: #bbb;
 		text-align: left;
 		font-size: 0.875rem;
@@ -162,7 +162,7 @@ hr{
 	}
 
 	#content p{
-	font-size: 1.1rem;
+		font-size: 12px;
 	}
 }
 
