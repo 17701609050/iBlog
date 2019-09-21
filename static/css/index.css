@@ -17,7 +17,10 @@
 	border-bottom: 1px solid #f0f2f7;
 	font-weight: 600;
 }
-
+.navbar-toggle {
+    background-color: #007fff;
+	border: 0px;
+}
 .likes{
 	margin-left: -6px;
 }
@@ -70,13 +73,17 @@
 }
 
 .navbar-inverse .navbar-nav>li>a {
-	color: #fff;
+	color: #0366d6;
 	padding-top: 10px;
 	padding-bottom: 8px;
 	line-height: 30px;
+	font-size: 16px;
 }
 #navbar li>a {
 	color: #000000;
+}
+#headerMenu li>a:hover{
+	color: black;
 }
 /*.pagination li a{*/
 	/*background-color: rgba(34,34,34,0.9);*/
@@ -272,11 +279,12 @@
 		margin-top: 1em;
 	}
 	.blog_list{
-	width: 100%;
-	padding:0.25rem 0.25rem 0.25rem 0.1rem;
-	background-color: #ffffff;
-	margin-bottom: 1em;
-	vertical-align: middle;
+		width: 100%;
+		padding:0.25rem 0.25rem 0.25rem 0.1rem;
+		background-color: #ffffff;
+		/*margin-bottom: 1em;*/
+		vertical-align: middle;
+		border-bottom: 1px solid #eeeeee;
 	}
 
 	.blog_list span{
@@ -393,16 +401,27 @@
 }
 
 @media (min-width: 481px) and (max-width:767px ) {
-
-
-
+	#navibar {
+		margin-top: 0px;
+		background: #f4f5f5;
+	}
+	#navibar ul {
+		border-bottom: 2px solid #333;
+		margin-bottom: 0px;
+		margin-top: 0px;
+		/* padding-bottom: 0.4rem; */
+		/* margin-bottom: 0.4rem; */
+	}
+	#navibar li {
+		float: left;
+	}
 	#timeline{
 		margin-top: 1em;
 	}
 	.blog_list{
 	width: 100%;
 	padding:1.5rem 1.5rem 1.5rem 1rem;
-	background-color: rgba(34,34,34,0.9);
+	background-color: #ffffff;
 	margin-bottom: 1em;
 	vertical-align: middle;
 	}
@@ -424,20 +443,23 @@
 	}
 
 	.blog_title{
-	position: absolute;
-	top:10%;
-	width: 66%;
-	height: 100%;
-	float: left;
-	margin-left: 0.3em;
+		padding-top:15px;
+		position: absolute;
+		width: 63%;
+		height: 100%;
+		float: left;
+		margin-left: 1em;
+
 
 	}
-
 	.blog_title h2{
 		width: 100%;
-		font-size: 1.67rem;
-		font-size: 20px;
-	
+		font-size: 10px;
+		top: 20%;
+
+	}
+	.blog_title_info_content{
+		font-size: 9px;
 	}
 
 	.blog_img{
@@ -621,11 +643,12 @@
 
 @media (min-width: 1120px) {
 	.blog_list{
-	width: 100%;
-	padding:1.0rem 1.0rem 1.0rem 1rem;
-	background-color: #fff;
-	margin-bottom: 5px;
-	vertical-align: middle;
+		width: 100%;
+		padding:1.0rem 1.0rem 1.0rem 1rem;
+		background-color: #fff;
+		/*margin-bottom: 5px;*/
+		vertical-align: middle;
+		border-bottom: 1px solid #eeeeee;
 	}
 
 	.blog_list span{
@@ -679,19 +702,19 @@
 	}
 }
 
-.catListTitle {
-    font-size: 18px;
-    padding: 10px 20px;
-    background-color: #169fe6;
-    color: #fff;
-    font-weight: normal;
-    border: 1px solid #169fe6;
-}
+/*.catListTitle {*/
+/*    font-size: 18px;*/
+/*    padding: 10px 20px;*/
+/*    background-color: #169fe6;*/
+/*    color: #fff;*/
+/*    font-weight: normal;*/
+/*    border: 1px solid #169fe6;*/
+/*}*/
 
 /* movie */
 .carousel-caption{font-size:1.4rem;line-height: 2rem;}
 .carousel-caption h2{font-size: 1.6rem;padding-bottom:0.5rem;}
-.sidebar{border:1px solid #ddd;padding: 10px;background: #fff}
+.sidebar{padding: 10px;background: #fff}
 .sidebar_cell{padding-bottom:1rem;margin-bottom:1rem;border-bottom: 1px solid #ccc;}
 .sidebar_cell_title{font-size:1.0rem;padding-bottom:0.5rem;font-weight: bold;}
 .sidebar_cell_list{font-size: 13px;line-height: 2rem;}
@@ -701,7 +724,7 @@
 .movieList_tab li.current{background:#0366d6;color: #fff;}
 .movieList_con{margin-bottom: 1rem;font-size: 15px;line-height: 2rem;}
 .movieList_page{text-align: center;}
-.movieList_con_cell_info{border: 1px solid #ddd;position: relative;}
+.movieList_con_cell_info{border: 1px solid #e9e9e9;position: relative;}
 .movieList_con_cell_info dl{padding:0.5rem 0 0;margin: 0;}
 .movieList_con_cell_info img{width:100px;height:147px;}
 .movieList_con_cell_mask{width: 100%;height: 100%;background: rgba(0,0,0,0.6);position: absolute;left: 0;top: 0;text-align: center;overflow: hidden;display: none;}
@@ -754,12 +777,12 @@ img{
     background-color:#f2f2f2;
     color:#666;
     font-size:14px;
-	padding-top: 20px;
+	/*padding-top: 20px;*/
     padding-bottom: 20px;
     }
 .movie-info{
     background-color: #fff;
-    margin-top: 5px;
+    /*margin-top: 5px;*/
     height: auto;
     white-space: nowrap;
 	font-size: 12px;
@@ -815,6 +838,14 @@ img{
     word-wrap:break-word;
     text-align:center;
     }
+
+.sidebar-block .post-thumbnail{
+	/*width: 200px;*/
+	height: 180px;
+}
+.sidebar-block .thumbnail .caption {
+    padding: 0px;
+}
 .havesee{
     position:absolute;
     right:2px;

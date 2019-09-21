@@ -1,5 +1,5 @@
 {% load blog_tags %}
-<nav class="navbar navbar-inverse navbar-fixed-top" style="background: linear-gradient(to bottom,#086ed5,#055db5);" role="navigation" id="topnavibar">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="" role="navigation" id="topnavibar">
     <div class="container-fluid">
         <div class="navbar-header">
 
@@ -46,13 +46,13 @@
 {#                        </button>#}
 {#                    </form>#}
 {#                </li>#}
-                <li style="float: right">
-                    {% csrf_token %}
-                    &nbsp;&nbsp;&nbsp;
-
-                    <img class="dianzan" src="/static/img/dianzan.png">
-                    <b id="likes" class="likes">{% num %}</b>
-                </li>
+{#                <li style="float: right">#}
+{#                    {% csrf_token %}#}
+{#                    &nbsp;&nbsp;&nbsp;#}
+{##}
+{#                    <img class="dianzan" src="/static/img/dianzan.png">#}
+{#                    <b id="likes" class="likes">{% num %}</b>#}
+{#                </li>#}
                 {% if request.user.username %}
                     <li class="dropdown-inverse" style="float: right">
                         <a  class="dropdown-toggle" data-toggle="dropdown">
@@ -81,30 +81,4 @@
     </div>
 </nav>
 <script>
-$(".dianzan").click(function () {
-    var csrf = $('input[name="csrfmiddlewaretoken"]').val();
-    $.ajax({
-        url: "/zan/",
-        data: { 'csrfmiddlewaretoken': csrf},
-        type: "POST",
-        async: false,
-        dataType: "json",
-        cache: false,
-        processData: false,
-        contentType: false,
-        success: function (result) {
-            console.log(result);
-            if (result['error']){
-                alert(JSON.stringify(result['error']));
-                return;
-            }else{
-                $("#likes").empty().append(result.num)
-            }
-
-        },
-        error: function (e) {
-           alert('server exception!');
-        }
-    });
-})
 </script>

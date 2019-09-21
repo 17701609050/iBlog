@@ -26,7 +26,7 @@
                                 {% for cate in movie_cate %}
                                     <a href="/movie/movie-list/type/{{ cate }}/">{{ cate }}</a>
                                 {% endfor %}
-
+                                <a href="/movie/movie-list/type/其他/">其他</a>
                             </div>
                         </div>
                         <div class="sidebar_cell">
@@ -35,6 +35,7 @@
                                 {% for country in movie_country %}
                                     <a href="/movie/movie-list/country/{{ country }}/">{{ country }}</a>
                                 {% endfor %}
+                                <a href="/movie/movie-list/country/其他/">其他</a>
                             </div>
                         </div>
                         <div class="sidebar_cell">
@@ -86,7 +87,7 @@
                         <ul class="movieTab_con">
                             <!--选项卡切换之最新-->
                             <li class="current">
-                               <div class="movieList_con row">
+                               <div class="movieList_con row" style="padding-top: 0px">
                                     {% for movie in obj_infos.object_list %}
                                     <div class="col-md-4">
                                       <div class="movieList_con_cell">
@@ -179,6 +180,11 @@
 {#                            {% endif %}#}
 {#                        </ul>#}
                         <!--分页符结束-->
+                        <div style="">
+                            声明：本网站提供新影视资源均系收集各大网站，本网站只提供web页面浏览服务，并不提供影片资源存储，也不参与任何视频录制、上传
+                                若本站收集的节目无意侵犯了贵司版权，邮箱来信，我们将在第一时间删除， 请大家支持正版到影院观看或购买正版CD!
+                            邮箱地址:459260276@qq.com
+                        </div>
                     </div>
              </div>
 
@@ -186,35 +192,15 @@
 
                 <!--排行榜开始-->
 {#                 <div class="col-md-2">#}
-{#                    <div class="rankBar">#}
-{#                        <h5 class="rankBar_title">#}
-{#                            最热#}
-{#                        </h5>#}
-{#                        <ul class="rankBar_list">#}
-{#                            <li><a target="_blank" href="http://t.cn/RGGWv4A">美人鱼</a></li>#}
+{#                    <div class="sidebar-block">#}
+{#                        <h3 class="catListTitle">#}
+{#                            广告招租#}
+{#                        </h3>#}
+{#                        <div style="padding: 10px;">#}
+{#                            #}
+{#                        </div>#}
+{#                    </div>#}
 {##}
-{#                        </ul>#}
-{#                    </div>#}
-{#                    <div class="rankBar">#}
-{#                        <h5 class="rankBar_title">#}
-{#                            IMDB排行榜#}
-{#                        </h5>#}
-{#                        <ul class="rankBar_list">#}
-{#                            {% for sidemovie in imdbmovie_list %}#}
-{#                            <li class="sider-movie"><a href="/movie/movie-detail/{{ sidemovie.id }}/" target="_blank" >{{sidemovie.chinese_movie_name}}</a></li>#}
-{#                            {% endfor %}#}
-{#                        </ul>#}
-{#                    </div>#}
-{#                    <div class="rankBar">#}
-{#                        <h5 class="rankBar_title">#}
-{#                            美剧排行榜#}
-{#                        </h5>#}
-{#                        <ul class="rankBar_list">#}
-{#                            {% for usamovie in usamovie_list %}#}
-{#                            <li class="sider-movie"><a href="{{usamovie.movieaddress}}" target="_blank">{{usamovie.moviename}}</a></li>#}
-{#                            {% endfor %}#}
-{#                        </ul>#}
-{#                    </div>#}
 {#                 </div>#}
                  <!--排行榜结束-->
             </div>

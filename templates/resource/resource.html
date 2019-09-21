@@ -1,18 +1,26 @@
 {% extends "common/base.html" %}
 {% load resource_tags %}
 {% block content %}
-<div id="resourceContent">
-    <div class="content-c">
-        <div class="content-list">
-            <div class="content-list-header">
-                <h3>
-                    {% if tag %}
-                        标签： {{ tag.tag }}
-                    {% elif category %}
-                        分类： {{ category.display_name }}
-                    {% endif %}
-                </h3>
-            </div>
+<div  class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-7 col-md-offset-1  col-sm-8 remove_padding">
+{#            <div class="content-list-header">#}
+{#                <h3>#}
+{#                    {% if tag %}#}
+{#                        标签： {{ tag.tag }}#}
+{#                    {% elif category %}#}
+{#                        分类： {{ category.display_name }}#}
+{#                    {% endif %}#}
+{#                </h3>#}
+{#            </div>#}
+            <nav class="navbar" style="" role="navigation" id="navibar">
+                <ul class="nav navbar-nav">
+                    <li><a href="/resource/" style="">全部</a></li>
+                    {% for cate in categorys %}
+                        <li><a href="{% url 'resource_category' cate.id %}">{{ cate.display_name }}</a></li>
+                    {% endfor %}
+                  </ul>
+            </nav>
             {% for resource in obj_infos %}
                 <div class="content-list-item">
                     <span class="resource">{{ resource.name }}</span>
@@ -31,34 +39,38 @@
             {% include "blog/pager.html" %}
         </div>
 
-        <div class="tags">
-            <div class="">
-              <h3 class="catListTitle">资源标签</h3>
-            </div>
-            <div id="tags" class="">
-                <h5>
-                    {% for tag in tags %}
-                        <a href="{% url 'resource_tags' tag.id %}" >
-                          <span class="label label-default label-primary">{{ tag.tag }}</span>
-                        </a>
-                    {% endfor %}
-                </h5>
-            </div>
-        </div>
-
-        <div class="tags">
-            <div class="">
-              <h3 class="catListTitle">资源分类</h3>
-            </div>
+        <div class="col-lg-4 col-md-3 col-sm-4 remove_padding">
             <div class="sidebar-block">
-
-                <ul style="margin: 0px;padding: 0px">
-                    {% for cate in categorys %}
-                        <li><a href="{% url 'resource_category' cate.id %}">{{ cate.display_name }}</a></li>
-                    {% endfor %}
-                </ul>
+                <h3 class="catListTitle">资源标签</h3>
+                <div id="tags" class="">
+                    <h5>
+                        {% for tag in tags %}
+                            <a href="{% url 'resource_tags' tag.id %}" >
+                              <span class="label label-default label-primary">{{ tag.tag }}</span>
+                            </a>
+                        {% endfor %}
+                    </h5>
+                </div>
             </div>
+
+
+{#            <div class="sidebar-block">#}
+{#                <h3 class="catListTitle">资源分类</h3>#}
+{#                <div>#}
+{##}
+{#                    <ul style="margin: 0px;padding: 0px">#}
+{#                        {% for cate in categorys %}#}
+{#                            <li><a href="{% url 'resource_category' cate.id %}">{{ cate.display_name }}</a></li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+
         </div>
+
+{#        <div class="tags">#}
+{#            #}
+{#        </div>#}
 
     </div>
 

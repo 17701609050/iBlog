@@ -33,8 +33,8 @@ class MovieTemplateMixin(TemplateView, Page):
 
     def get_general_data(self, context):
 
-        context['movie_cate'] = movie_service.movie_cates()
-        context['movie_country'] = movie_service.movie_countrys()
+        context['movie_cate'] = movie_service.movie_cates()[:10]
+        context['movie_country'] = movie_service.movie_countrys()[:10]
         context['movie_time'] = movie_service.movie_time
         return context
 

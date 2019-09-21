@@ -11,15 +11,33 @@ from .forms import CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Blog, Tag, Category1, Category2, Profile, \
     Profile_Tag, Friend, Friend_Tag, Comment
+from apps.movie.models import Movie
+from apps.resource.models import Resource
 
 
+# 首页
 def index(request):
     # the home page
-    __category1 = [cate1 for cate1 in Category1.objects.order_by('add_time')]
+    obj_list = Blog.objects.all().order_by('?')[:10]
+    obj_infos = __get_blog_info(obj_list, None, None)
+    movies = Movie.objects.filter(doubanscore__gte=7).order_by('?')[:16]
+    resources = Resource.objects.all().order_by('?')[:10]
+    friends = Friend.objects.all()
     content = {
-        'category1': __category1,
+        'blogs': obj_infos,
+        'movies': movies,
+        'resources': resources,
+        'friends': friends,
+        'blog_count': Blog.objects.all().count(),
+        'movie_count': Movie.objects.all().count(),
+        'resource_count': Resource.objects.all().count(),
     }
-    return render(request, 'common/home.html', content)
+    return render(request, 'common/home_page.html', content)
+
+
+# 作者主页
+def home(request):
+    return render(request, 'common/home.html', {})
 
 
 def baidu_verify_w3IViTxMcb(request):
