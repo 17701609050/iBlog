@@ -52,10 +52,10 @@ class Tag(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(u'标题', max_length=100)
-    head_pic_url = models.CharField(u'头图链接', max_length=250, default='/static/img/zipinglx.png')
+    head_pic_url = models.ImageField(u'文章标题链接', upload_to="blog/", blank=True, null=True)
     pub_time = models.DateTimeField(u'发布时间')
     brief = models.CharField(u'摘要', max_length=200, blank=True, null=True)
-    content = UEditorField(u'正文', width=900, height=600, toolbars="full", imagePath="", settings={})
+    content = UEditorField(u'正文', width="100%", height=600, toolbars="full", imagePath="blog/", settings={})
     page_views = models.PositiveIntegerField(u'阅读量', default=0, editable=False)
     category1 = models.ForeignKey(Category1, verbose_name=u'一级目录')
     category2 = models.ForeignKey(Category2, null=True, verbose_name=u'二级目录')
@@ -114,7 +114,7 @@ class Friend_Tag(models.Model):
 
 
 class Friend(models.Model):
-    name = models.CharField(max_length=50, db_index=True, unique=True)
+    name = models.CharField(u'友情链接网站名称',max_length=50, db_index=True, unique=True)
     friend_url = models.CharField(u'链接', max_length=250, default='http://')
     tags = models.ManyToManyField(Friend_Tag, blank=True, verbose_name=u'标签')
 
