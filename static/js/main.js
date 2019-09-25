@@ -47,20 +47,18 @@ $(document).ready(function(){
 	});
 
 	//return_top
-	 $(window).scroll(function(){  
-                if ($(window).scrollTop()>100){  
-                    $("#return_top").fadeIn(500);  
-                }  
-                else  
-                {  
-                    $("#return_top").fadeOut(500);  
-                }  
-            });  
+	$(window).scroll(function(){
+		if ($(window).scrollTop()>100){
+			$("#return_top").fadeIn(500);
+		}else{
+			$("#return_top").fadeOut(500);
+		}
+	});
 
-	  $("#return_top").click(function(){  
-                $('body,html').animate({scrollTop:0},1000);  
-                return false;  
-            });  
+	$("#return_top").click(function(){
+		$('body,html').animate({scrollTop:0}, 500);
+		return false;
+	});
 	
 	$("#ds-thread #ds-reset .ds-replybox .ds-avatar img").addClass("img-circle");
 

@@ -93,7 +93,7 @@
                                     <span>
                                         <strong style="color: #3194d0">
                                          <img class="userImg"
-                                              src="{{ comment.user.profile.head_pic_url }}"> {{ comment.user }}
+                                              src="{% if comment.user.profile.user_from %}{{ comment.user.profile.user_image.name }}{% else %}{{ comment.user.profile.user_image.url }}{% endif %}"> {{ comment.user }}
                                         </strong>
 
                                         <!-- 显示被回复人 -->

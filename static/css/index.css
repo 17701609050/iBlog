@@ -79,6 +79,10 @@
 	line-height: 30px;
 	font-size: 16px;
 }
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
+    background-color: #fff;
+    color: #ccc;
+}
 #navbar li>a {
 	color: #000000;
 }

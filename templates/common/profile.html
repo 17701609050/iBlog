@@ -3,11 +3,10 @@
     <div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-10 col-md-offset-1 col-sm-12 remove_padding">
-{#             <div id="">#}
-{#                <img src="{{ profile.head_pic_url }}">#}
-{#             </div>#}
+
             <div id="content">
-                <h1><img src="{{ profile.user_image.url }}" style="width:300px;height: 300px"><br>{{ profile.title }}</h1>
+                <h1><img src="{% if profile.user_from %}{{ profile.user_image.name }}{% else %}{{ profile.user_image.url }}{% endif %}"
+                         style="width:100px;height: 100px"><br>{{ profile.title }}</h1>
                 <h5 class="tag">
                     <span class="glyphicon glyphicon-tags" ></span>&nbsp;
                        {% for tag in profile_tags %}

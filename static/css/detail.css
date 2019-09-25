@@ -127,9 +127,7 @@ hr{
 
 }
 
-.center_align{
-	/*text-align: center !important;*/
-}
+.center_align{text-align: center !important;}
 
 
 @media (max-width: 480px) {

@@ -116,13 +116,14 @@ a:active{
 
 }
 .dropdown-menu{
-	background-color: rgba(34,34,34,0.9);
+	background-color: #fff;
 	font-size: 0.875rem;
 	font-size: 14px;
+	border: 0px;
 }
 
 .dropdown-menu li{
-	border-bottom: 1px solid #333;
+	border-bottom: 0px;
 }
 .dropdown-menu li:last-child{
 	border-bottom:none;
@@ -130,7 +131,7 @@ a:active{
 
 
 .dropdown-menu li a{
-	color: #cccccc;
+	color: #8590a6;
 }
 
 
@@ -329,7 +330,7 @@ url-prefix()
 	right: 3rem;
 	z-index: 5;
 }
-
+#return_top a{display: block;width: 40px;height: 40px;background: #fff;text-align: center;line-height: 40px;}
 /*
 	search搜索框
  */
