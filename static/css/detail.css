@@ -36,7 +36,17 @@ hr{
 	margin-right: 0.5rem !important;
 }
 
+#content table{
+	width: 100%;
+	/*border: 1px solid rgb(242, 242, 242);*/
+}
 
+#content table tr  th {
+	border: 1px solid rgb(242, 242, 242);
+}
+#content table tr  td {
+	border: 1px solid rgb(242, 242, 242);
+}
 
 #content h2{
 	color: #333;
@@ -139,9 +149,9 @@ hr{
 		font-size: 0.875rem;
 		font-size: 14px;
 		overflow: hidden;
-		margin: 0;
 		padding: 0 0.8em 0.8em 0.8em;
-
+		-webkit-box-shadow: 0 0 40px rgba(0,0,0,.3);
+		margin-bottom: 20px;
 	}
 
 	#content h1{
@@ -174,8 +184,9 @@ hr{
 		font-size: 1rem;
 		font-size: 16px;
 		overflow: hidden;
-		margin: 0;
 		padding: 0 0.8em 0.8em 0.8em;
+		-webkit-box-shadow: 0 0 40px rgba(0,0,0,.3);
+		margin-bottom: 20px;
 	}
 	.tag span{
 		font-weight: normal;
@@ -202,8 +213,9 @@ hr{
 		font-size: 1rem;
 		font-size: 14px;
 		overflow: hidden;
-		margin: 0;
 		padding: 0 0.8em 0.8em 0.8em;
+		-webkit-box-shadow: 0 0 40px rgba(0,0,0,.3);
+		margin-bottom: 20px;
 	}
 
 	.tag span{
@@ -235,7 +247,9 @@ hr{
 		margin-top:-1px;
 		overflow: hidden;
 		padding: 20px;
-		border: 1px solid #dedede;
+		/*border: 1px solid #dedede;*/
+		-webkit-box-shadow: 0 0 40px rgba(0,0,0,.3);
+		margin-bottom: 20px;
 	}
 	.tag span{
 		font-weight: normal;
