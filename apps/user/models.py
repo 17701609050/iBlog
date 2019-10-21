@@ -11,6 +11,9 @@ class ProfileTag(models.Model):
     def __unicode__(self):
         return self.tag
 
+    def __str__(self):
+        return "%s" % (self.tag)
+
     class Meta:
         verbose_name = '个人简介标签'
         verbose_name_plural = '个人简介标签'
@@ -33,6 +36,9 @@ class Profile(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def __str__(self):
+        return "%s" % (self.title)
 
     class Meta:
         verbose_name = '个人简介'

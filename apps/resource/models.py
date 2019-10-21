@@ -12,6 +12,9 @@ class ResourceCategory(models.Model):
     def __unicode__(self):
         return self.resource_category
 
+    def __str__(self):
+        return "%s" % (self.resource_category)
+
     class Meta:
         verbose_name = '资源分类'
         verbose_name_plural = '资源分类'
@@ -24,6 +27,9 @@ class ResourceTag(models.Model):
 
     def __unicode__(self):
         return self.tag
+
+    def __str__(self):
+        return "%s" % (self.tag)
 
     class Meta:
         verbose_name = '资源标签'
@@ -41,6 +47,9 @@ class Resource(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return "%s" % (self.name)
 
     class Meta:
         verbose_name = '资源'

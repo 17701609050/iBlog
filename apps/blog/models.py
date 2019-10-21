@@ -16,6 +16,9 @@ class Category1(models.Model):
     def __unicode__(self):
         return self.category_1
 
+    def __str__(self):
+        return "%s" % (self.display_name)
+
     class Meta:
         verbose_name = '一级分类'
         verbose_name_plural = '一级分类'
@@ -31,6 +34,9 @@ class Category2(models.Model):
     def __unicode__(self):
         return self.category_2
 
+    def __str__(self):
+        return "%s" % (self.display_name)
+
     class Meta:
         verbose_name = '二级分类'
         verbose_name_plural = '二级分类'
@@ -43,6 +49,9 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.tag
+
+    def __str__(self):
+        return "%s" % (self.tag)
 
     class Meta:
         verbose_name = '标签'
@@ -64,6 +73,9 @@ class Blog(models.Model):
     def __unicode__(self):
         return self.title
 
+    def __str__(self):
+        return "%s" % (self.title)
+
     class Meta:
         verbose_name = '博客'
         verbose_name_plural = '博客'
@@ -76,6 +88,10 @@ class Profile_Tag(models.Model):
 
     def __unicode__(self):
         return self.tag
+
+    def __str__(self):
+        return "%s" % (self.tag)
+
 
     class Meta:
         verbose_name = '个人简介标签'
@@ -94,6 +110,9 @@ class Profile(models.Model):
     def __unicode__(self):
         return self.title
 
+    def __str__(self):
+        return "%s" % (self.title)
+
     class Meta:
         verbose_name = '作者个人简介'
         verbose_name_plural = '作者个人简介'
@@ -106,6 +125,9 @@ class Friend_Tag(models.Model):
 
     def __unicode__(self):
         return self.tag
+
+    def __str__(self):
+        return "%s" % (self.tag)
 
     class Meta:
         verbose_name = '友情链接标签'
@@ -120,6 +142,9 @@ class Friend(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return "%s" % (self.name)
 
     class Meta:
         verbose_name = '友情链接'
@@ -173,4 +198,7 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return self.body[:20]
+
+    def __str__(self):
+        return "%s" % (self.body[:20])
 
