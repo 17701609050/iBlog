@@ -51,8 +51,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('date', models.DateTimeField(auto_now_add=True)),
                 ('comment', django_markdown.models.MarkdownField()),
-                ('movie', models.ForeignKey(to='movie.Movie')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('movie', models.ForeignKey(to='movie.Movie', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -61,8 +61,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('date', models.DateTimeField(auto_now_add=True)),
                 ('marked', models.IntegerField(null=True, blank=True)),
-                ('movie', models.ForeignKey(to='movie.Movie')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('movie', models.ForeignKey(to='movie.Movie', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(

@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 ('category_2', models.CharField(unique=True, max_length=30, db_index=True)),
                 ('add_time', models.DateTimeField(auto_now_add=True)),
                 ('display_name', models.CharField(max_length=255)),
-                ('category1', models.ForeignKey(verbose_name='\u4e00\u7ea7\u76ee\u5f55', to='blog.Category1')),
+                ('category1', models.ForeignKey(verbose_name='\u4e00\u7ea7\u76ee\u5f55', to='blog.Category1', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['-add_time'],
@@ -121,12 +121,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='blog',
             name='category1',
-            field=models.ForeignKey(verbose_name='\u4e00\u7ea7\u76ee\u5f55', to='blog.Category1'),
+            field=models.ForeignKey(verbose_name='\u4e00\u7ea7\u76ee\u5f55', to='blog.Category1', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='blog',
             name='category2',
-            field=models.ForeignKey(verbose_name='\u4e8c\u7ea7\u76ee\u5f55', to='blog.Category2', null=True),
+            field=models.ForeignKey(verbose_name='\u4e8c\u7ea7\u76ee\u5f55', to='blog.Category2', null=True, on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='blog',

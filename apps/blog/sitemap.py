@@ -1,5 +1,5 @@
 from django.contrib import sitemaps
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from .models import Blog,Tag,Category1,Category2,Profile,Profile_Tag,Friend,Friend_Tag
 
 class IndexSitemap(sitemaps.Sitemap):

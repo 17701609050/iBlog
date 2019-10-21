@@ -5,7 +5,7 @@ import time
 import uuid
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
@@ -66,7 +66,7 @@ def webo_auth(request):
     # 通过uid查询出是否是新用户，新用户则注册登录
     # 如果不存在username，则创建
     new_user_info = sina.get_user_info(user_info)
-    print new_user_info
+    # print new_user_info
     username = new_user_info['name']
     profile_image_url = new_user_info.get('avatar_large', '')
     password = '111111'

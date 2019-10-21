@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import url
 from django.views.generic import TemplateView
-import github_oauth
-import webo_oauth
-import qq_oauth
+from . import github_oauth
+from . import webo_oauth
+from . import qq_oauth
 
 urlpatterns = [
    url(r'^github/$', github_oauth.github_auth, name='github_oauth'),

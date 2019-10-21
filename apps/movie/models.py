@@ -55,8 +55,8 @@ class Movie(models.Model):
 
 
 class MovieHistory(models.Model):
-    user = models.ForeignKey(User)  # 观看用户
-    movie = models.ForeignKey(Movie)  # 观看电影
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # 观看用户
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)  # 观看电影
     date = models.DateTimeField(auto_now_add=True)  # 观看时间
     marked = models.IntegerField(blank=True, null=True)  # 0表示观看，1表示收藏，2表示推荐
 
@@ -65,8 +65,8 @@ class MovieHistory(models.Model):
 
 
 class MovieComent(models.Model):
-    user = models.ForeignKey(User)  # 观看用户
-    movie = models.ForeignKey(Movie)  # 观看电影
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # 观看用户
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)  # 观看电影
     date = models.DateTimeField(auto_now_add=True)  # 评论时间
     comment = MarkdownField()  # 评论
 

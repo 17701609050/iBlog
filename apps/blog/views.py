@@ -106,7 +106,7 @@ def __get_blog_info(objs, _category1, _category2):
     blog_info = []
 
     for blog in objs:
-        if len(blog.brief.encode('unicode-escape').decode('string_escape')) > 60:
+        if len(blog.brief) > 60:
             content = blog.brief[0:60] + ' ...'
         else:
             content = blog.brief[0:60]

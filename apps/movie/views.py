@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import random
 from django.shortcuts import render,redirect
-from models import Movie, MovieHistory
-from forms import MovieInfoForm
+from . models import Movie, MovieHistory
+from . forms import MovieInfoForm
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator,InvalidPage,EmptyPage,PageNotAnInteger
 from django.contrib.auth.models import User
@@ -25,7 +25,9 @@ class MovieTemplateMixin(TemplateView, Page):
             page_num = request.GET.get('page')
             if page_num is not None:
                 page_num = int(page_num)
-            if page_num < 1:
+                if page_num < 1:
+                    page_num = 1
+            else:
                 page_num = 1
         except ValueError:
             page_num = 1

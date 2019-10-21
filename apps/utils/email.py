@@ -34,6 +34,6 @@ def send_verify_email(recipients, verify_url):
         connection.send_messages(messages)
         if msg.send():
             print('******************send ok*********************')
-    except Exception, e:
-        print str(e)
+    except Exception as e:
+        print(str(e))
         print('******************send fail*********************')

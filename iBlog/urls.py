@@ -30,7 +30,7 @@ from apps.blog.sitemap import sitemaps
 from apps.blog.LatestEntriesFeed import LatestEntriesFeed
 
 import apps.blog.views as blog_views
-import views
+from . import views
 
 
 schema_view = get_schema_view(
@@ -40,8 +40,8 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     url(r'^docs/$', schema_view, name='docs'),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^xadmin/', include(xadmin.site.urls)),
+    url(r'^admin/', admin.site.urls),
+    url(r'^xadmin/', xadmin.site.urls),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'^favicon.ico$', RedirectView.as_view(url='/static/img/favicon.ico',  permanent=True)),
     url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),

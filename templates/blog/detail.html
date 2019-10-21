@@ -45,7 +45,7 @@
                       <h5 class="tag">
                         <span class="glyphicon glyphicon-tags" ></span>&nbsp;
                            {% for tag in blog_tags %}
-                              <a href="{% url 'tag' tag.id %}" class="tag_link"><span class="label">{{ tag }}</span></a>&nbsp;&nbsp;
+                              <a href="{% url 'tag' tag.id %}" class="tag_link"><span class="label">{{ tag.tag }}</span></a>&nbsp;&nbsp;
                            {% endfor %}
                       </h5>
 

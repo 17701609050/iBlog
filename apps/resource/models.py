@@ -33,7 +33,7 @@ class ResourceTag(models.Model):
 
 class Resource(models.Model):
     name = models.CharField(max_length=250, db_index=True, unique=True, verbose_name=u'资源名称')
-    category = models.ForeignKey(ResourceCategory, verbose_name=u'资源分类')
+    category = models.ForeignKey(ResourceCategory, verbose_name=u'资源分类', on_delete=models.CASCADE)
     tag = models.ManyToManyField(ResourceTag, blank=True, verbose_name=u'标签')
     link = models.CharField(max_length=255)
     add_time = models.DateTimeField()

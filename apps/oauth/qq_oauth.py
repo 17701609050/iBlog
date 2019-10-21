@@ -3,10 +3,11 @@ import requests
 import json
 import time
 import uuid
-import urllib, urllib2, urlparse
+import urllib, urllib.request
+from urllib.parse import urlparse
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
@@ -39,7 +40,7 @@ class OAuthQQ:
         url = 'https://graph.qq.com/oauth2.0/token?%s' % urllib.urlencode(params)
 
         # 访问该网址，获取access_token
-        response = urllib2.urlopen(url).read()
+        response = urllib.request.urlopen(url).read()
         result = urlparse.parse_qs(response, True)
 
         access_token = str(result['access_token'][0])
@@ -51,7 +52,7 @@ class OAuthQQ:
         params = {'access_token': self.access_token}
         url = 'https://graph.qq.com/oauth2.0/me?%s' % urllib.urlencode(params)
 
-        response = urllib2.urlopen(url).read()
+        response = urllib.request.urlopen(url).read()
         v_str = str(response)[9:-3]  # 去掉callback的字符
         v_json = json.loads(v_str)
 
@@ -66,7 +67,7 @@ class OAuthQQ:
                   'openid': self.openid}
         url = 'https://graph.qq.com/user/get_user_info?%s' % urllib.urlencode(params)
 
-        response = urllib2.urlopen(url).read()
+        response = urllib.request.urlopen(url).read()
         return json.loads(response)
 
 
@@ -90,9 +91,9 @@ def qq_auth(request):  # 第三方QQ登录，回调函数
     access_token = oauth_qq.get_access_token(request_code)
     time.sleep(0.05)  # 稍微休息一下，避免发送urlopen的10060错误
     open_id = oauth_qq.get_open_id()
-    print open_id
+    # print open_id
     infos = oauth_qq.get_qq_info()
-    print infos
+    # print infos
     username = infos['nickname']
     profile_image_url = infos.get('figureurl_qq', '')
     password = '111111'

@@ -72,22 +72,21 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + API_APPS
 
 APPS_DIR = os.path.join(BASE_DIR, 'apps')
 # Uninstall apps, api is hidden
-UNINSTALL_APPS = ()
+UNINSTALL_APPS = ('__pycache__')
 LOCAL_APPS = [o for o in os.listdir(APPS_DIR) if os.path.isdir(os.path.join(APPS_DIR, o)) and
               not o.startswith('.') and o not in UNINSTALL_APPS]
 
 # AUTH_PROFILE_MODULE = 'user.Profile'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     # 'django.contrib.sessions.middleware.SessionMiddleware',
     # 'iBlog.middleware.SessionInterceptor',
 )
@@ -122,7 +121,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 15,
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # drf的这一阶段主要是做验证,middleware的auth主要是设置session和user到request对象
         # 默认的验证是按照验证列表从上到下的验证
@@ -212,7 +211,7 @@ def get_current_host_ip():
     finally:
         s.close()
     return ip
-print get_current_host_ip()
+# print get_current_host_ip()
 if get_current_host_ip() == '172.19.232.246':  # '47.103.28.249'
     GITHUB_CLIENTID = '1974fa4300940b35ea71'
     GITHUB_CLIENTSECRET = '44cc84e8b7d4d5282aa5577f3aafd75e8b2d3407'

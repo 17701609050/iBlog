@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 import urllib
-import urllib2
+import urllib.request
 import json
 import uuid
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
@@ -35,7 +35,7 @@ def githhub_login(request, targetUri):
         'state': _get_refer_url(request),
     }
 
-    print urllib.urlencode(data)
+    # print urllib.urlencode(data)
     github_auth_url = '%s?%s' % (GITHUB_AUTHORIZE_URL, urllib.urlencode(data))
     return HttpResponseRedirect(github_auth_url)
 
@@ -69,17 +69,17 @@ def github_auth(request):
 
     # 设置请求返回的数据类型
     headers = {'Accept': 'application/json'}
-    req = urllib2.Request(url, binary_data, headers)#urllib.request.Request(url, binary_data, headers)
+    req = urllib.request.Request(url, binary_data, headers)#urllib.request.Request(url, binary_data, headers)
 
-    response = urllib2.urlopen(req)
+    response = urllib.request.urlopen(req)
     response_data = response.read()
 
     result = json.loads(response_data)
     access_token = result['access_token']
 
     url = 'https://api.github.com/user?access_token=%s' % (access_token)
-    req = urllib2.Request(url)  #
-    response = urllib2.urlopen(req)
+    req = urllib.request.Request(url)  #
+    response = urllib.request.urlopen(req)
     html = response.read()
     data = json.loads(html)
     username = data['name']

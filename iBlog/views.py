@@ -10,7 +10,7 @@ from django.db.models import Count, Q
 from django.http.response import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.template import TemplateDoesNotExist, RequestContext
 # from .login_service import do_login
-from apps.blog.search_blogs import searchblog
+# from apps.blog.search_blogs import searchblog
 from apps.blog.views import Category1, Category2, Tag, Friend, __get_blog_info, __my_pagination, __get_latest, Blog
 from rest_framework_jwt.views import obtain_jwt_token
 from apps.blog.models import Zan

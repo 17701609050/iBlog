@@ -5,11 +5,11 @@ from .models import Movie
 from django.contrib import auth
 from django.utils.safestring import mark_safe
 #实现水平排列单选按钮
-class HorizontalRadioRenderer(forms.RadioSelect.renderer):
+class HorizontalRadioRenderer(forms.RadioSelect):
     def render(self):
         return mark_safe(u'\n'.join([u'&nbsp;&nbsp;&nbsp;%s\n ' % w for w in self]))
 
-class HorizontalCheckRenderer(forms.CheckboxSelectMultiple.renderer):
+class HorizontalCheckRenderer(forms.CheckboxSelectMultiple):
     def render(self):
         return mark_safe(u'\n'.join([u'&nbsp;&nbsp;&nbsp;%s\n ' % w for w in self]))
 
@@ -19,10 +19,10 @@ class MovieInfoForm(forms.ModelForm):
                                 max_length=50,label=u'电影名',required=True)
     movieaddress = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),label=u'播放地址',max_length=100)
     downloadlink = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),label=u'下载地址',max_length=100)
-    style = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(renderer=HorizontalCheckRenderer),
+    style = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(),
                                       choices=MOVIE_STYLE_CHOICE,required=False,label=u'电影类型')
     language = forms.CharField(widget=forms.RadioSelect(choices=((u'0',u'中文'),(u'1',u'英文'),(u'2',u'韩语'),(u'3',u'日语'),(u'4',u'其它')),
-                                                        attrs={'class':'radio-inline'},renderer=HorizontalRadioRenderer),label=u'语言')
+                                                        attrs={'class':'radio-inline'}),label=u'语言')
     image = forms.ImageField(label=u'上传图片')
     class Meta:
         model = Movie

@@ -26,7 +26,7 @@ class Category2(models.Model):
     category_2 = models.CharField(max_length=30, db_index=True, unique=True)
     add_time = models.DateTimeField(auto_now_add=True)
     display_name = models.CharField(max_length=255)
-    category1 = models.ForeignKey(Category1, verbose_name=u'一级目录')
+    category1 = models.ForeignKey(Category1, verbose_name=u'一级目录', on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.category_2
@@ -57,8 +57,8 @@ class Blog(models.Model):
     brief = models.CharField(u'摘要', max_length=200, blank=True, null=True)
     content = UEditorField(u'正文', width="100%", height=600, toolbars="full", imagePath="blog/", settings={})
     page_views = models.PositiveIntegerField(u'阅读量', default=0, editable=False)
-    category1 = models.ForeignKey(Category1, verbose_name=u'一级目录')
-    category2 = models.ForeignKey(Category2, null=True, verbose_name=u'二级目录')
+    category1 = models.ForeignKey(Category1, verbose_name=u'一级目录', on_delete=models.CASCADE)
+    category2 = models.ForeignKey(Category2, null=True, verbose_name=u'二级目录', on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True, verbose_name=u'标签')
 
     def __unicode__(self):

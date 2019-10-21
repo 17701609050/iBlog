@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.conf.urls import url
 from django.views.generic import TemplateView
-import views
+from . import views
 
 urlpatterns = [
    url(r'^login/$', views.user_login, name='login'),

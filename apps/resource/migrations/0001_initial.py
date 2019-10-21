@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='resource',
             name='category',
-            field=models.ForeignKey(verbose_name='\u8d44\u6e90\u5206\u7c7b', to='resource.ResourceCategory'),
+            field=models.ForeignKey(verbose_name='\u8d44\u6e90\u5206\u7c7b', to='resource.ResourceCategory', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='resource',

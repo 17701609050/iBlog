@@ -9,8 +9,8 @@ register = template.Library()
 def get_movie_name(value):
     try:
         movie_name = get_middle_str(value, '《', '》')
-    except Exception, e:
-        print str(e)
+    except Exception as e:
+        # print str(e)
         movie_name = value
     return movie_name
 
