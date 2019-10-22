@@ -11,5 +11,6 @@ urlpatterns = [
    url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
    url(r'^post-comment/(?P<blog_id>\d+)/$', blog_view.post_comment, name='post_comment'),
-   url(r'^post-comment/(?P<blog_id>\d+)/(?P<parent_comment_id>\d+)/$', blog_view.post_comment, name='comment_reply')
+   url(r'^post-comment/(?P<blog_id>\d+)/(?P<parent_comment_id>\d+)/$', blog_view.post_comment, name='comment_reply'),
+   url(r'^time-line/$', blog_view.TimeLineView.as_view(), name='time_line')
 ]

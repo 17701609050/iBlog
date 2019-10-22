@@ -83,40 +83,18 @@
     background-color: #fff;
     color: #ccc;
 }
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+	background-color: #ccc;
+}
+.navbar-inverse .navbar-nav>.active>a:hover{
+	background-color: #fff;
+}
 #navbar li>a {
 	color: #000000;
 }
 #headerMenu li>a:hover{
-	color: black;
+	color: #ccc;
 }
-/*.pagination li a{*/
-	/*background-color: rgba(34,34,34,0.9);*/
-	/*color: #dddddd;*/
-	/*border-color: #444444;*/
-	/*font-size: 1rem;*/
-	/*font-size: 14px;*/
-/*}*/
-
-
-
-/*.pagination li a:hover{*/
-	/*background-color: #666666;*/
-	/*border:none;*/
-	/*color: #ffffff;*/
-/*}*/
-
-/*.pagination > .active > a*/
- /*{*/
-  /*color: #aaa;*/
-  /*cursor: default;*/
-  /*border-color: #444444;*/
-  /*background-color: rgba(85,85,85,0.9);*/
-/*}*/
-
-/*.pagination > .active > a:hover{*/
-	/*color: #aaa;*/
-	/*background-color: #555555;*/
-/*}*/
 
 /*blog右侧菜单栏*/
 #right_column{

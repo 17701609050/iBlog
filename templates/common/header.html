@@ -17,21 +17,21 @@
         <div class="collapse navbar-collapse">
 
             <ul class="nav navbar-nav" id="headerMenu">
-                {% if request.session_data.sys_menu_html %}
-                    {% autoescape off %}{{request.session_data.sys_menu_html}}{% endautoescape %}
-                {% else %}
-                    <li><a href="/"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
-                {% endif %}
-                <li>
-                    <a href="/blog/all/">
-                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;文章
+{#                {% if request.session_data.sys_menu_html %}#}
+{#                    {% autoescape off %}{{request.session_data.sys_menu_html}}{% endautoescape %}#}
+{#                {% else %}#}
+                <li><a href="/"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+{#                {% endif %}#}
+                <li class="dropdown-inverse">
+                    <a data-toggle="dropdown" class="dropdown-toggle">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;文章<span class="caret"></span>
                     </a>
-{#                    <ul class="dropdown-menu">#}
-{#                        {% for cate in category1 %}#}
-{#                            <li><a href="/blog/{{ cate.category_1 }}/">{{ cate.display_name }}</a></li>#}
-{#                        {% endfor %}#}
-{#                    </ul>#}
+                    <ul class="dropdown-menu">
+                        <li><a href="/blog/all/"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;分类</a></li>
+                        <li><a href="{% url 'time_line' %}"><span class="glyphicon glyphicon-time"></span>&nbsp;时间线</a></li>
+                    </ul>
                 </li>
+
                 <li><a href="{% url 'movie_list' %}"><span class="glyphicon glyphicon-film"></span>&nbsp;电影</a></li>
                 <li><a href="/resource/"><span class="glyphicon glyphicon-share"></span>&nbsp;资源分享</a></li>
 

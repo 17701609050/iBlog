@@ -66,6 +66,7 @@
 <script>
     $(function(){
         var urlstr = location.pathname;
+        var $active;
         $('#headerMenu a').each(function(){
             if (urlstr=="/"){
                 $(this).css("background", "#ffffff").css("color", "black");
@@ -74,9 +75,9 @@
             var indexUrl = urlstr.split('/')[1];
              if (indexUrl!="/" && this.pathname.indexOf(indexUrl) >= 0){
                   $(this).css("background", "#ffffff").css("color", "black");
-                  var parrent_a = $(this).parent().parent().prev();
-                  if (parrent_a.attr('class')=="dropdown-toggle"){
-                      parrent_a.css("background", "#ffffff").css("color", "black");
+                  $active = $(this).parent().parent().prev();
+                  if ($active.attr('class')=="dropdown-toggle"){
+                      $active.css("background", "#ffffff").css("color", "black");
                   }
              }
         })
@@ -85,6 +86,19 @@
                 $(this).css("background", "#ffffff").css("color", "black");
             }
         })
+
+
+        $("#headerMenu > li").hover(function(e){
+            $("#headerMenu > li").removeClass('active');
+            $(this).addClass('active');
+            if($(this).hasClass("active")){
+                $(this).children('.dropdown-menu').show();
+            }
+        },function(e){
+            $(this).children('.dropdown-menu').hide();
+            $("#headerMenu > li").removeClass('active');
+            $active.addClass('active');
+        });
     })
 </script>
 </html>

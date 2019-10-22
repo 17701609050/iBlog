@@ -20,11 +20,12 @@
                         {% csrf_token %}
                         <fieldset>
                             <div class="form-group">
-                                <input type="text" name='username' placeholder="用户名" class='form-control' value="{{ form.data.username }}" required/>
-                                <p style="color: red">{{ error_msg }}</p>
+                                <input type="text" name='username' placeholder="用户名" class='form-control' value="{% if form.data %}{{ form.data.username }}{% endif %}" required/>
+                                <p style="color: red">{% if error_msg %}{{ error_msg }}{% endif %}</p>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" placeholder="密码" class='form-control' value="{{ form.data.password }}" data-rule-required="true" required/>
+
+                                <input type="password" name="password" placeholder="密码" class='form-control' value="{% if form.data %}{{ form.data.password }}{% endif %}" data-rule-required="true" required/>
 
                             </div>
                             <input type="hidden" name="targetUri" value="{{ targetUri }}"/>
@@ -43,7 +44,7 @@
                                         </a>
                                     </li>
                                     <li><a class="weibo" href="{% url 'weibo_login' targetUri %}"><i class="iconfont ic-weibo"></i></a></li>
-                                    <li><a id="weixin" class="weixin" target="_blank" href="/users/auth/wechat"><i class="iconfont ic-wechat"></i></a></li>
+{#                                    <li><a id="weixin" class="weixin" target="_blank" href="/users/auth/wechat"><i class="iconfont ic-wechat"></i></a></li>#}
                                     <li><a id="qq" class="qq" target="_blank" href="{% url 'qq_login' targetUri %}"><i class="iconfont ic-qq_connect"></i></a></li>
                                 </ul>
 

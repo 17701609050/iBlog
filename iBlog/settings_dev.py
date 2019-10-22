@@ -71,11 +71,16 @@ QQ_RECALL_URL = 'https://zipinglv.pythonanywhere.com/oauth/qq'
 SERVER_EMAIL = "auto-hub-site-report@intel.com"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.163.com'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = '17701609050@163.com'
+EMAIL_HOST = 'smtp.intel.com'
+# EMAIL_PORT = 25
+# EMAIL_HOST_USER = '17701609050@163.com'
 # #在邮箱中设置的客户端授权密码
-EMAIL_HOST_PASSWORD = 'lzp7230823w'
+# EMAIL_HOST_PASSWORD = 'lzp7230823w'
 DEFAULT_FROM_EMAIL = 'auto-hub-site@intel.com'
 ROBOT_ACCOUNT_EMAIL = '17701609050@163.com'
+
+ADMINS = (
+    ('zipingx', 'zipingx.lv@intel.com'),
+    ('zipinglv', '17701609050@163.com'),
+)
 

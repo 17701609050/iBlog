@@ -36,7 +36,8 @@ def githhub_login(request, targetUri):
     }
 
     # print urllib.urlencode(data)
-    github_auth_url = '%s?%s' % (GITHUB_AUTHORIZE_URL, urllib.urlencode(data))
+    # python3 使用urllib.parse.urlencode
+    github_auth_url = '%s?%s' % (GITHUB_AUTHORIZE_URL, urllib.parse.urlencode(data))
     return HttpResponseRedirect(github_auth_url)
 
 
@@ -62,7 +63,7 @@ def github_auth(request):
         'redirect_uri': GITHUB_CALLBACK,
     }
 
-    data = urllib.urlencode(data)
+    data = urllib.parse.urlencode(data)
 
     # 请求参数需要bytes类型
     binary_data = data.encode('utf-8')

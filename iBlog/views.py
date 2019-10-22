@@ -51,7 +51,7 @@ def search(request):
 
 
 def zan(request):
-    if request.META.has_key('HTTP_X_FORWARDED_FOR'):
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
         ip_address = request.META['HTTP_X_FORWARDED_FOR']
     else:
         ip_address = request.META['REMOTE_ADDR']

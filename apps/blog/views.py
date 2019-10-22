@@ -4,6 +4,7 @@
 # some function would be used in views
 from django.shortcuts import render
 from django.conf import settings
+from django.views import generic
 from django.template import RequestContext
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -293,3 +294,11 @@ def post_comment(request, blog_id, parent_comment_id=None):
     # 处理其他请求
     else:
         return HttpResponse("仅接受GET/POST请求。")
+
+
+class TimeLineView(generic.ListView):
+    model = Blog
+    template_name = 'blog/time_line.html'
+    context_object_name = 'articles'
+    paginate_by = 200
+    paginate_orphans = 50

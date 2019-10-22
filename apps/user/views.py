@@ -11,7 +11,9 @@ from ..utils.email import send_verify_email
 
 
 def user_login(request):
-    target_uri = request.POST.get('targetUri') or request.GET.get('targetUri')
+    target_uri = request.POST.get('targetUri') or request.GET.get('targetUri', '')
+    context = {}
+    context.update({'targetUri': target_uri, 'error_msg': ''})
     if request.method == 'POST':
         user_login_form = UserLoginForm(data=request.POST)
         if user_login_form.is_valid():
@@ -27,12 +29,11 @@ def user_login(request):
                     return redirect(target_uri)
                 return redirect("/blog/all/")
             else:
-                return render(request, 'common/login.html', {'form': user_login_form, 'error_msg': '用户名或密码错误'})
+                context.update({'form': user_login_form, 'error_msg': '用户名或密码错误'})
+                return render(request, 'common/login.html', context)
     elif request.method == 'GET':
         user_login_form = UserLoginForm()
-        context = {'form': user_login_form}
-        if target_uri:
-            context.update({'targetUri': target_uri})
+        context.update({'form': user_login_form})
         return render(request, 'common/login.html', context)
 
 
@@ -51,7 +52,7 @@ def user_sign_up(request):
             # 保存好数据后立即登录并返回博客列表页面
             user = authenticate(username=request.POST['username'], password=request.POST['password'])
             login(request, user)
-            # send_verify_email(user.email, 'http://zipinglx.sh.intel.com:8081')
+            send_verify_email(user.email, 'http://zipinglx.sh.intel.com:8081')
             return redirect("/user/profile/{}/".format(uid))
         else:
             context['error_msg'] = user_register_form.errors
