@@ -22,34 +22,40 @@
                 <div class="blog_list">
                     <span class="label label-primary">{{ result.object.category2 }}</span>
                     <div class="blog_title">
-                            <h2 style="">
-                                {{ result.object.title }}
-                            </h2>
+                        <h2 style="">
+                            {% highlight_title result.object.title query %}
+                        </h2>
+                        <div class="blog_title_info">
+                            <div class="blog_title_info_content">
+                                {% highlight result.object.content with query max_length 100 html_tag "em" css_class "highlighted" %}
+{#                                {{ blog_info|get_value:'content'|truncatechars_html:50 }}#}
+                            </div>
+                        </div>
                         <p>{{ result.object.pub_time|date:"Y-m-d H:i:s" }}&nbsp;&nbsp;阅读量: {{ result.object.page_views }}&nbsp;&nbsp;</p>
                     </div>
 
                         <div class="blog_img">
-                            <img src="{{result.object.head_pic_url }}" />
+                            <img src="/media/{{result.object.head_pic_url }}" />
                         </div>
                 </div>
             </a>
         {% endfor %}
 
-{#        <ul class="pager">#}
-{##}
-{#            {% if page.has_previous %}#}
-{#                <li><a href="?q={{ query }}&page={{ page.previous_page_number }}">&laquo;</a></li>#}
-{#            {% else %}#}
-{#                <li class="active"><a>&laquo;</a></li>#}
-{#            {% endif %}#}
-{#             <li><a href="?q={{ query }}&page={{page.number}}" title="第{{page.number}}页">{{page.number}}</a><li>#}
-{##}
-{#            {% if page.has_next %}#}
-{#                <li><a href="?q={{ query }}&page={{ page.next_page_number }}">&raquo;</a></li>#}
-{#            {% else %}#}
-{#                <li class="active"> <a>&raquo;</a></li>#}
-{#            {% endif %}#}
-{#        </ul>#}
+        <ul class="pager">
+
+            {% if page.has_previous %}
+                <li><a href="?q={{ query }}&page={{ page.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="active"><a>&laquo;</a></li>
+            {% endif %}
+             <li><a href="?q={{ query }}&page={{page.number}}" title="第{{page.number}}页">{{page.number}}</a><li>
+
+            {% if page.has_next %}
+                <li><a href="?q={{ query }}&page={{ page.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="active"> <a>&raquo;</a></li>
+            {% endif %}
+        </ul>
     {% else %}
            Nothing Found Here.
     {% endif %}

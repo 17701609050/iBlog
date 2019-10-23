@@ -53,7 +53,7 @@ THIRD_PARTY_APPS = (
     'django_filters',
     'rest_framework',
     'rest_framework_swagger',
-    # 'haystack',
+    'haystack',
     'xadmin',
     'crispy_forms',
     'ckeditor',

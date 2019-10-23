@@ -58,7 +58,8 @@ urlpatterns += [
     url(r'^home/$', blog_views.home, name='home'),
     # url(r'^logout/$', sys_views.user_logout, name='logout'),
     url(r'^profile/$', blog_views.profile, name='profile'),
-    url(r'^search/', views.search, name='search'),
+    url(r'^search/', include('haystack.urls'), name='search'),
+    # url(r'^query/', include('haystack.urls'), name='search'),
     url(r'^zan/', views.zan, name='zan'),
 ]
 # Auto-add the applications.
