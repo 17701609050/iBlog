@@ -38,12 +38,15 @@
                                         {% highlight_title result.object.title query %}
                                     </h2>
                                     <div class="blog_title_info">
-                                        <div class="blog_title_info_content">
+                                        <p class="blog_title_info_content">
                                                 {% highlight result.object.content with query max_length 90 html_tag "em" css_class "highlighted" %}
 
-                                        </div>
+                                        </p>
                                     </div>
-                                    <p>{{ result.object.pub_time|date:"Y-m-d H:i:s" }}&nbsp;&nbsp;阅读量: {{ result.object.page_views }}&nbsp;&nbsp;</p>
+                                    <p class="blog_time">
+                                        <i class="glyphicon glyphicon-time"></i>&nbsp;{{ result.object.pub_time|date:"Y-m-d H:i:s" }}&nbsp;&nbsp;
+                                        <i class="glyphicon glyphicon-eye-open"></i>&nbsp;{{ result.object.page_views }}
+                                    </p>
                                 </div>
 
                                     <div class="blog_img">
@@ -57,18 +60,18 @@
                             <span class="label label-primary">电影</span>
                             <div class="blog_title">
                                 <h2 style="">
-                                    {% highlight_title result.object.moviename query %}
+                                    {% highlight_title result.object.chinese_movie_name query %}
                                 </h2>
                                 <div class="blog_title_info">
                                     <div class="blog_title_info_content">
-                                        {% highlight result.object.aboutmovie with query max_length 100 html_tag "em" css_class "highlighted" %}
+                                        {% highlight result.object.aboutmovie with query max_length 90 html_tag "em" css_class "highlighted" %}
                                     </div>
                                 </div>
-                                <p>豆瓣评分：{{result.object.doubanscore}}&nbsp;&nbsp;阅读量: {{ result.object.doubancounter }}&nbsp;&nbsp;</p>
+                                <p class="blog_time">豆瓣评分：{{result.object.doubanscore}}&nbsp;&nbsp;<i class="glyphicon glyphicon-eye-open"></i>&nbsp;{{ result.object.doubancounter }}&nbsp;&nbsp;</p>
                             </div>
 
                                 <div class="blog_img">
-                                    <img src="/media/{{result.object.movie_head_pic}}" alt="{{result.object.moviename}}{{ movie.translation_name }}" />
+                                    <img src="/media/{{result.object.movie_head_pic}}"  />
                                 </div>
                         </div>
                     </a>

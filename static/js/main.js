@@ -1,36 +1,37 @@
 var blog = {};
 blog.resizeClassBlogList = function(){
-	main_pic_width=$("#head_img").width();
-	$("#head_img").height(main_pic_width*0.5);
+	// main_pic_width=$("#head_img").width();
+	// $("#head_img").height(main_pic_width*0.5);
+	//
+	// blog_pic_width=$("#blog_img").width();
+	// $("#blog_img").height(blog_pic_width*0.5625);
+	//
+	//
+	//
+	// blog_info_width=$(".blog_list").width();
 
-	blog_pic_width=$("#blog_img").width();
-	$("#blog_img").height(blog_pic_width*0.5625);
 
-
-
-	blog_info_width=$(".blog_list").width();
-
-
-	if($(document).outerWidth()>450)
-	{
-		$(".blog_list").height(blog_info_width*0.15);
-	}
-	else{
-		$(".blog_list").height(blog_info_width*0.3);
-	}
-
-	blog_img_height=$(".blog_img").height();
-
-	if($(document).outerWidth()>450)
-	{
-		$(".blog_img").width(blog_img_height/0.5625);
-	}
-	else{
-		$(".blog_img").width(blog_img_height/0.75);
-	}
+	// if($(document).outerWidth()>450)
+	// {
+	// 	console.log(blog_info_width)
+	// 	$(".blog_list").height(150);
+	// }
+	// else{
+	// 	$(".blog_list").height(blog_info_width*0.3);
+	// }
+	//
+	// blog_img_height=$(".blog_img").height();
+	//
+	// if($(document).outerWidth()>450)
+	// {
+	// 	$(".blog_img").width(blog_img_height/0.5625);
+	// }
+	// else{
+	// 	$(".blog_img").width(blog_img_height/0.75);
+	// }
 }
 $(document).ready(function(){
-	blog.resizeClassBlogList();
+	// blog.resizeClassBlogList();
 	//random tag colors
 
 	var tag_class=["label-default","label-success","label-primary","label-danger","label-info","label-warning"];

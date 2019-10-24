@@ -54,7 +54,7 @@
 {#                    <b id="likes" class="likes">{% num %}</b>#}
 {#                </li>#}
                 {% if request.user.username %}
-                    <li class="dropdown-inverse" style="float: right">
+                    <li class="dropdown-inverse" >
                         <a  class="dropdown-toggle" data-toggle="dropdown">
                             {% if request.user.profile.user_image %}
                                 <img class="userImg" src="{% if request.user.profile.user_from %}{{ request.user.profile.user_image.name }}{% else %}{{ request.user.profile.user_image.url }}{% endif %}">
