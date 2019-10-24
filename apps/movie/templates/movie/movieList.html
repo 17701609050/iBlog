@@ -55,26 +55,26 @@
 
 {#                    </form>#}
                     <div class="movieList">
-                        <input type="text" class="zu-top-search-input" id="movie_search_key" name="search_key" autocomplete="off" value="{{ search_key }}" maxlength="100" placeholder="搜索电影名，导演， 演员 ..." role="combobox" aria-autocomplete="list">
-                        <button id="movieSearch" type="button" class="zu-top-search-button">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                        <script>
-                            $("#movieSearch").click(function () {
-                                let key = $("#movie_search_key").val();
-                                if(key){
-                                    location.href = '/movie/movie-search/'+key+'/';
-                                }
-
-
-                            })
-
-                            $("#movie_search_key").keypress(function (e) {
-                                if (e.which == 13) {
-                                    $("#movieSearch").click();
-                                }
-                            });
-                        </script>
+{#                        <input type="text" class="zu-top-search-input" id="movie_search_key" name="search_key" autocomplete="off" value="{{ search_key }}" maxlength="100" placeholder="搜索电影名，导演， 演员 ..." role="combobox" aria-autocomplete="list">#}
+{#                        <button id="movieSearch" type="button" class="zu-top-search-button">#}
+{#                            <span class="glyphicon glyphicon-search"></span>#}
+{#                        </button>#}
+{#                        <script>#}
+{#                            $("#movieSearch").click(function () {#}
+{#                                let key = $("#movie_search_key").val();#}
+{#                                if(key){#}
+{#                                    location.href = '/movie/movie-search/'+key+'/';#}
+{#                                }#}
+{##}
+{##}
+{#                            })#}
+{##}
+{#                            $("#movie_search_key").keypress(function (e) {#}
+{#                                if (e.which == 13) {#}
+{#                                    $("#movieSearch").click();#}
+{#                                }#}
+{#                            });#}
+{#                        </script>#}
                         <ul class="movieList_tab">
                             <li role="presentation" {% if type == 'suggest' %} class="current" {% endif %}><a href="{% url 'movie_list' %}" class="currentmovietype"> {% trans '全部' %}</a></li>
 {#                            <li {% if type == 'festival'%} class="current" {% endif %} ><a href="{% url 'getfilmfestlist' %}" class="currentmovietype">电影节</a></li>#}

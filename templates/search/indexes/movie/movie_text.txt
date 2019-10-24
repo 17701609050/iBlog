@@ -1,0 +1,4 @@
+{{ object.moviename }}
+{{ object.actor }}
+{{ object.director }}
+{{ object.chinese_movie_name }}

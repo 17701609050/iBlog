@@ -17,19 +17,19 @@
     <div class="row">
 
         <div class="col-lg-8 col-md-7 col-md-offset-1  col-sm-8 remove_padding">
-            <div>
-                <form id="blogSearch" method="GET" action="/search">
-                    <input type="text" class="zu-top-search-input" name="q" autocomplete="off" value="{% if  search_key %}{{ search_key }}{% endif %}" maxlength="100" placeholder="搜索文章内容，标题， 关键字 ..." role="combobox" aria-autocomplete="list">
-                    <button id="blogSearchBtn" type="button" class="zu-top-search-button">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </form>
-                <script>
-                    $("#blogSearchBtn").click(function () {
-                        $("#blogSearch").submit();
-                    })
-                </script>
-            </div>
+{#            <div>#}
+{#                <form id="blogSearch" method="GET" action="/search">#}
+{#                    <input type="text" class="zu-top-search-input" name="q" autocomplete="off" value="{% if  search_key %}{{ search_key }}{% endif %}" maxlength="100" placeholder="搜索文章内容，标题， 关键字 ..." role="combobox" aria-autocomplete="list">#}
+{#                    <button id="blogSearchBtn" type="button" class="zu-top-search-button">#}
+{#                        <span class="glyphicon glyphicon-search"></span>#}
+{#                    </button>#}
+{#                </form>#}
+{#                <script>#}
+{#                    $("#blogSearchBtn").click(function () {#}
+{#                        $("#blogSearch").submit();#}
+{#                    })#}
+{#                </script>#}
+{#            </div>#}
             <nav class="navbar" style="" role="navigation" id="navibar">
                 <ul class="nav navbar-nav">
                     <li><a href="/blog/all/" style="">全部</a></li>
@@ -38,18 +38,19 @@
                     {% endfor %}
                   </ul>
             </nav>
-            <div id="timeline">
+            <div id="timeline" style="padding-bottom: 20px">
                 {% block title_list %}
                 {% endblock %}
                 {% for blog_info in obj_infos %}
                     {% include "blog/list_style.html" %}
                 {% empty %}
-		            <h4 style="background: #fff">没找到你想要的内容。。</h4>
+		            <div style="padding: 1rem!important;background: #fff">没找到你想要的结果.</div>
                 {% endfor %}
 
-                {% include "blog/pager.html" %}
+
 
             </div>
+            {% include "blog/pager.html" %}
         </div>
 
         <div class="col-lg-4 col-md-3 col-sm-4 remove_padding">

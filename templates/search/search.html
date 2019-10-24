@@ -1,4 +1,4 @@
-{% extends "blog/blog_index.html" %}
+{% extends "common/base.html" %}
 {% load highlight %}s
 {% load blog_tags %}
 
@@ -13,51 +13,77 @@
         }
     </style>
 {% endblock %}
-{% block title_list %}
+{% block content %}
+<div class="container">
 
-    {% if query  and page.object_list %}
+    <div class="row">
+        <div class="col-lg-8 col-md-7 col-md-offset-1  col-sm-8 remove_padding">
+            <div class="sidebar-block">
+                <h3 class="catListTitle">
+                    <span class="glyphicon glyphicon-search"></span>
+                    &nbsp;&nbsp;当前搜索：{{ query }}<p style="float:right">共<code>{{ page.paginator.count }}</code>个结果</p></h3>
+                <div></div>
+            </div>
+            <div class="" style="padding-bottom: 20px">
+            {% if query  and page.object_list %}
 
-        {% for result in page.object_list %}
-            <a href="{% url 'blog_detail' result.object.id|safe %}" target=_blank>
-                <div class="blog_list">
-                    <span class="label label-primary">{{ result.object.category2 }}</span>
-                    <div class="blog_title">
-                        <h2 style="">
-                            {% highlight_title result.object.title query %}
-                        </h2>
-                        <div class="blog_title_info">
-                            <div class="blog_title_info_content">
-                                {% highlight result.object.content with query max_length 100 html_tag "em" css_class "highlighted" %}
-{#                                {{ blog_info|get_value:'content'|truncatechars_html:50 }}#}
+                {% for result in page.object_list %}
+                    {% if result.model_name == 'blog' %}
+                        <a href="{% url 'blog_detail' result.object.id|safe %}" target=_blank>
+                            <div class="blog_list">
+                                <span class="label label-primary">文章
+                                </span>
+                                <div class="blog_title">
+                                    <h2 style="">
+                                        {% highlight_title result.object.title query %}
+                                    </h2>
+                                    <div class="blog_title_info">
+                                        <div class="blog_title_info_content">
+                                                {% highlight result.object.content with query max_length 90 html_tag "em" css_class "highlighted" %}
+
+                                        </div>
+                                    </div>
+                                    <p>{{ result.object.pub_time|date:"Y-m-d H:i:s" }}&nbsp;&nbsp;阅读量: {{ result.object.page_views }}&nbsp;&nbsp;</p>
+                                </div>
+
+                                    <div class="blog_img">
+                                        <img src="/media/{{result.object.head_pic_url }}" />
+                                    </div>
                             </div>
+                        </a>
+                    {% elif result.model_name == 'movie' %}
+                        <a href="{% url 'movie_detail' result.object.id|safe %}" target=_blank>
+                        <div class="blog_list">
+                            <span class="label label-primary">电影</span>
+                            <div class="blog_title">
+                                <h2 style="">
+                                    {% highlight_title result.object.moviename query %}
+                                </h2>
+                                <div class="blog_title_info">
+                                    <div class="blog_title_info_content">
+                                        {% highlight result.object.aboutmovie with query max_length 100 html_tag "em" css_class "highlighted" %}
+                                    </div>
+                                </div>
+                                <p>豆瓣评分：{{result.object.doubanscore}}&nbsp;&nbsp;阅读量: {{ result.object.doubancounter }}&nbsp;&nbsp;</p>
+                            </div>
+
+                                <div class="blog_img">
+                                    <img src="/media/{{result.object.movie_head_pic}}" alt="{{result.object.moviename}}{{ movie.translation_name }}" />
+                                </div>
                         </div>
-                        <p>{{ result.object.pub_time|date:"Y-m-d H:i:s" }}&nbsp;&nbsp;阅读量: {{ result.object.page_views }}&nbsp;&nbsp;</p>
-                    </div>
-
-                        <div class="blog_img">
-                            <img src="/media/{{result.object.head_pic_url }}" />
-                        </div>
-                </div>
-            </a>
-        {% endfor %}
-
-        <ul class="pager">
-
-            {% if page.has_previous %}
-                <li><a href="?q={{ query }}&page={{ page.previous_page_number }}">&laquo;</a></li>
+                    </a>
+                    {% endif %}
+                {% endfor %}
             {% else %}
-                <li class="active"><a>&laquo;</a></li>
+                <div style="padding: 1rem!important;background: #fff">没找到你想要的结果.</div>
             {% endif %}
-             <li><a href="?q={{ query }}&page={{page.number}}" title="第{{page.number}}页">{{page.number}}</a><li>
-
-            {% if page.has_next %}
-                <li><a href="?q={{ query }}&page={{ page.next_page_number }}">&raquo;</a></li>
-            {% else %}
-                <li class="active"> <a>&raquo;</a></li>
-            {% endif %}
-        </ul>
-    {% else %}
-           Nothing Found Here.
-    {% endif %}
-
+            </div>
+            {% with obj_infos=page %}
+            {% with obj_page_range=page.paginator.page_range %}
+                {% include "blog/pager.html" %}
+            {% endwith %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
 {% endblock %}

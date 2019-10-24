@@ -9,11 +9,19 @@ from django.conf import settings
 from django.db.models import Count, Q
 from django.http.response import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.template import TemplateDoesNotExist, RequestContext
-# from .login_service import do_login
-# from apps.blog.search_blogs import searchblog
+from haystack.generic_views import SearchView  # 导入搜索视图
+from haystack.query import SearchQuerySet
 from apps.blog.views import Category1, Category2, Tag, Friend, __get_blog_info, __my_pagination, __get_latest, Blog
 from rest_framework_jwt.views import obtain_jwt_token
 from apps.blog.models import Zan
+
+
+# 重写搜索视图，可以增加一些额外的参数，且可以重新定义名称
+# class SiteSearchView(SearchView):
+#     context_object_name = 'object_list'
+#     # paginate_by = getattr(settings, 'BASE_PAGE_BY', None)
+#     # paginate_orphans = getattr(settings, 'BASE_ORPHANS', 0)
+#     queryset = SearchQuerySet()#.order_by('-views')
 
 
 def search(request):

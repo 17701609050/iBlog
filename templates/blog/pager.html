@@ -1,7 +1,7 @@
 <ul class="pagination">
 
 	{% if obj_infos.has_previous %}
-		<li><a href="?page={{ obj_infos.previous_page_number }}"><em style="font-style: normal">上一页</em></a></li>
+		<li><a href="?q={{ query }}&page={{ obj_infos.previous_page_number }}"><em style="font-style: normal">上一页</em></a></li>
 {#	{% else %}#}
 {#		<li><a><em style="font-style: normal">上一页</em></a></li>#}
 	{% endif %}
@@ -10,12 +10,12 @@
       {% ifequal p obj_infos.number %}
      	 <li class="active"><a>{{p}}</a></li>
       {% else %}
-      	<li><a href="?page={{p}}" title="第{{p}}页">{{p}}</a><li>
+      	<li><a href="?q={{ query }}&page={{p}}" title="第{{p}}页">{{p}}</a><li>
       {% endifequal %}
     {% endfor %}
 
 	{% if obj_infos.has_next %}
-    	<li><a href="?page={{ obj_infos.next_page_number }}">下一页</a></li>
+    	<li><a href="?q={{ query }}&page={{ obj_infos.next_page_number }}">下一页</a></li>
 {#    {% else %}#}
 {#    	<li> <a><em style="font-style: normal">下一页</em></a></li>#}
     {% endif %}
