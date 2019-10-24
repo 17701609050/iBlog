@@ -4,7 +4,7 @@ import json
 import time
 import uuid
 import urllib, urllib.request
-from urllib.parse import urlparse
+from urllib.parse import parse_qs
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -41,7 +41,7 @@ class OAuthQQ:
 
         # 访问该网址，获取access_token
         response = urllib.request.urlopen(url).read()
-        result = urlparse.parse_qs(response, True)
+        result = parse_qs(response, True)
 
         access_token = str(result['access_token'][0])
         self.access_token = access_token
