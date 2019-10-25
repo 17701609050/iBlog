@@ -107,10 +107,10 @@ def __get_blog_info(objs, _category1, _category2):
     blog_info = []
 
     for blog in objs:
-        if len(blog.brief) > 60:
-            content = blog.brief[0:60] + ' ...'
-        else:
-            content = blog.brief[0:60]
+        # if len(blog.brief) > 60:
+        #     content = blog.brief[0:60] + ' ...'
+        # else:
+        #     content = blog.brief[0:60]
         blog_info.append({
             'title': blog.title,
             'id': blog.id,
@@ -119,7 +119,7 @@ def __get_blog_info(objs, _category1, _category2):
             'page_views': blog.page_views,
             'category1': blog.category1.display_name,
             'category2': blog.category2.display_name,
-            'content': content,
+            'content': blog.content,
             'comments': blog.comments.count
         })
 
@@ -168,8 +168,9 @@ def __get_blog_list(request, obj_list):
 
 def blog_detail(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
-    blog.page_views += 1
-    blog.save()
+    Blog.objects.filter(id=blog_id).update(page_views=blog.page_views+1)
+    # blog.page_views += 1
+    # blog.update()
     blog_tags = blog.tags.all()
     category1 = blog.category1.category_1
     category2 = blog.category2.category_2
