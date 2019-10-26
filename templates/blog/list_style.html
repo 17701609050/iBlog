@@ -2,14 +2,14 @@
 
 <a href="{% url 'blog_detail' blog_info|get_value:'id' %}" target=_blank>
     <div class="blog_list">
-        <span class="label label-primary">{{ blog_info|get_value:"category2" }}</span>
+{#        <span class="label label-primary">{{ blog_info|get_value:"category2" }}</span>#}
         <div class="blog_title">
             <h2>
                 {{ blog_info|get_value:"title"|truncatechars_html:90 }}
             </h2>
             <div class="blog_title_info"><div class="blog_title_info_content">
                 {% autoescape off %}
-                {{ blog_info.content|truncatechars_html:90 }}
+                {{ blog_info.content|truncatechars_html:150 }}
                 {% endautoescape %}
             </div></div>
             <p>{{ blog_info|get_value:"pub_time"|date:"Y-m-d H:i:s" }}&nbsp;&nbsp;
@@ -18,9 +18,9 @@
             </p>
         </div>
 
-            <div class="blog_img">
-                <img src="/media/{{blog_info.head_pic_url}}" />
-            </div>
+{#            <div class="blog_img">#}
+{#                <img src="/media/{{blog_info.head_pic_url}}" />#}
+{#            </div>#}
     </div>
 </a>
 

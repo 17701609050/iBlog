@@ -72,19 +72,20 @@ class OAuthQQ:
 
 
 def qq_login(request, targetUri):
+    # 重定向到授权页面
+    request.session['targetUri'] = targetUri
     oauth_qq = OAuthQQ(settings.QQ_APP_ID, settings.QQ_KEY, settings.QQ_RECALL_URL)
 
     # 获取 得到Authorization Code的地址
     url = oauth_qq.get_auth_url()
-    # 重定向到授权页面
-    request.session['targetUri'] = targetUri
+
     return HttpResponseRedirect(url)
 
 
 def qq_auth(request):  # 第三方QQ登录，回调函数
     """登录之后，会跳转到这里。需要判断code和state"""
     request_code = request.GET.get('code')
-    targetUri = request.session['targetUri']
+    targetUri = request.session.get('targetUri')
     oauth_qq = OAuthQQ(settings.QQ_APP_ID, settings.QQ_KEY, settings.QQ_RECALL_URL)
 
     # 获取access_token

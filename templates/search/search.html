@@ -31,17 +31,18 @@
                     {% if result.model_name == 'blog' %}
                         <a href="{% url 'blog_detail' result.object.id|safe %}" target=_blank>
                             <div class="blog_list">
-                                <span class="label label-primary">文章
-                                </span>
+{#                                <span class="label label-primary">文章#}
+{#                                </span>#}
                                 <div class="blog_title">
                                     <h2 style="">
                                         {% highlight_title result.object.title query %}
                                     </h2>
                                     <div class="blog_title_info">
-                                        <p class="blog_title_info_content">
-                                                {% highlight result.object.content with query max_length 90 html_tag "em" css_class "highlighted" %}
+                                        <div class="blog_title_info_content">
+{#                                            <p><img src="/media/{{result.object.head_pic_url}}"/></p>#}
+                                            {% highlight result.object.content with query max_length 120 html_tag "em" css_class "highlighted" %}
 
-                                        </p>
+                                        </div>
                                     </div>
                                     <p class="blog_time">
                                         <i class="glyphicon glyphicon-time"></i>&nbsp;{{ result.object.pub_time|date:"Y-m-d H:i:s" }}&nbsp;&nbsp;
@@ -49,30 +50,34 @@
                                     </p>
                                 </div>
 
-                                    <div class="blog_img">
-                                        <img src="/media/{{result.object.head_pic_url }}" />
-                                    </div>
+{#                                    <div class="blog_img">#}
+{#                                        <img src="/media/{{result.object.head_pic_url }}" />#}
+{#                                    </div>#}
                             </div>
                         </a>
                     {% elif result.model_name == 'movie' %}
                         <a href="{% url 'movie_detail' result.object.id|safe %}" target=_blank>
                         <div class="blog_list">
-                            <span class="label label-primary">电影</span>
+{#                            <span class="label label-primary">电影</span>#}
                             <div class="blog_title">
                                 <h2 style="">
                                     {% highlight_title result.object.chinese_movie_name query %}
                                 </h2>
+                                <p><img src="/media/{{result.object.movie_head_pic}}"/></p>
+                                <p>导演： {% highlight result.object.director with query max_length 120 html_tag "em" css_class "highlighted" %}</p>
+                                <p>演员： {% highlight result.object.actor with query max_length 120 html_tag "em" css_class "highlighted" %}</p>
                                 <div class="blog_title_info">
                                     <div class="blog_title_info_content">
-                                        {% highlight result.object.aboutmovie with query max_length 90 html_tag "em" css_class "highlighted" %}
+
+                                        {% highlight result.object.aboutmovie with query max_length 120 html_tag "em" css_class "highlighted" %}
                                     </div>
                                 </div>
                                 <p class="blog_time">豆瓣评分：{{result.object.doubanscore}}&nbsp;&nbsp;<i class="glyphicon glyphicon-eye-open"></i>&nbsp;{{ result.object.doubancounter }}&nbsp;&nbsp;</p>
                             </div>
 
-                                <div class="blog_img">
-                                    <img src="/media/{{result.object.movie_head_pic}}"  />
-                                </div>
+{#                                <div class="blog_img">#}
+{#                                    <img src="/media/{{result.object.movie_head_pic}}"  />#}
+{#                                </div>#}
                         </div>
                     </a>
                     {% endif %}
