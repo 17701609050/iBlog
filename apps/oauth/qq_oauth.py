@@ -42,8 +42,9 @@ class OAuthQQ:
         # 访问该网址，获取access_token
         response = urllib.request.urlopen(url).read()
         result = parse_qs(response, True)
-
-        access_token = str(result['access_token'][0])
+        print(type(result))
+        print(result)
+        access_token = str(result[b'access_token'][0].decode('ascii'))
         self.access_token = access_token
         return access_token
 
@@ -53,7 +54,10 @@ class OAuthQQ:
         url = 'https://graph.qq.com/oauth2.0/me?%s' % urllib.parse.urlencode(params)
 
         response = urllib.request.urlopen(url).read()
-        v_str = str(response)[9:-3]  # 去掉callback的字符
+        print(type(response))
+        print(response)
+        v_str = str(response)[11:-5]  # 去掉callback的字符
+        print(v_str)
         v_json = json.loads(v_str)
 
         openid = v_json['openid']
