@@ -292,7 +292,28 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-# logging setting
+# --------------- 邮件配置 ------------------ #
+SERVER_EMAIL = "17701609050@163.com"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+# 发送邮件的邮箱
+EMAIL_HOST_USER = '17701609050@163.com'
+DEFAULT_FROM_EMAIL = 'lvziping@163.com'  # 必须与EMAIL_HOST_USER保持一直不然报错553
+# 在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'LZP999102'
+# 收件人看到的发件人
+EMAIL_FROM = '<LvZiping@163.com>'
+
+
+ADMINS = (
+    ('zipingx', '459260276@qq.com'),
+    ('zipinglv', '17701609050@163.com'),
+)
+
+# --------------- 邮件配置END ------------------ #
+
+# --------------- logging setting ------------ #
 LOG_PATH = os.path.join(BASE_DIR, 'log')
 LOGGING = {
     'version': 1,

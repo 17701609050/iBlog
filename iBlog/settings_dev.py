@@ -68,19 +68,23 @@ QQ_APP_ID = '101780430'
 QQ_KEY = '8eb5176485d562275b7b83bf4d37d1d3'
 QQ_RECALL_URL = 'https://zipinglv.pythonanywhere.com/oauth/qq'
 
-SERVER_EMAIL = "auto-hub-site-report@intel.com"
-
+SERVER_EMAIL = "17701609050@163.com"  # ADMIN ERROR邮箱发送
+EMAIL_SUBJECT_PREFIX = '博客500错误'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.intel.com'
-# EMAIL_PORT = 25
-# EMAIL_HOST_USER = '17701609050@163.com'
-# #在邮箱中设置的客户端授权密码
-# EMAIL_HOST_PASSWORD = 'lzp7230823w'
-DEFAULT_FROM_EMAIL = 'auto-hub-site@intel.com'
-ROBOT_ACCOUNT_EMAIL = '17701609050@163.com'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+# 发送邮件的邮箱
+EMAIL_HOST_USER = '17701609050@163.com'
+DEFAULT_FROM_EMAIL = '17701609050@163.com'  # 必须与EMAIL_HOST_USER保持一直不然报错553
+# 在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'LZP999102'
+# 收件人看到的发件人
+EMAIL_FROM = 'LvZiPing<17701609050@163.com>'
+
 
 ADMINS = (
-    ('zipingx', 'zipingx.lv@intel.com'),
+    ('zipingx', '459260276@qq.com'),
     ('zipinglv', '17701609050@163.com'),
 )
 

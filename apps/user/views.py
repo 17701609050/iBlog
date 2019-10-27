@@ -52,7 +52,7 @@ def user_sign_up(request):
             # 保存好数据后立即登录并返回博客列表页面
             user = authenticate(username=request.POST['username'], password=request.POST['password'])
             login(request, user)
-            send_verify_email(user.email, 'http://zipinglx.sh.intel.com:8081')
+            send_verify_email(user.email)
             return redirect("/user/profile/{}/".format(uid))
         else:
             context['error_msg'] = user_register_form.errors

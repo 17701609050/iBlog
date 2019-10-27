@@ -4,7 +4,7 @@ from django.core import mail
 from django.core.mail import send_mail
 
 
-def send_verify_email(recipients, verify_url):
+def send_verify_email(recipients, verify_url=None):
     """
     发送验证邮箱邮件
     :param to_email: 收件人邮箱
@@ -12,17 +12,16 @@ def send_verify_email(recipients, verify_url):
     :return: None
     """
     recipient_list = []
-    cc = [settings.ROBOT_ACCOUNT_EMAIL]
+    cc = []
     if isinstance(recipients, list):
         recipient_list = recipients[:]
     else:
         recipient_list.append(recipients)
 
-    subject = "iBlog 邮箱验证"
+    subject = "iBlog"
     html_message = '<p>尊敬的用户您好！</p>' \
                    '<p>感谢您使用iBlog。</p>' \
-                   '<p>您的邮箱为：%s 。请点击此链接激活您的邮箱：</p>' \
-                   '<p><a href="%s">%s<a></p>' % (recipient_list, verify_url, verify_url)
+                   '<p>您的邮箱为：{0} 。</p>'.format(recipient_list[0])
     try:
         messages = []
         for recipient in recipient_list:
