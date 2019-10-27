@@ -13,6 +13,7 @@ SyntaxHighlighter来对pre标签中的代码做代码高亮，目前与Bootstrap
 
 
 **2019.10.20**
+
     从python从2.7升级到了python3.6,Django1.8.9升级到了Django2.1.7。
     新版本较以前版本改动挺大的，升级的时候遇到一些比较坑的地方。不过最后还是爬过来了，
     学习的过程就是爬坑的过程啊，后续会把升级文章发出来，大家一起爬啊~~~~
@@ -20,6 +21,7 @@ SyntaxHighlighter来对pre标签中的代码做代码高亮，目前与Bootstrap
 
 
 **2019.09.05**
+
     服务器从pythonanywhere.comS搬迁到了阿里云,Centos7.4.1708+Nginx1.12.0+uWSGI来部署
     并从腾讯云买了域名zipinglv.club,地址变为
     www.zipinglv.club
@@ -27,6 +29,7 @@ SyntaxHighlighter来对pre标签中的代码做代码高亮，目前与Bootstrap
 
 
 **2018.08.30**
+
     服务器从AWS搬迁到了pythonanywhere.com,地址变为https://zipinglv.pythonanywhere.com
     免费嘛，虽然空间小了点
     
