@@ -1,0 +1,79 @@
+{% load blog_tags %}
+{% load cache %}
+{% cache 3600 'cache_author_html_tag' %}
+<div class="sidebar-block">
+    <div class="profile site-box">
+        <div class="master-image">
+            <img src="/static/image/2.jpg" alt="author">
+            <div class="master-info">
+                <p class="profile-master">Lv Ziping</p>
+                <p class="master-description">
+                    专注， 真诚， 执行力
+                </p>
+            </div>
+        </div>
+
+
+        <div class="info">
+            <ul>
+                {% get_counts as count_dic %}
+                <li><a href="/blog/all/">
+                    <span>文章</span>&nbsp;<strong>{{ count_dic.blog_count }}</strong>
+
+                </a></li>
+                <li><a href="/movie/movie-list/">
+                    <span>电影</span>&nbsp;<strong>{{ count_dic.movie_count }} </strong>
+
+                </a></li>
+                <li class="last-li"><a href="/resource/">
+                    <span>资源</span>&nbsp;<strong>{{ count_dic.resource_count }} </strong>
+
+                </a></li>
+            </ul>
+        </div>
+
+
+        <div id="rss">
+            <a href="{% url 'profile' %}"><i class="icon-rss"></i> 关于作者</a>
+            <a href="{% url 'home' %}"><i class="icon-rss"></i> 个人主页</a>
+            <a href="/feed/main.xml"><i class="icon-rss"></i> RSS</a>
+        </div>
+
+        <div class="love-me">
+            {% csrf_token %}
+            <img class="dianzan" src="/static/img/dianzan.png">
+            <b id="likes" class="likes">{% num %}</b>
+
+            <div class="clear"></div>
+            <script>
+                $(".dianzan").click(function () {
+                    var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+                    $.ajax({
+                        url: "/zan/",
+                        data: { 'csrfmiddlewaretoken': csrf},
+                        type: "POST",
+                        async: false,
+                        dataType: "json",
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        success: function (result) {
+                            console.log(result);
+                            if (result['error']){
+                                alert(JSON.stringify(result['error']));
+                                return;
+                            }else{
+                                $("#likes").empty().append(result.num)
+                            }
+
+                        },
+                        error: function (e) {
+                           alert('server exception!');
+                        }
+                    });
+                })
+            </script>
+        </div>
+    </div>
+</div>
+{% endcache %}

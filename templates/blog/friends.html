@@ -1,9 +1,17 @@
-<ul>
-	{% for friend in friends %}
-	<li><a href="{{ friend.friend_url }}" target="_blank">
-		{{ friend.name }}</a>
-	</li>
+{% load blog_tags %}
+{% load cache %}
+{% cache 3600 'cache_friend_html_tag' %}
+<div class="sidebar-block">
+    <h3 class="catListTitle"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;友情链接</h3>
+    <ul>
+        {% get_friends as friends %}
+        {% for friend in friends %}
+        <li><a href="{{ friend.friend_url }}" target="_blank">
+            {{ friend.name }}</a>
+        </li>
 
-	{% endfor %}
+        {% endfor %}
 
-</ul>
+    </ul>
+</div>
+{% endcache %}

@@ -2,9 +2,33 @@
 import re
 from django import template
 from django.utils.html import mark_safe
-from ..models import Zan
+from ..models import Zan, Blog, Friend, Tag
+from apps.movie.models import Movie
+from apps.resource.models import Resource
 
 register = template.Library()
+
+
+@register.simple_tag
+def get_counts():
+    '''返回博客电影资源数量'''
+    return {
+        'blog_count': Blog.objects.all().count(),
+        'movie_count': Movie.objects.all().count(),
+        'resource_count': Resource.objects.all().count(),
+    }
+
+
+@register.simple_tag
+def get_friends():
+    ''' 获取友情链接 '''
+    return Friend.objects.all()
+
+
+@register.simple_tag
+def get_tags():
+    ''' 获取标签 '''
+    return Tag.objects.all()
 
 
 @register.filter(name='get_value')

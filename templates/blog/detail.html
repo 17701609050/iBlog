@@ -7,7 +7,7 @@
 </style>
     <div class="container">
        <div class="row">
-          <div class="col-lg-12 col-md-10 col-md-offset-1 col-sm-12 remove_padding">
+          <div class="col-lg-8 col-md-10 col-md-offset-1 col-sm-12 remove_padding">
 {#             <div id="blog_img">#}
 {#                <img src="{{ blog.head_pic_url }}">#}
 {#             </div>#}
@@ -159,6 +159,14 @@
                         {% endrecursetree %}
                     </div>
                  </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-3 col-sm-4 remove_padding">
+                {% include "common/author.html" %}
+                {% include "blog/tag_info.html" %}
+                {% include "common/exceptional.html" %}
+                {% include "blog/friends.html" %}
 
             </div>
         </div>

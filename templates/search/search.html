@@ -1,5 +1,5 @@
 {% extends "common/base.html" %}
-{% load highlight %}s
+{% load highlight %}
 {% load blog_tags %}
 
 {% block css %}
@@ -91,6 +91,13 @@
                 {% include "blog/pager.html" %}
             {% endwith %}
             {% endwith %}
+        </div>
+
+        <div class="col-lg-4 col-md-3 col-sm-4 remove_padding">
+
+            {% include "common/author.html" %}
+            {% include "common/exceptional.html" %}
+            {% include "blog/friends.html" %}
         </div>
     </div>
 </div>

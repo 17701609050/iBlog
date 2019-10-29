@@ -1,0 +1,13 @@
+{% load blog_tags %}
+{% load cache %}
+{% cache 3600 'cache_paid_html_tag' %}
+<div class="sidebar-block">
+    <h3 class="catListTitle"><span class="glyphicon glyphicon-usd"></span>&nbsp;&nbsp;赞赏一波支持本站发展</h3>
+    <div style="text-align: center">
+    支付宝
+    <img class="zanshang" style="width:120px;height: 120px;" src="/static/img/20190921193533_1.jpg">
+    <img class="zanshang" style="width:120px;height: 120px;" src="/static/img/20190921193547_2.png">
+    微信
+    </div>
+</div>
+{% endcache %}

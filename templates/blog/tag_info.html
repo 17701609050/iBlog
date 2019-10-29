@@ -1,6 +1,14 @@
-
-{% for tag in tags %}
-    <a href="{% url 'tag' tag.id %}">
-        <span class="label label-default">{{ tag.tag }}</span>&nbsp;&nbsp;
-    </a>
-{% endfor %}
+{% load blog_tags %}
+<div class="sidebar-block">
+    <h3 class="catListTitle"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;标签云</h3>
+    <div id="tags">
+        <h5>
+            {% get_tags as tags%}
+            {% for tag in tags %}
+                <a href="{% url 'tag' tag.id %}">
+                    <span class="label label-default">{{ tag.tag }}</span>&nbsp;&nbsp;
+                </a>
+            {% endfor %}
+        </h5>
+    </div>
+</div>

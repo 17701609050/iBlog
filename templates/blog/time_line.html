@@ -1,24 +1,20 @@
 {% extends 'common/base.html' %}
 {% load cache %}
-{% load static %}
-{#{% load blog_tags %}#}
+{#{% load static %}#}
+{% load blog_tags %}
 
-{% block head_title %}博客归档，所有文章{% endblock %}
+{% block title %}博客归档，所有文章{% endblock %}
 {% block seo %}
 <meta name="description" content="博客归档，按照年份、月份对整站文章进行归档排序">
 <meta name="keywords" content="博客归档">
 {% endblock %}
-<style>
-    .year{
-        color: #333;
-    }
-</style>
 
 {% block content %}
     <div class="container">
         <div class="row">
-            {% cache 3600 'cache_blog_html_tag' %}
-            <div class="col-lg-8 col-md-7 col-md-offset-1  col-sm-8 remove_padding" style="background: #fff;padding-top: 20px">
+            {% cache 3600 'cache_time_line_html' %}
+            <div class="col-lg-8 col-md-7 col-md-offset-1  col-sm-8 remove_padding" >
+                <div class="sidebar-block">
                 <div class="card border-0 rounded-0 mb-3">
                     <div class="card-body f-16 archive">
                         {% regroup articles by pub_time.year as year_list %}
@@ -42,12 +38,16 @@
                         </ul>
                     </div>
                 </div>
+                </div>
     {#            {% if is_paginated %}{% load_pages %}{% endif %}#}
             </div>
             {% endcache %}
-    {#        <div class="col-lg-4 d-none d-lg-block">#}
-    {#            {% include 'blog/tags/base_right.html' %}#}
-    {#        </div>#}
+            <div class="col-lg-4 col-md-3 col-sm-4 remove_padding">
+
+                {% include "common/author.html" %}
+                {% include "common/exceptional.html" %}
+                {% include "blog/friends.html" %}
+            </div>
         </div>
     </div>
 {% endblock %}

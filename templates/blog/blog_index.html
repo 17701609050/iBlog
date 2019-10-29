@@ -56,9 +56,13 @@
         <div class="col-lg-4 col-md-3 col-sm-4 remove_padding">
 
             <div id="right_column">
+                {% include "common/author.html" %}
+
+
+                {% include "blog/tag_info.html" %}
 
                 <div class="sidebar-block">
-                    <h3 class="catListTitle"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;最新更新</h3>
+                    <h3 class="catListTitle"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;推荐文章</h3>
 
                     <div>
                         <ul style="">
@@ -69,42 +73,26 @@
                     </div>
                 </div>
 
-                <div class="sidebar-block">
 
-                    <h3 class="catListTitle"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;标签</h3>
-
-                    <div id="tags">
-                        <h5>
-                            {% include "blog/tag_info.html" %}
-                        </h5>
-                    </div>
-
-                </div>
 
 {#                {% if not search_key %}#}
-                <div class="sidebar-block">
-                    <div class="catListTag">
-                        <h3 class="catListTitle"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;二级分类</h3>
-                        <div>
-                            <ul style="margin: 0px;padding: 0px">
-{#                                <li>#}
-{#                                    <a href="#home" data-toggle="tab">#}
-{#                                         所有文章#}
-{#                                    </a>#}
-{#                                </li>#}
-                                {% for cate2 in category2 %}
-                                    <li><a href="/blog/{{ cate2.category1.category_1 }}/?cate2={{ cate2.category_2 }}">{{ cate2.display_name }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+{#                <div class="sidebar-block">#}
+{#                    <div class="catListTag">#}
+{#                        <h3 class="catListTitle"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;二级分类</h3>#}
+{#                        <div>#}
+{#                            <ul style="margin: 0px;padding: 0px">#}
+{##}
+{#                                {% for cate2 in category2 %}#}
+{#                                    <li><a href="/blog/{{ cate2.category1.category_1 }}/?cate2={{ cate2.category_2 }}">{{ cate2.display_name }}</a></li>#}
+{#                                {% endfor %}#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
 {#                {% endif %}#}
 
-                <div class="sidebar-block">
-                    <h3 class="catListTitle"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;友情链接</h3>
-                    {% include "blog/friends.html" %}
-                </div>
+                {% include "common/exceptional.html" %}
+                {% include "blog/friends.html" %}
             </div>
         </div>
     </div>
