@@ -50,6 +50,10 @@ def baidu_verify_w3IViTxMcb(request):
     return render(request, 'baidu_verify_w3IViTxMcb.html')
 
 
+def taobao_lianmeng(request):
+    return render(request, 'root.txt')
+
+
 def blog_index(request, blog_url):
     cate2 = request.GET.get("cate2", "")
     # 获取categoty1的所有分类,过滤出cate1的blog

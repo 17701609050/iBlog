@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap, {'sitemaps': sitemaps}),
     url(r'^feed/main\.xml$', LatestEntriesFeed()),
     url(r'^baidu_verify_w3IViTxMcb.html/$', blog_views.baidu_verify_w3IViTxMcb, name='baidu_verify_w3IViTxMcb'),
+    url(r'^root.txt/$', blog_views.taobao_lianmeng, name='taobao_lianmeng'),
     url(r'^api-token-auth/', obtain_jwt_token)
 ]
 
