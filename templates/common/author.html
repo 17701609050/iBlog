@@ -1,6 +1,6 @@
 {% load blog_tags %}
 {% load cache %}
-{% cache 3600 'cache_author_html_tag' %}
+{#{% cache 3600 'cache_author_html_tag' %}#}
 <div class="sidebar-block">
     <div class="profile site-box">
         <div class="master-image">
@@ -42,7 +42,7 @@
         <div class="love-me">
             {% csrf_token %}
             <img class="dianzan" src="/static/img/dianzan.png">
-            <b id="likes" class="likes">{% num %}</b>
+            <b id="likes" class="likes">{% num %}</b></br></br>
 
             <div class="clear"></div>
             <script>
@@ -73,7 +73,11 @@
                     });
                 })
             </script>
+            <span class="glyphicon glyphicon-music"></span>&nbsp;TimeBack<audio src="/media/TimeBack.mp3" controls="controls">
+                您的浏览器不支持 audio 标签。
+            </audio>
+
         </div>
     </div>
 </div>
-{% endcache %}
+{#{% endcache %}#}
