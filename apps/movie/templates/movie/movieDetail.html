@@ -1,4 +1,10 @@
 {% extends "common/base.html" %}
+{% block title %} {{ movie.translation_name }} {{ movie.moviename }} {% endblock %}
+{% block seo %}
+    <meta name="description" content="{{ movie.translation_name }} {{ movie.moviename }}迅雷下载，种子下载" />
+    <meta name="keywords" content="{{ movie.translation_name}}, 豆瓣高评分,迅雷高清下载" />
+{% endblock %}
+
 {% block content %}
 <style>
     .children{

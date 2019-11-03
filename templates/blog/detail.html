@@ -1,4 +1,9 @@
 {% extends "common/base.html" %}
+{% block title %} {{ blog.title }} {% endblock %}
+{% block seo %}
+    <meta name="description" content="{{ blog.content|safe }}" />
+    <meta name="keywords" content="{{ blog.title}}" />
+{% endblock %}
 {% block content %}
 <style>
     .children{
