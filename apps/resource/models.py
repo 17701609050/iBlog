@@ -41,9 +41,9 @@ class Resource(models.Model):
     name = models.CharField(max_length=250, db_index=True, unique=True, verbose_name=u'资源名称')
     category = models.ForeignKey(ResourceCategory, verbose_name=u'资源分类', on_delete=models.CASCADE)
     tag = models.ManyToManyField(ResourceTag, blank=True, verbose_name=u'标签')
-    link = models.CharField(max_length=255)
-    add_time = models.DateTimeField()
-    extraction_code = models.CharField(max_length=20, default='')
+    link = models.CharField(verbose_name=u'百度云链接地址', max_length=255)
+    add_time = models.DateTimeField(verbose_name=u'添加时间',)
+    extraction_code = models.CharField(verbose_name=u'提取密码', max_length=20, default='')
 
     def __unicode__(self):
         return self.name

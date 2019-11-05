@@ -19,8 +19,8 @@ class ResourceTagAdmin(object):
 class ResourceAdmin(object):
     list_display = ('name', 'category', 'tag', 'link', 'add_time')
 
-
+xadmin.site.register(Resource, ResourceAdmin)
 xadmin.site.register(ResourceCategory, ResourceCategoryAdmin)
 xadmin.site.register(ResourceTag, ResourceTagAdmin)
-xadmin.site.register(Resource, ResourceAdmin)
+
 
