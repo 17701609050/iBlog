@@ -55,7 +55,7 @@ class MovieListView(MovieTemplateMixin):
     def get(self, request, *args, **kwargs):
 
         page_num = self.get_page_num(request)
-        movies = Movie.objects.all()
+        movies = Movie.objects.all().order_by('-dateyear')
         context = self.get_general_data(self.get_context_data())
         movies, paginator = self.page(movies, page_num)
         context = self.get_page_obj(page_num, movies, paginator, context)

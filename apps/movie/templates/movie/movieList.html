@@ -3,15 +3,13 @@
 {% load i18n %}
 {% load static %}
 {% load movie_tags %}
-{% block title%}电影列表 {% endblock %}
- {% block head %}
+{% block title%}时光倒流电影列表,迅雷720,1080,mkv,bd高清下载 {% endblock %}
+{% block head %}
 
-    <script src="{% static 'js/movies.js' %}"></script>
-    {% endblock %}
+<script src="{% static 'js/movies.js' %}"></script>
+{% endblock %}
 
-
-
- {% block content %}
+{% block content %}
     <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 
  <!--主体内容 -->
@@ -51,37 +49,15 @@
 
 
                 <div class="col-md-8">
-{#                    <form method="GET" action="/movie/movie-search/" id="zh-top-search-form" class="zu-top-search-form" style="position: relative;width: 100%">#}
-
-{#                    </form>#}
                     <div class="movieList">
-{#                        <input type="text" class="zu-top-search-input" id="movie_search_key" name="search_key" autocomplete="off" value="{{ search_key }}" maxlength="100" placeholder="搜索电影名，导演， 演员 ..." role="combobox" aria-autocomplete="list">#}
-{#                        <button id="movieSearch" type="button" class="zu-top-search-button">#}
-{#                            <span class="glyphicon glyphicon-search"></span>#}
-{#                        </button>#}
-{#                        <script>#}
-{#                            $("#movieSearch").click(function () {#}
-{#                                let key = $("#movie_search_key").val();#}
-{#                                if(key){#}
-{#                                    location.href = '/movie/movie-search/'+key+'/';#}
-{#                                }#}
-{##}
-{##}
-{#                            })#}
-{##}
-{#                            $("#movie_search_key").keypress(function (e) {#}
-{#                                if (e.which == 13) {#}
-{#                                    $("#movieSearch").click();#}
-{#                                }#}
-{#                            });#}
-{#                        </script>#}
-                        <ul class="movieList_tab">
-                            <li role="presentation" {% if type == 'suggest' %} class="current" {% endif %}><a href="{% url 'movie_list' %}" class="currentmovietype"> {% trans '全部' %}</a></li>
-{#                            <li {% if type == 'festival'%} class="current" {% endif %} ><a href="{% url 'getfilmfestlist' %}" class="currentmovietype">电影节</a></li>#}
-                            <li><a href="" class="currentmovietype">最新</a></li>
-                            <li><a href="{% url 'movie_list_douban' %}" class="currentmovietype">豆瓣高分</a></li>
-                            <li><a href="{% url 'movie_list_imdb' %}" class="currentmovietype">IMDB高分</a></li>
-                        </ul>
+
+                        <nav class="navbar" style="" role="navigation" id="navibar">
+                            <ul class="nav navbar-nav">
+                                <li><a href="{% url 'movie_list' %}" class="currentmovietype">最新</a></li>
+                                <li><a href="{% url 'movie_list_douban' %}" class="currentmovietype">豆瓣高分</a></li>
+                                <li><a href="{% url 'movie_list_imdb' %}" class="currentmovietype">IMDB高分</a></li>
+                            </ul>
+                        </nav>
 
 
                         <ul class="movieTab_con">
@@ -163,23 +139,7 @@
 
                       <!--分页符开始-->
                         {% include "blog/pager.html" %}
-{#                        <ul class="pagination">#}
-{#                            {% if obj_infos.has_previous %}#}
-{#                                <li><a href="?page={{ obj_infos.previous_page_number }}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="下一页">上一页</a></li>&nbsp;#}
-{#                            {% endif %}#}
-{#                            {% for p in page_range %}#}
-{#                                {% ifequal p obj_infos.number %}#}
-{#                                    <li class="active"><a>{{p}}</a></li>#}
-{#                                {% else %}#}
-{#                                    <li><a href="?page={{p}}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="第{{p}}页">{{p}}</a></li>#}
-{#                                {% endifequal %}#}
-{#                            {% endfor %}#}
-{##}
-{#                            {% if obj_infos.has_next %}#}
-{#                                <li><a href="?page={{ obj_infos.next_page_number }}&filtertype={{filtertype}}&filterparam={{filterparam}}" title="下一页">下一页</a></li>#}
-{#                            {% endif %}#}
-{#                        </ul>#}
-                        <!--分页符结束-->
+
                         <div style="">
                             声明：本网站提供新影视资源均系收集各大网站，本网站只提供web页面浏览服务，并不提供影片资源存储，也不参与任何视频录制、上传
                                 若本站收集的节目无意侵犯了贵司版权，邮箱来信，我们将在第一时间删除， 请大家支持正版到影院观看或购买正版CD!
@@ -190,19 +150,11 @@
 
 
 
-                <!--排行榜开始-->
-{#                 <div class="col-md-2">#}
-{#                    <div class="sidebar-block">#}
-{#                        <h3 class="catListTitle">#}
-{#                            广告招租#}
-{#                        </h3>#}
-{#                        <div style="padding: 10px;">#}
-{#                            #}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                 </div>#}
-                 <!--排行榜结束-->
+                <!--AD-->
+                 <div class="col-md-2">
+                    {% include "common/AD.html" %}
+                 </div>
+                 <!--AD-->
             </div>
         </div>
      </div>
