@@ -2,7 +2,7 @@ django==2.1.7
 django-haystack==2.8.1
 jieba==0.38
 Whoosh==2.7.4
-djangorestframework==3.8.0
+djangorestframework==3.11.2
 django-rest-swagger==2.1.1
 django_filter==2.2.0
 djangorestframework-jwt==1.11.0
